@@ -12,7 +12,6 @@ namespace Model.Survey
 {
     public class SurveyResponse : ObservableObject
     {
-
         private int id;
         private Rate quality;
         private Rate security;
@@ -22,8 +21,73 @@ namespace Model.Survey
         private string comment;
         private int doctorId;
         private int patientId;
-        private string anonymous;
-        private string publishable;
+        private bool anonymous;
+        private bool publishable;
+
+        public SurveyResponse()
+        {
+        }
+
+        public SurveyResponse(String quality,String security, String kindness, String professionalism, String comment, bool anonymous, bool publishable)
+        {
+            this.id = -1; // smisliti nacin da se implementira survey id, i doctor i patient id
+
+            this.doctorId = -1;
+
+            this.patientId = -1;
+
+
+            if (quality.ToLower().Equals("terrible"))
+                this.Quality = Rate.Terrible;
+            else if (quality.ToLower().Equals("bad"))
+                this.Quality = Rate.Bad;
+            else if (quality.ToLower().Equals("good"))
+                this.Quality = Rate.Good;
+            else if (quality.ToLower().Equals("great"))
+                this.Quality = Rate.Great;
+            else if (quality.ToLower().Equals("excelent"))
+                this.Quality = Rate.Excellent;
+
+            if (security.ToLower().Equals("terrible"))
+                this.Security = Rate.Terrible;
+            else if (security.ToLower().Equals("bad"))
+                this.Security = Rate.Bad;
+            else if (security.ToLower().Equals("good"))
+                this.Security = Rate.Good;
+            else if (security.ToLower().Equals("great"))
+                this.Security = Rate.Great;
+            else if (security.ToLower().Equals("excelent"))
+                this.Security = Rate.Excellent;
+
+            if (kindness.ToLower().Equals("terrible"))
+                this.Kindness = Rate.Terrible;
+            else if (kindness.ToLower().Equals("bad"))
+                this.Kindness = Rate.Bad;
+            else if (kindness.ToLower().Equals("good"))
+                this.Kindness = Rate.Good;
+            else if (kindness.ToLower().Equals("great"))
+                this.Kindness = Rate.Great;
+            else if (kindness.ToLower().Equals("excelent"))
+                this.Kindness = Rate.Excellent;
+
+            if (professionalism.ToLower().Equals("terrible"))
+                this.Professionalism = Rate.Terrible;
+            else if (professionalism.ToLower().Equals("bad"))
+                this.Professionalism = Rate.Bad;
+            else if (professionalism.ToLower().Equals("good"))
+                this.Professionalism = Rate.Good;
+            else if (professionalism.ToLower().Equals("great"))
+                this.Professionalism = Rate.Great;
+            else if (professionalism.ToLower().Equals("excelent"))
+                this.Professionalism = Rate.Excellent;
+
+            this.comment = comment;
+
+            this.anonymous = anonymous;
+
+            this.publishable = publishable;
+
+        }
 
         public int Id
         {
@@ -131,7 +195,7 @@ namespace Model.Survey
             } 
         }
 
-        public string Anonymous
+        public bool Anonymous
         {
             get
             {
@@ -144,7 +208,7 @@ namespace Model.Survey
             }
         }
 
-        public string Publishable
+        public bool Publishable
         {
             get
             {
