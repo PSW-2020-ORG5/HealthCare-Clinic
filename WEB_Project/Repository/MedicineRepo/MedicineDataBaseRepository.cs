@@ -65,5 +65,23 @@ namespace Repository.MedicineRepo
         {
             throw new NotImplementedException();
         }
+
+        public void ValidateMedicine(Medicine medicine)                     // <---   implementacija iz sims projekta
+        {
+            /*List<Medicine> allMedicines = (List<Medicine>)FindAll();
+
+            foreach (Medicine tempMed in allMedicines)           
+            {
+                if (tempMed.Id.Equals(medicine.Id))
+                {
+                    tempMed.MedicineStatus = MedicineStatus.validated;
+                    break;
+                }
+
+            }
+            SaveAll(allMedicines);*/
+
+            throw new NotImplementedException();
+        }
     }
 }

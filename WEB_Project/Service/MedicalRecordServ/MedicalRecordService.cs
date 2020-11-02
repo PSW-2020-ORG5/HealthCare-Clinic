@@ -20,7 +20,7 @@ namespace Service.MedicalRecordServ
 
         public MedicalRecordService()
         {
-            medicalRecordRepositoryFactory = new MedicalRecordFileRepositoryFactory();
+            medicalRecordRepositoryFactory = new MedicalRecordDataBaseRepositoryFactory();
             medicalRecordRepository = medicalRecordRepositoryFactory.CreateMedicalRecordRepository();
         }
         public MedicalRecord GetMedicalRecord(int Id)
@@ -33,7 +33,7 @@ namespace Service.MedicalRecordServ
             List<MedicalRecord> allRecords = GetAllMedicalRecords();
             List<MedicalRecord> result = new List<MedicalRecord>();
 
-            PatientFileRepository patientFileRepository = new PatientFileRepository();
+            PatientDataBaseRepository patientFileRepository = new PatientDataBaseRepository();
             PatientModel patient;
 
             foreach (MedicalRecord mr in allRecords)

@@ -22,7 +22,7 @@ namespace Service.TermServ
         private MedicalRecordService medicalRecordService;
         public CheckupService()
         {
-            checkupRepositoryFactory = new CheckupFileRepositoryFactory();
+            checkupRepositoryFactory = new CheckupDataBaseRepositoryFactory();
             checkupRepository = checkupRepositoryFactory.CreateCheckupRepository();
             doctorService = new DoctorService();
             medicalRecordService = new MedicalRecordService();

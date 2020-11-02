@@ -19,7 +19,7 @@ namespace Service.SurveyResponseServ
 
         public List<SurveyResponse> GetAllSurveyResponses()
         {
-            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
+            SurveyResponseDataBaseRepository surveyRepo = new SurveyResponseDataBaseRepository();
 
             List<SurveyResponse> surveys = new List<SurveyResponse>();
             surveys = (List<SurveyResponse>)surveyRepo.FindAll();
@@ -29,27 +29,27 @@ namespace Service.SurveyResponseServ
 
         public void saveAllSurveyResponses(List<SurveyResponse> surveysToSave)
         {
-            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
+            SurveyResponseDataBaseRepository surveyRepo = new SurveyResponseDataBaseRepository();
             surveyRepo.SaveAll(surveysToSave);
         }
 
         public void AddSurveyResponses(List<SurveyResponse> surveysToSave)
         {
-            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
+            SurveyResponseDataBaseRepository surveyRepo = new SurveyResponseDataBaseRepository();
 
             surveyRepo.SaveAll(surveysToSave);
         }
 
         public void DeleteSurveyResponse(SurveyResponse forDeletion)
         {
-            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
+            SurveyResponseDataBaseRepository surveyRepo = new SurveyResponseDataBaseRepository();
 
             surveyRepo.Delete(forDeletion);
         }
 
         public List<SurveyResponse> GetSurveysForDoctor(Doctor doctor)
         {
-            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
+            SurveyResponseDataBaseRepository surveyRepo = new SurveyResponseDataBaseRepository();
 
             List<SurveyResponse> allSurveys = (List<SurveyResponse>)surveyRepo.FindAll();
             List<SurveyResponse> resultSurveys = new List<SurveyResponse>();
@@ -68,7 +68,7 @@ namespace Service.SurveyResponseServ
 
         public void AddSurveyResponse(SurveyResponse surveyToSave)
         {
-            SurveyResponseFileRepository surveyRepo = new SurveyResponseFileRepository();
+            SurveyResponseDataBaseRepository surveyRepo = new SurveyResponseDataBaseRepository();
 
             surveyRepo.Save(surveyToSave);
         }

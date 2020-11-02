@@ -24,7 +24,7 @@ namespace Service.UserServ
         public PatientService()
         {
             surveyResponseService = new SurveyResponseService();
-            patientRepositoryFactory = new PatientFileRepositoryFactory();
+            patientRepositoryFactory = new PatientDataBaseRepositoryFactory();
             patientRepository = patientRepositoryFactory.CreatePatientRepository();
             medicalRecordService = new MedicalRecordService();
         }
@@ -121,7 +121,7 @@ namespace Service.UserServ
 
         public int GenerateId()
         {
-            PatientFileRepository patientFileRepository = new PatientFileRepository();
+            PatientDataBaseRepository patientFileRepository = new PatientDataBaseRepository();
             return patientFileRepository.GenerateId();
         }
 

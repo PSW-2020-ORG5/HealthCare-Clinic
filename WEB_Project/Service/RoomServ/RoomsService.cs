@@ -24,7 +24,7 @@ namespace Service.RoomServ
 
         public RoomsService()
         {
-            roomsRepositoryFactory = new RoomsFileRepositoryFactory();
+            roomsRepositoryFactory = new RoomsDataBaseRepositoryFactory();
             roomsRepository = roomsRepositoryFactory.CreateRoomsRepository();
         }
 

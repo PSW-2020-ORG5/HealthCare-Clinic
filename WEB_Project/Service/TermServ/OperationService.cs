@@ -18,7 +18,7 @@ namespace Service.TermServ
 
         public OperationService()
         {
-            operationRepositoryFactory = new OperationFileRepositoryFactory();
+            operationRepositoryFactory = new OperationDataBaseRepositoryFactory();
             operationRepository = operationRepositoryFactory.CreateOperationRepository();
         }
 

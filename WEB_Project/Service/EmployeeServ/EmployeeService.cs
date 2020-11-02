@@ -28,10 +28,10 @@ namespace Service.EmployeeServ
 
         public EmployeeService()
         {
-            doctorRepositoryFactory = new DoctorFileRepositoryFactory();
+            doctorRepositoryFactory = new DoctorDataBaseRepositoryFactory();
             doctorRepository = doctorRepositoryFactory.CreateDoctorRepository();
 
-            secretaryRepositoryFactory = new SecretaryFileRepositoryFactory();
+            secretaryRepositoryFactory = new SecretaryDataBaseRepositoryFactory();
             secretaryRepository = secretaryRepositoryFactory.CreateSecretaryRepository();
         }
 

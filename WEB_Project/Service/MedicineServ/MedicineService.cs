@@ -17,7 +17,7 @@ namespace Service.MedicineServ
         public List<Medicine> readAllMedicine()
         {
             // TODO: Proveriti kako ovo ide preko ovog Factorija
-            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+            MedicineDataBaseRepository repoForMedicine = new MedicineDataBaseRepository();
 
             List<Medicine> retMedicine = new List<Medicine>();
             retMedicine = (List<Medicine>)repoForMedicine.FindAll();
@@ -27,14 +27,14 @@ namespace Service.MedicineServ
 
         public void saveAllMedicine(List<Medicine> medicinesForSave)
         {
-            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+            MedicineDataBaseRepository repoForMedicine = new MedicineDataBaseRepository();
 
             repoForMedicine.SaveAll(medicinesForSave);
         }
 
         public List<Medicine> GetAvailableMedicines()
         {
-            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+            MedicineDataBaseRepository repoForMedicine = new MedicineDataBaseRepository();
             List<Medicine> allMedicines = (List<Medicine>)repoForMedicine.FindAll();
             List<Medicine> result = new List<Medicine>();
 
@@ -50,7 +50,7 @@ namespace Service.MedicineServ
 
         public List<Medicine> GetMedicinesAwaitingApproval()
         {
-            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+            MedicineDataBaseRepository repoForMedicine = new MedicineDataBaseRepository();
             List<Medicine> allMedicines = (List<Medicine>)repoForMedicine.FindAll();
             List<Medicine> result = new List<Medicine>();
             foreach (Medicine med in allMedicines)
@@ -66,7 +66,7 @@ namespace Service.MedicineServ
 
         public void ValidateMedicine(Medicine medicine)
         {
-            MedicineFileRepository repoForMedicine = new MedicineFileRepository();
+            MedicineDataBaseRepository repoForMedicine = new MedicineDataBaseRepository();
             repoForMedicine.ValidateMedicine(medicine);
         }
 
@@ -78,7 +78,7 @@ namespace Service.MedicineServ
         public void RemoveMedicine(Medicine medicine)
         {
             // TODO: Proveriti kako ovo ide preko ovog Factorija
-            MedicineFileRepository repoForEmployees = new MedicineFileRepository();
+            MedicineDataBaseRepository repoForEmployees = new MedicineDataBaseRepository();
             repoForEmployees.Delete(medicine);
 
         }
@@ -86,7 +86,7 @@ namespace Service.MedicineServ
         public void EditMedicine(Medicine medicine)
         {
             // TODO: Proveriti kako ovo ide preko ovog Factorija
-            MedicineFileRepository repoForEmployees = new MedicineFileRepository();
+            MedicineDataBaseRepository repoForEmployees = new MedicineDataBaseRepository();
             repoForEmployees.makeUpdateFor(medicine);
 
         }
@@ -94,7 +94,7 @@ namespace Service.MedicineServ
         public void AddMedicine(Medicine medicine)
         {
             // TODO: Proveriti kako ovo ide preko ovog Factorija
-            MedicineFileRepository repoForEmployees = new MedicineFileRepository();
+            MedicineDataBaseRepository repoForEmployees = new MedicineDataBaseRepository();
             repoForEmployees.Save(medicine);
 
         }

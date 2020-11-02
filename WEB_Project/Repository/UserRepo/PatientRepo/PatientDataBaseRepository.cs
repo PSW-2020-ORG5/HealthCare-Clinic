@@ -65,5 +65,19 @@ namespace HealthClinic.Repository.UserRepo.PatientRepo
         {
             throw new NotImplementedException();
         }
+
+        public int GenerateId()      // <---- implementacija iz sims koda
+        {
+            /*            int maxId = -1;
+                        List<PatientModel> allPatientModels = (List<PatientModel>)FindAll();
+                        if (allPatientModels.Count == 0) return 1;
+                        foreach (PatientModel patient in allPatientModels)
+                        {
+                            if (patient.Id > maxId) maxId = patient.Id;
+                        }
+                        return maxId + 1;*/
+
+            throw new NotImplementedException();
+        }
     }
 }
