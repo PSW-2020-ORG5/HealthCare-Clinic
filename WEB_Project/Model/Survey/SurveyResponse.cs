@@ -22,6 +22,8 @@ namespace Model.Survey
         private string comment;
         private int doctorId;
         private int patientId;
+        private string anonymous;
+        private string publishable;
 
         public int Id
         {
@@ -129,10 +131,36 @@ namespace Model.Survey
             } 
         }
 
-    
+        public string Anonymous
+        {
+            get
+            {
+                return anonymous;
+            }
+            set
+            {
+                anonymous = value;
+                OnPropertyChanged("Anonymous");
+            }
+        }
 
-       
-       
+        public string Publishable
+        {
+            get
+            {
+                return publishable;
+            }
+            set
+            {
+                publishable = value;
+                OnPropertyChanged("Publishable");
+            }
+        }
+
+
+
+
+
 
     }
 }
