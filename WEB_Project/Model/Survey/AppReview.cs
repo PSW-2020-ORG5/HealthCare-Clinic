@@ -12,6 +12,9 @@ namespace Model.Survey
     {
         private string reviewText;
         private PatientModel patient;
+        private bool anonymous;
+        private bool publishable;
+
 
         public PatientModel Patient
         {
@@ -30,6 +33,32 @@ namespace Model.Survey
             {
                 reviewText = value;
                 OnPropertyChanged("ReviewText");
+            }
+        }
+
+        public bool Anonymous
+        {
+            get
+            {
+                return anonymous;
+            }
+            set
+            {
+                anonymous = value;
+                OnPropertyChanged("Anonymous");
+            }
+        }
+
+        public bool Publishable
+        {
+            get
+            {
+                return publishable;
+            }
+            set
+            {
+                publishable = value;
+                OnPropertyChanged("Publishable");
             }
         }
     }

@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Health_Clinic_Web_App.Model.DatabaseContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,16 +30,8 @@ namespace Health_Clinic_Web_App
             services.AddControllers();
             services.AddSingleton<SurveyResponseService>();
             services.AddCors();
-            
-            /*o => o.AddPolicy("ReactPolicy", builder =>
-            {
-                builder.SetIsOriginAllowed(isOriginAllowed: _ => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
-                *//*builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader()
-                       .AllowCredentials();*//*
-            }));*/
-
+            services.AddDbContext<MyDbContext>(options =>
+            options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbConnectionString")).UseLazyLoadingProxies());
 
         }
 

@@ -1,15 +1,13 @@
 import React from "react"
-import { Label,Button } from "reactstrap"
+import { Button } from "reactstrap"
+import 'bootstrap/dist/css/bootstrap.css';
+
 
 class FeedbackForm extends React.Component{
 
 constructor(){
     super()
     this.state={
-        Quality : "",
-        Security : "",
-        Kindness : "",
-        Professionalism : "",
         Comment : "",
         Anonymous : false,
         Publishable : false
@@ -26,22 +24,18 @@ handleChange(event){
 handleSubmit = (event) => {
     event.preventDefault()
 
-    const surveyInfo = {
-        Quality : this.state.Quality,
-        Security : this.state.Security,
-        Kindness : this.state.Kindness,
-        Professionalism :this.state.Professionalism,
+    const appReviewFeedbackInfo = {
         Comment : this.state.Comment,
         Anonymous : this.state.Anonymous,
         Publishable : this.state.Publishable,
     }
 
     alert('A form was submitted ');
-    const url="http://localhost:51916/surveys"
+    const url="http://localhost:51916/appreviewfeedback"
     fetch(url,{
         method: "POST",
-        headers: { "Content-type" : "application/json"},
-        body: JSON.stringify(surveyInfo)})
+        headers: {  contentType: "application/json"},
+        body: JSON.stringify(appReviewFeedbackInfo)})
         .then(response => response.json())
         .then(res => {
             if(res)
@@ -60,81 +54,6 @@ return(
 <div>
     <form onSubmit={this.handleSubmit}>
         <table>
-        <tr>
-            <td>
-            <Label>Quality </Label>
-            </td>
-            <td>
-            <select 
-            value={this.state.Quality}
-                onChange={this.handleChange}
-                name="Quality"                >
-                <option value="">-- Select an option --</option>
-                <option value="terrible">Terrible</option>
-                <option value="bad">Bad</option>
-                <option value="good">Good</option>
-                <option value="great">Great</option>
-                <option value="excellent">Excellent</option>
-            </select>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-            <Label>Security </Label>
-            </td>
-            <td>
-            <select 
-            value={this.state.Security}
-                onChange={this.handleChange}
-                name="Security"                >
-                <option value="">-- Select an option --</option>
-                <option value="terrible">Terrible</option>
-                <option value="bad">Bad</option>
-                <option value="good">Good</option>
-                <option value="great">Great</option>
-                <option value="excellent">Excellent</option>
-            </select>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-            <Label>Kindness </Label>
-            </td>
-            <td>
-            <select 
-            value={this.state.Kindness}
-                onChange={this.handleChange}
-                name="Kindness"                >
-                <option value="">-- Select an option --</option>
-                <option value="terrible">Terrible</option>
-                <option value="bad">Bad</option>
-                <option value="good">Good</option>
-                <option value="great">Great</option>
-                <option value="excellent">Excellent</option>
-            </select>
-            </td>
-        </tr>
-
-        <tr>
-            <td>
-            <Label>Professionalism </Label>
-            </td>
-            <td>
-            <select 
-            value={this.state.Professionalism}
-                onChange={this.handleChange}
-                name="Professionalism"                >
-                <option value="">-- Select an option --</option>
-                <option value="terrible">Terrible</option>
-                <option value="bad">Bad</option>
-                <option value="good">Good</option>
-                <option value="great">Great</option>
-                <option value="excellent">Excellent</option>
-            </select>
-            </td>
-        </tr>
 
         <tr>
             <td>
@@ -154,7 +73,7 @@ return(
         </tr>
         <tr>
             <td>
-            <Label>Anonymous </Label> 
+            <label>Anonymous </label> 
             </td>
             <td>
             <input type="checkbox" name="Anonymous"/>
@@ -164,7 +83,7 @@ return(
  
         <tr>
                 <td>
-            <Label>Publishable </Label>
+            <label>Publishable </label>
                 </td>
             <td>
             
@@ -185,10 +104,6 @@ return(
 
 }
 
-
 }
-
-
-
 
 export default FeedbackForm
