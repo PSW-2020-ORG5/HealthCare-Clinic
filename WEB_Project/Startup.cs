@@ -31,7 +31,7 @@ namespace Health_Clinic_Web_App
             services.AddSingleton<SurveyResponseService>();
             services.AddCors();
             services.AddDbContext<MyDbContext>(options =>
-            options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbConnectionString")).UseLazyLoadingProxies());
+            options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbContextConnectionString")).UseLazyLoadingProxies());
 
         }
 

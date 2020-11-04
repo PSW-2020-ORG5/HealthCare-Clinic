@@ -2,6 +2,7 @@
 using Model.Users;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,14 @@ namespace Model.Survey
 {
     public class AppReview : ObservableObject
     {
+        
         private string reviewText;
         private PatientModel patient;
         private bool anonymous;
         private bool publishable;
 
 
-        public PatientModel Patient
+        public virtual PatientModel Patient
         {
             get { return patient; }
             set
@@ -25,6 +27,11 @@ namespace Model.Survey
                 OnPropertyChanged("Patient");
             }
         }
+
+        public long PatientId { get; set; }
+
+        [Key]
+        public long AppReviewId { get; set; }
 
         public string ReviewText
         {

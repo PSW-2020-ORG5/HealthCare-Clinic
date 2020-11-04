@@ -1,14 +1,19 @@
-import './App.css';
-import FeedbackForm from "./FeedbackForm"
+import './CSS/App.css';
+import Main from "./Main/Main"
+import Header from "./Header/Header"
+import Footer from "./Footer/Footer"
+
+
 
 function App() {
   return (
     
     <div className="App">
-      <header className="App-header">
-       
-        <FeedbackForm/>
-      </header>
+      <div>
+       <Header className="App-Header"/>
+       <Main className="App-Main"/>
+       <Footer className="App-Footer"/>
+      </div>
     </div>
   );
 }

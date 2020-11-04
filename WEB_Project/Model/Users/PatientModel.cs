@@ -22,7 +22,7 @@ namespace Model.Users
 
 
         private System.Collections.Generic.List<SurveyResponse> surveyResponses;
-        public System.Collections.Generic.List<SurveyResponse> SurveyResponses
+        public virtual System.Collections.Generic.List<SurveyResponse> SurveyResponses
         {
             get
             {
