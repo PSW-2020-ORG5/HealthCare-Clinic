@@ -1,6 +1,7 @@
 import React from "react"
 import { Button } from "reactstrap"
 import 'bootstrap/dist/css/bootstrap.css';
+import {Redirect} from "react-router-dom"
 
 
 class FeedbackForm extends React.Component{
@@ -10,10 +11,13 @@ constructor(){
     this.state={
         Comment : "",
         Anonymous : false,
-        Publishable : false
+        Publishable : false,
+        Redirect : false
     }
     this.handleChange=this.handleChange.bind(this)
+    this.handleSubmit=this.handleSubmit.bind(this)
 }
+
 
 handleChange(event){
     const {name, value, type, checked} = event.target
@@ -44,6 +48,7 @@ handleSubmit = (event) => {
                 //this.setstate({this.state.message = success or smth})
             }
         } )
+        this.setState({Redirect : true})
     
 }
 
@@ -51,7 +56,8 @@ render(){
 
 
 return(
-<div>
+<div className={this.props.class}>
+    {this.state.Redirect ? <Redirect to="/"/> : null}
     <form onSubmit={this.handleSubmit}>
         <table>
 
@@ -92,7 +98,7 @@ return(
         </tr>
         <tr>
             <td colspan="2">
-            <Button color="primary">Submit Survey</Button>
+            <Button color="primary" style={{margin : "1vh"}}>Submit Survey</Button>
             </td>
         </tr>
 
