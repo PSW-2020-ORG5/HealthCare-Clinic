@@ -38,7 +38,7 @@ handleSubmit = (event) => {
     const url="http://localhost:51916/appreviewfeedback"
     fetch(url,{
         method: "POST",
-        headers: {  contentType: "application/json"},
+        headers: {  "Content-Type" : "application/json"},
         body: JSON.stringify(appReviewFeedbackInfo)})
         .then(response => response.json())
         .then(res => {

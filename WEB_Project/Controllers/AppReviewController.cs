@@ -18,26 +18,26 @@ namespace Health_Clinic_Web_App.Controllers
     public class AppReviewController : ControllerBase
     {
         private readonly AppReviewService appReviewService;
-        private readonly MyDbContext dbContext;
 
-        public AppReviewController(AppReviewService appReviewService, MyDbContext dbContext)
+        public AppReviewController(MyDbContext dbContext)
         {
-            this.appReviewService = appReviewService;
-            this.dbContext = dbContext;
+            this.appReviewService = new AppReviewService(dbContext);
         }
 
         [HttpGet]
-        public IEnumerable<AppReview> Get()
+        public IActionResult GetAll()
         {
-            return appReviewService.GetAllAppReviews();
+            List<AppReviewDTO> result = new List<AppReviewDTO>();
+            appReviewService.GetAllAppReviews().ForEach(appReview => result.Add(AppReviewAdapter.AppReviewToDto(appReview)));
+            return Ok(result);
         }
 
         [HttpPost]
-        public void Post([FromBody] AppReviewDTO appreviewfeedback)
+        public IActionResult Post([FromBody] AppReviewDTO appreviewfeedback)
         {
-            Console.WriteLine("test");
             AppReview appReview = AppReviewAdapter.DtoToAppReview(appreviewfeedback);
             appReviewService.AddAppReview(appReview);
+            return Ok();
         }
 
     }

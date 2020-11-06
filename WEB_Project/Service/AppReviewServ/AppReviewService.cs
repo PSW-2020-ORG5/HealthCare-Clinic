@@ -1,4 +1,6 @@
-﻿using Model.Survey;
+﻿using Health_Clinic_Web_App.Model.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
+using Model.Survey;
 using Repository.AppReviewRepo;
 using Repository.SurveyResponseRepo;
 using System.Collections.Generic;
@@ -8,12 +10,17 @@ namespace HealthClinic.Service.AppReviewServ
 {
     public class AppReviewService
     {
-        public AppReviewRepositoryFactory appReviewRepositoryFactory;
+        private readonly AppReviewDataBaseRepository appRepo;
+        private readonly MyDbContext context;
+
+        public AppReviewService(MyDbContext context)
+        {
+            this.appRepo = new AppReviewDataBaseRepository(context);
+            this.context = context;
+        }
 
         public List<AppReview> GetAllAppReviews()
         {
-            AppReviewDataBaseRepository appRepo = new AppReviewDataBaseRepository();
-
             List<AppReview> appReviews = new List<AppReview>();
             appReviews = (List<AppReview>)appRepo.FindAll();
 
@@ -22,15 +29,11 @@ namespace HealthClinic.Service.AppReviewServ
 
         public void AddAppReviews(List<AppReview> appReviewsToSave)
         {
-            AppReviewDataBaseRepository appRepo = new AppReviewDataBaseRepository();
-
             appRepo.SaveAll(appReviewsToSave);
         }
 
         public void AddAppReview(AppReview appReviewToSave)
         {
-            AppReviewDataBaseRepository appRepo = new AppReviewDataBaseRepository();
-
             appRepo.Save(appReviewToSave);
         }
     }

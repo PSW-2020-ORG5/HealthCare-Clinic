@@ -1,11 +1,21 @@
+using Health_Clinic_Web_App.Model.DatabaseContext;
+using Microsoft.EntityFrameworkCore;
 using Model.Survey;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Repository.AppReviewRepo
 {
     public class AppReviewDataBaseRepository : AppReviewRepository
     {
+        private readonly MyDbContext dbContext;
+
+        public AppReviewDataBaseRepository(MyDbContext context)
+        {
+            this.dbContext = context;
+        }
+
         public int Count()
         {
             throw new NotImplementedException();
@@ -33,7 +43,7 @@ namespace Repository.AppReviewRepo
 
         public IEnumerable<AppReview> FindAll()
         {
-            throw new NotImplementedException();
+            return dbContext.AppReviews.ToList();
         }
 
         public IEnumerable<AppReview> FindAllById(IEnumerable<int> ids)
@@ -48,7 +58,8 @@ namespace Repository.AppReviewRepo
 
         public void Save(AppReview entity)
         {
-            throw new NotImplementedException();
+            dbContext.AppReviews.Add(entity);
+            dbContext.SaveChanges();
         }
 
         public void SaveAll(IEnumerable<AppReview> entities)

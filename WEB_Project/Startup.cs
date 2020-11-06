@@ -28,7 +28,7 @@ namespace Health_Clinic_Web_App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<SurveyResponseService>();
+            services.AddScoped<HealthClinic.Service.AppReviewServ.AppReviewService>();
             services.AddCors();
             services.AddDbContext<MyDbContext>(options =>
             options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbContextConnectionString")).UseLazyLoadingProxies());
