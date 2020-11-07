@@ -29,25 +29,22 @@ handleSubmit = (event) => {
     event.preventDefault()
 
     const appReviewFeedbackInfo = {
-        Comment : this.state.Comment,
-        Anonymous : this.state.Anonymous,
-        Publishable : this.state.Publishable,
+        reviewText : this.state.Comment,
+        anonymous : this.state.Anonymous,
+        publishable : this.state.Publishable,
     }
 
     alert('A form was submitted ');
     const url="http://localhost:51916/appreviewfeedback"
     fetch(url,{
         method: "POST",
-        headers: {  "Content-Type" : "application/json"},
-        body: JSON.stringify(appReviewFeedbackInfo)})
-        .then(response => response.json())
-        .then(res => {
-            if(res)
-            {
-                //success
-                //this.setstate({this.state.message = success or smth})
-            }
-        } )
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            },
+        body: JSON.stringify(appReviewFeedbackInfo)
+        })
+        
         this.setState({Redirect : true})
     
 }

@@ -2,6 +2,8 @@
 using Model.Survey;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,19 +13,20 @@ namespace Health_Clinic_Web_App.Adapters
     {
         public static AppReview DtoToAppReview(AppReviewDTO dto)
         {
-            AppReview appReview = new AppReview();
             
-            // appreview field value assignment
-
+            AppReview appReview = new AppReview();
+            appReview.Anonymous = dto.anonymous;
+            appReview.Publishable = dto.publishable;
+            appReview.ReviewText = dto.reviewText;
             return appReview;
         }
 
         public static AppReviewDTO AppReviewToDto(AppReview appReview)
         {
             AppReviewDTO dto = new AppReviewDTO();
-           
-            // dto field value assignement
-
+            dto.anonymous = appReview.Anonymous;
+            dto.publishable = appReview.Publishable;
+            dto.reviewText = appReview.ReviewText;
             return dto;
         }
     }
