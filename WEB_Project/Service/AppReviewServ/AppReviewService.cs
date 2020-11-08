@@ -27,6 +27,20 @@ namespace HealthClinic.Service.AppReviewServ
             return appReviews;
         }
 
+        public List<AppReview> GetPublishableAppReviews()
+        {
+            List<AppReview> appReviews = new List<AppReview>();
+            appReviews = (List<AppReview>)appRepo.FindAll();
+            foreach(AppReview appReview in appReviews)
+            {
+                if(appReview.Anonymous == true)
+                {
+                    appReviews.Remove(appReview);
+                }
+            }
+            return appReviews;
+        }
+
         public void AddAppReviews(List<AppReview> appReviewsToSave)
         {
             appRepo.SaveAll(appReviewsToSave);
