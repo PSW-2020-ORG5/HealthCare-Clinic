@@ -24,7 +24,7 @@ namespace Health_Clinic_Web_App.Controllers
             this.appReviewService = new AppReviewService(dbContext);
         }
 
-        [HttpGet]
+        [HttpGet]     //GET /api/appReview
         public IActionResult GetAll()
         {
             List<AppReviewDTO> result = new List<AppReviewDTO>();
@@ -32,7 +32,7 @@ namespace Health_Clinic_Web_App.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost] //Post /api/appReview
         public IActionResult Post([FromBody] AppReviewDTO appreviewfeedback)
         {
             AppReview appReview = AppReviewAdapter.DtoToAppReview(appreviewfeedback);
@@ -41,11 +41,21 @@ namespace Health_Clinic_Web_App.Controllers
         }
 
         [HttpGet]
+<<<<<<< HEAD
         public IActionResult GetPublishable()
         {
             List<AppReviewDTO> result = new List<AppReviewDTO>();
             appReviewService.GetPublishableAppReviews().ForEach(appReview => result.Add(AppReviewAdapter.AppReviewToDto(appReview)));
             return Ok(result);
         }
+=======
+        public IActionResult GetAllPublished()
+        {
+            List<AppReviewDTO> result = new List<AppReviewDTO>();
+            appReviewService.GetAllAppPublishedReviews().ForEach(appReview => result.Add(AppReviewAdapter.AppReviewToDto(appReview)));
+            return Ok(result);
+        }
+
+>>>>>>> 597f12525e730dd1e7a9030bf8e86d36c19bdb91
     }
 }
