@@ -40,15 +40,15 @@ namespace Health_Clinic_Web_App.Controllers
             return Ok();
         }
 
-        [HttpGet]
-<<<<<<< HEAD
+        [HttpGet]   //GET /api/appPublish
         public IActionResult GetPublishable()
         {
             List<AppReviewDTO> result = new List<AppReviewDTO>();
             appReviewService.GetPublishableAppReviews().ForEach(appReview => result.Add(AppReviewAdapter.AppReviewToDto(appReview)));
             return Ok(result);
         }
-=======
+
+        [HttpGet]   //GET /api/appPublished
         public IActionResult GetAllPublished()
         {
             List<AppReviewDTO> result = new List<AppReviewDTO>();
@@ -56,6 +56,6 @@ namespace Health_Clinic_Web_App.Controllers
             return Ok(result);
         }
 
->>>>>>> 597f12525e730dd1e7a9030bf8e86d36c19bdb91
+
     }
 }
