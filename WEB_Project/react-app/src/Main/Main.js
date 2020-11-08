@@ -1,8 +1,10 @@
 import React from "react"
 import FeedbackForm from "./FeedbackForm"
+import SeeFeedbacks from "./SeeFeedbacks"
 import "../CSS/FeedbackForm.css"
+import "../CSS/SeeFeedbacks.css"
+
 import {
-    BrowserRouter as Router,
     Switch,
     Route
   } from "react-router-dom";
@@ -20,6 +22,10 @@ return(
         <Route path="/sendfeedback">
             <FeedbackForm class="FeedbackFormStyling"/>
         </Route>
+        <Route path="/seefeedbacks">
+            <SeeFeedbacks class="seeFeedbacksStyling" />
+        </Route>
+        
 
 
     </Switch>
