@@ -44,7 +44,7 @@ namespace Health_Clinic_Web_App.Controllers
         public IActionResult GetPublishable()
         {
             List<AppReviewDTO> result = new List<AppReviewDTO>();
-            appReviewService.GetPublishableAppReviews().ForEach(appReview => result.Add(AppReviewAdapter.AppReviewToDto(appReview)));
+            appReviewService.GetAllAppPublishedReviews().ForEach(appReview => result.Add(AppReviewAdapter.AppReviewToDto(appReview)));
             return Ok(result);
         }
 

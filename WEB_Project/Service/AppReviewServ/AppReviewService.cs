@@ -28,23 +28,8 @@ namespace HealthClinic.Service.AppReviewServ
             return appReviews;
         }
 
-<<<<<<< HEAD
-        public List<AppReview> GetPublishableAppReviews()
-        {
-            List<AppReview> appReviews = new List<AppReview>();
-            appReviews = (List<AppReview>)appRepo.FindAll();
-            foreach(AppReview appReview in appReviews)
-            {
-                if(appReview.Anonymous == true)
-                {
-                    appReviews.Remove(appReview);
-                }
-            }
-            return appReviews;
-        }
 
-=======
-        // get all published feedbacks(appreviews) from patient
+        // Get all published feedbacks (appreviews) from patient
         public List<AppReview> GetAllAppPublishedReviews()
         {
             List<AppReview> appReviews = new List<AppReview>();
@@ -61,9 +46,7 @@ namespace HealthClinic.Service.AppReviewServ
             return result;
         }
 
-
-        //save all list of feedbacks
->>>>>>> 597f12525e730dd1e7a9030bf8e86d36c19bdb91
+        // Save all list of feedbacks
         public void AddAppReviews(List<AppReview> appReviewsToSave)
         {
             appRepo.SaveAll(appReviewsToSave);

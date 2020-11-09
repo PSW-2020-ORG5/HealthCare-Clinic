@@ -27,8 +27,6 @@ namespace Model.Rooms
         private int roomId;
         #endregion
 
-
-
         #region Properties
         public int RoomId
         {
