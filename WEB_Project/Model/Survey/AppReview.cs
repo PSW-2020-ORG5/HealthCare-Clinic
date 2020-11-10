@@ -3,6 +3,7 @@ using Model.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,25 +14,45 @@ namespace Model.Survey
     {
         
         private string reviewText;
-        private PatientModel patient;
         private bool anonymous;
         private bool publishable;
+        private bool published;
+        private int patientId;
+        private int appReviewId;
 
+        /* private PatientModel patient;                      // izbaceno izmedju 3. i 4. migracije
 
-        public virtual PatientModel Patient
+                public virtual PatientModel Patient          
+                {
+                    get { return patient; }
+                    set
+                    {
+                        patient = value;
+                        OnPropertyChanged("Patient");
+                    }
+                }
+
+                [ForeignKey("Patient")]*/
+        public int PatientId
         {
-            get { return patient; }
+            get { return patientId; }
             set
             {
-                patient = value;
-                OnPropertyChanged("Patient");
+                patientId = value;
+                OnPropertyChanged("PatientId");
             }
         }
 
-        public long PatientId { get; set; }
-
         [Key]
-        public long AppReviewId { get; set; }
+        public int AppReviewId
+        {
+            get { return appReviewId; }
+            set
+            {
+                appReviewId = value;
+                OnPropertyChanged("AppReviewId");
+            }
+        }
 
         public string ReviewText
         {
@@ -66,6 +87,19 @@ namespace Model.Survey
             {
                 publishable = value;
                 OnPropertyChanged("Publishable");
+            }
+        }
+
+        public bool Published
+        {
+            get
+            {
+                return published;
+            }
+            set
+            {
+                published = value;
+                OnPropertyChanged("Published");
             }
         }
     }

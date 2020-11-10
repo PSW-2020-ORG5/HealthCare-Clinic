@@ -13,7 +13,7 @@ using Model.Survey;
 namespace Health_Clinic_Web_App.Controllers
 {
     [Produces("application/json")]
-    [Route("appreviewfeedback")]
+    [Route("appReviewFeedback")]
     [ApiController]
     public class AppReviewController : ControllerBase
     {
@@ -24,35 +24,28 @@ namespace Health_Clinic_Web_App.Controllers
             this.appReviewService = new AppReviewService(dbContext);
         }
 
-        [HttpGet]     //GET /api/appReview
+        [HttpGet] // GET: appReviewFeedback
         public IActionResult GetAll()
         {
-            List<AppReviewDTO> result = new List<AppReviewDTO>();
-            appReviewService.GetAllAppReviews().ForEach(appReview => result.Add(AppReviewAdapter.AppReviewToDto(appReview)));
+            List<AppReviewDTO> result = appReviewService.GetAllAppReviews();
             return Ok(result);
         }
 
-        [HttpPost] //Post /api/appReview
-        public IActionResult Post([FromBody] AppReviewDTO appreviewfeedback)
+        [HttpPost] // POST: appReviewFeedback
+        public IActionResult Post([FromBody] AppReviewDTO appReviewDTO)
         {
-            AppReview appReview = AppReviewAdapter.DtoToAppReview(appreviewfeedback);
-            appReviewService.AddAppReview(appReview);
+            appReviewService.AddAppReview(appReviewDTO);
             return Ok();
         }
 
-        [HttpGet]   //GET /api/appPublish
-        public IActionResult GetPublishable()
-        {
-            List<AppReviewDTO> result = new List<AppReviewDTO>();
-            appReviewService.GetAllAppPublishedReviews().ForEach(appReview => result.Add(AppReviewAdapter.AppReviewToDto(appReview)));
-            return Ok(result);
-        }
+        //TODO: [HttpPut({appReviewId})] metoda koja ce menjati published sa false na true
+        //
+        //
 
-        [HttpGet]   //GET /api/appPublished
-        public IActionResult GetAllPublished()
+        [HttpGet("published")] // GET: appReviewFeedback/published
+        public IActionResult GetAllPublished() // obican user vidi samo one gde published == true
         {
-            List<AppReviewDTO> result = new List<AppReviewDTO>();
-            appReviewService.GetAllAppPublishedReviews().ForEach(appReview => result.Add(AppReviewAdapter.AppReviewToDto(appReview)));
+            List<AppReviewDTO> result = appReviewService.GetAllPublishedAppReviews();
             return Ok(result);
         }
 

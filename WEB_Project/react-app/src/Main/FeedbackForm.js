@@ -12,6 +12,7 @@ constructor(){
         Comment : "",
         Anonymous : false,
         Publishable : false,
+        Published : false,
         Redirect : false
     }
     this.handleChange=this.handleChange.bind(this)
@@ -22,6 +23,7 @@ constructor(){
 handleChange(event){
     const {name, value, type, checked} = event.target
     type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
+    alert(this.state.publishable)
 
 }
 
@@ -32,10 +34,11 @@ handleSubmit = (event) => {
         reviewText : this.state.Comment,
         anonymous : this.state.Anonymous,
         publishable : this.state.Publishable,
+        published : false
     }
 
     alert('A form was submitted ');
-    const url="http://localhost:51916/appreviewfeedback"
+    const url="http://localhost:51916/appReviewFeedback"
     fetch(url,{
         method: "POST",
         headers: {
@@ -79,7 +82,7 @@ return(
             <label>Anonymous </label> 
             </td>
             <td>
-            <input type="checkbox" name="Anonymous"/>
+            <input type="checkbox"  onChange={this.handleChange}  name="Anonymous"/>
             </td>
         </tr>
         
@@ -90,12 +93,12 @@ return(
                 </td>
             <td>
             
-            <input type="checkbox" name="Publishable"/>
+            <input type="checkbox" onChange={this.handleChange} name="Publishable"/>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-            <Button color="primary" style={{margin : "1vh"}}>Submit Survey</Button>
+            <Button color="primary" style={{margin : "1vh"}}>Submit Feedback</Button>
             </td>
         </tr>
 

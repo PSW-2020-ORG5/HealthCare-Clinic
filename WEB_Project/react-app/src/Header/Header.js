@@ -17,8 +17,8 @@ class Header extends React.Component {
                 <header className="App-Header">Some header value</header>
 
                 <Button tag={Link} to="/sendfeedback"className="reactstrapButton" color="info">Send Feedback</Button>
-                <Button tag={Link} to="/seefeedbacks"className="reactstrapButton" color="info">See feedbacks (user)</Button>
-                <Button tag={Link} to="/feedbacks"className="reactstrapButton" color="info">See feedbacks (admin)</Button>
+                <Button tag={Link} to="/seefeedbacksadmin"className="reactstrapButton" color="info">See feedbacks (admin)</Button>
+                <Button tag={Link} to="/seefeedbacksuser"className="reactstrapButton" color="info">See feedbacks (user)</Button>
                 
             </div>
         )

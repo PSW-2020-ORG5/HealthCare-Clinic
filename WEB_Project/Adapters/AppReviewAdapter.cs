@@ -18,6 +18,8 @@ namespace Health_Clinic_Web_App.Adapters
             appReview.Anonymous = dto.anonymous;
             appReview.Publishable = dto.publishable;
             appReview.ReviewText = dto.reviewText;
+            appReview.Published = dto.published;
+            appReview.PatientId = 123123123;   // ubaciti nakon implementacije identifikacije korisnika
             return appReview;
         }
 
@@ -27,7 +29,10 @@ namespace Health_Clinic_Web_App.Adapters
             dto.anonymous = appReview.Anonymous;
             dto.publishable = appReview.Publishable;
             dto.reviewText = appReview.ReviewText;
+            dto.published = appReview.Published;
+            dto.appReviewId = appReview.AppReviewId;
             return dto;
         }
+
     }
 }

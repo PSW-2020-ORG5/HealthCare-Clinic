@@ -1,8 +1,7 @@
 import React from "react"
 import FeedbackForm from "./FeedbackForm"
 import SeeFeedbacks from "./SeeFeedbacks"
-import "../CSS/FeedbackForm.css"
-import "../CSS/SeeFeedbacks.css"
+import "../CSS/Feedbacks.css"
 
 import {
     Switch,
@@ -22,9 +21,13 @@ return(
         <Route path="/sendfeedback">
             <FeedbackForm class="FeedbackFormStyling"/>
         </Route>
-        <Route path="/seefeedbacks">
-            <SeeFeedbacks class="seeFeedbacksStyling" />
+        <Route path="/seefeedbacksadmin">
+            <SeeFeedbacks role="admin" class="seeFeedbacksStyling" />
         </Route>
+         <Route path="/seefeedbacksuser">
+            <SeeFeedbacks role="user" class="seeFeedbacksStyling" />
+        </Route> 
+        
         
 
 

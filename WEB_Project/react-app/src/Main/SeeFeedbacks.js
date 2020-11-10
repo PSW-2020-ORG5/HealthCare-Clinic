@@ -11,7 +11,7 @@ class SeeFeedbacks extends React.Component {
 
 
     componentDidMount(){
-        const url="http://localhost:51916/appreviewfeedback"
+        const url="http://localhost:51916/appReviewFeedback/published"
         fetch(url,{
             method: "GET",
             headers: {
@@ -32,7 +32,7 @@ class SeeFeedbacks extends React.Component {
         let array = [];
         for(let i = 0; i < this.state.feedbacks.length; i++) {
           array.push(
-          <div key={i} item={this.state.feedbacks[i]}><label>{"ID: " + i + ", Text: " + this.state.feedbacks[i].reviewText}</label></div>
+          <div key={i} item={this.state.feedbacks[i]}><label className="singleFeedbackStyling">{"ID: " + i + ", Text: " + this.state.feedbacks[i].reviewText}</label></div>
           );
         }
         
