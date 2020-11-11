@@ -21,11 +21,11 @@ return(
         <Route path="/sendfeedback">
             <FeedbackForm class="FeedbackFormStyling"/>
         </Route>
-        <Route path="/seefeedbacksadmin">
-            <SeeFeedbacks role="admin" class="seeFeedbacksStyling" />
+        <Route path="/seefeedbacks">
+            <SeeFeedbacks />
         </Route>
-         <Route path="/seefeedbacksuser">
-            <SeeFeedbacks role="user" class="seeFeedbacksStyling" />
+         <Route path="/seefeedbackspublished">
+            <SeeFeedbacks onlyPublished="true"/>
         </Route> 
         
         

@@ -1,4 +1,5 @@
 import React from "react"
+import Feedback from "./Feedback"
 
 class SeeFeedbacks extends React.Component {
 
@@ -11,7 +12,11 @@ class SeeFeedbacks extends React.Component {
 
 
     componentDidMount(){
-        const url="http://localhost:51916/appReviewFeedback/published"
+        var url
+        if(this.props.onlyPublished==="true")                       /* Visual studio IIS server port: "http://localhost:51916/reviews"  */
+            url="http://localhost:51916/reviews/published" 
+        else
+            url="http://localhost:51916/reviews"
         fetch(url,{
             method: "GET",
             headers: {
@@ -32,7 +37,7 @@ class SeeFeedbacks extends React.Component {
         let array = [];
         for(let i = 0; i < this.state.feedbacks.length; i++) {
           array.push(
-          <div key={i} item={this.state.feedbacks[i]}><label className="singleFeedbackStyling">{"ID: " + i + ", Text: " + this.state.feedbacks[i].reviewText}</label></div>
+          <div key={this.state.feedbacks[i].appReviewId} item={this.state.feedbacks[i]}><Feedback feedbackData={this.state.feedbacks[i]}/> </div>
           );
         }
         

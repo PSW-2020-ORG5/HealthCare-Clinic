@@ -23,32 +23,35 @@ constructor(){
 handleChange(event){
     const {name, value, type, checked} = event.target
     type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
-    alert(this.state.publishable)
-
 }
 
 handleSubmit = (event) => {
     event.preventDefault()
 
-    const appReviewFeedbackInfo = {
-        reviewText : this.state.Comment,
-        anonymous : this.state.Anonymous,
-        publishable : this.state.Publishable,
-        published : false
-    }
+    if(this.state.Comment !== "")
+    {
+        const appReviewFeedbackInfo = {
+            reviewText : this.state.Comment,
+            anonymous : this.state.Anonymous,
+            publishable : this.state.Publishable,
+            published : false
+        }
 
-    alert('A form was submitted ');
-    const url="http://localhost:51916/appReviewFeedback"
-    fetch(url,{
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            },
-        body: JSON.stringify(appReviewFeedbackInfo)
-        })
-        
-        this.setState({Redirect : true})
+        alert('Form submitted');
+        const url="http://localhost:51916/reviews"
+        fetch(url,{
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify(appReviewFeedbackInfo)
+            })
+            
+            this.setState({Redirect : true})
+    } else {
+        alert("Please fill the form before submitting")
+    }
     
 }
 

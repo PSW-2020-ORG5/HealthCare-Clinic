@@ -13,7 +13,7 @@ using Model.Survey;
 namespace Health_Clinic_Web_App.Controllers
 {
     [Produces("application/json")]
-    [Route("appReviewFeedback")]
+    [Route("reviews")]
     [ApiController]
     public class AppReviewController : ControllerBase
     {
@@ -24,14 +24,14 @@ namespace Health_Clinic_Web_App.Controllers
             this.appReviewService = new AppReviewService(dbContext);
         }
 
-        [HttpGet] // GET: appReviewFeedback
+        [HttpGet] // GET: reviews
         public IActionResult GetAll()
         {
             List<AppReviewDTO> result = appReviewService.GetAllAppReviews();
             return Ok(result);
         }
 
-        [HttpPost] // POST: appReviewFeedback
+        [HttpPost] // POST: reviews
         public IActionResult Post([FromBody] AppReviewDTO appReviewDTO)
         {
             appReviewService.AddAppReview(appReviewDTO);
@@ -42,7 +42,7 @@ namespace Health_Clinic_Web_App.Controllers
         //
         //
 
-        [HttpGet("published")] // GET: appReviewFeedback/published
+        [HttpGet("published")] // GET: reviews/published
         public IActionResult GetAllPublished() // obican user vidi samo one gde published == true
         {
             List<AppReviewDTO> result = appReviewService.GetAllPublishedAppReviews();
