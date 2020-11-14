@@ -37,7 +37,6 @@ handleSubmit = (event) => {
             published : false
         }
 
-        alert('Form submitted');
         const url="http://localhost:51916/reviews"
         fetch(url,{
             method: "POST",
@@ -49,8 +48,6 @@ handleSubmit = (event) => {
             })
             
             this.setState({Redirect : true})
-    } else {
-        alert("Please fill the form before submitting")
     }
     
 }

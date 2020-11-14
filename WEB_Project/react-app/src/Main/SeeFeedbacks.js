@@ -1,5 +1,6 @@
 import React from "react"
 import Feedback from "./Feedback"
+import axios from "axios"
 
 class SeeFeedbacks extends React.Component {
 
@@ -10,27 +11,20 @@ class SeeFeedbacks extends React.Component {
         }
     }
 
-
-    componentDidMount(){
+    componentDidMount() {
         var url
         if(this.props.onlyPublished==="true")                       /* Visual studio IIS server port: "http://localhost:51916/reviews"  */
             url="http://localhost:51916/reviews/published" 
         else
             url="http://localhost:51916/reviews"
-        fetch(url,{
-            method: "GET",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'dataType': 'json'
-                },
+
+            axios.get(url)
+            .then(response => {
+                this.setState({feedbacks : response.data})
             })
-            .then(response => response.json())
-            .then(responseJSON => {
-                alert(responseJSON) 
-                this.setState({feedbacks : responseJSON})
+            .catch(error => {
+                console.log(error)
             })
-        
     }
 
     render() {
