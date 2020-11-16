@@ -19,6 +19,16 @@ namespace Health_Clinic_Web_App.DTO
         [JsonProperty("publishable")]
         public bool publishable { get; set; }
 
+
+        [JsonProperty("published")]
+        public bool published { get; set; }
+
+
+        [JsonProperty("appReviewId")]
+        public int appReviewId { get; set; }
+
+
+
         public AppReviewDTO() { }
     }
 }

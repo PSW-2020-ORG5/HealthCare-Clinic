@@ -1,4 +1,6 @@
-﻿using Health_Clinic_Web_App.Model.DatabaseContext;
+﻿using Health_Clinic_Web_App.Adapters;
+using Health_Clinic_Web_App.DTO;
+using Health_Clinic_Web_App.Model.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
 using Model.Survey;
 using Repository.AppReviewRepo;
@@ -19,43 +21,40 @@ namespace HealthClinic.Service.AppReviewServ
             this.context = context;
         }
 
-        // get all feedbacks(appreviews) from patient
-        public List<AppReview> GetAllAppReviews()
+        // Get all feedbacks (appreviews) from patient
+        public List<AppReviewDTO> GetAllAppReviews()
         {
             List<AppReview> appReviews = new List<AppReview>();
-            appReviews = (List<AppReview>)appRepo.FindAll();
+            List<AppReviewDTO> appReviewDTOs = new List<AppReviewDTO>();
 
-            return appReviews;
+            appReviews = (List<AppReview>)appRepo.FindAll();
+            appReviews.ForEach(appReview => appReviewDTOs.Add(AppReviewAdapter.AppReviewToDto(appReview)));
+
+            return appReviewDTOs;
         }
 
 
         // Get all published feedbacks (appreviews) from patient
-        public List<AppReview> GetAllAppPublishedReviews()
+        public List<AppReviewDTO> GetAllPublishedAppReviews()
         {
+            List<AppReviewDTO> appReviewDTOs = new List<AppReviewDTO>();
             List<AppReview> appReviews = new List<AppReview>();
+
             appReviews = (List<AppReview>)appRepo.FindAll();
-            List<AppReview> result = new List<AppReview>();
 
             foreach (AppReview a in appReviews) {
-                if (a.Publishable==true) {
-
-                    result.Add(a);
+                if (a.Published==true) {
+                    appReviewDTOs.Add(AppReviewAdapter.AppReviewToDto(a));
                 }
             }
-
-            return result;
+            return appReviewDTOs;
         }
 
-        // Save all list of feedbacks
-        public void AddAppReviews(List<AppReview> appReviewsToSave)
+        // Save feedback
+        public void AddAppReview(AppReviewDTO appReviewDTO)
         {
-            appRepo.SaveAll(appReviewsToSave);
-        }
-
-        //save one feedback
-        public void AddAppReview(AppReview appReviewToSave)
-        {
-            appRepo.Save(appReviewToSave);
+            AppReview appReview = AppReviewAdapter.DtoToAppReview(appReviewDTO);
+            appRepo.Save(AppReviewAdapter.DtoToAppReview(appReviewDTO));
         }
     }
 }

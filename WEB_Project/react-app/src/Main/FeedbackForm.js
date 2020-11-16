@@ -12,6 +12,7 @@ constructor(){
         Comment : "",
         Anonymous : false,
         Publishable : false,
+        Published : false,
         Redirect : false
     }
     this.handleChange=this.handleChange.bind(this)
@@ -22,30 +23,32 @@ constructor(){
 handleChange(event){
     const {name, value, type, checked} = event.target
     type === "checkbox" ? this.setState({ [name]: checked }) : this.setState({ [name]: value })
-
 }
 
 handleSubmit = (event) => {
     event.preventDefault()
 
-    const appReviewFeedbackInfo = {
-        reviewText : this.state.Comment,
-        anonymous : this.state.Anonymous,
-        publishable : this.state.Publishable,
-    }
+    if(this.state.Comment !== "")
+    {
+        const appReviewFeedbackInfo = {
+            reviewText : this.state.Comment,
+            anonymous : this.state.Anonymous,
+            publishable : this.state.Publishable,
+            published : false
+        }
 
-    alert('A form was submitted ');
-    const url="http://localhost:51916/appreviewfeedback"
-    fetch(url,{
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            },
-        body: JSON.stringify(appReviewFeedbackInfo)
-        })
-        
-        this.setState({Redirect : true})
+        const url="http://localhost:51916/reviews"
+        fetch(url,{
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                },
+            body: JSON.stringify(appReviewFeedbackInfo)
+            })
+            
+            this.setState({Redirect : true})
+    }
     
 }
 
@@ -79,7 +82,7 @@ return(
             <label>Anonymous </label> 
             </td>
             <td>
-            <input type="checkbox" name="Anonymous"/>
+            <input type="checkbox"  onChange={this.handleChange}  name="Anonymous"/>
             </td>
         </tr>
         
@@ -90,12 +93,12 @@ return(
                 </td>
             <td>
             
-            <input type="checkbox" name="Publishable"/>
+            <input type="checkbox" onChange={this.handleChange} name="Publishable"/>
             </td>
         </tr>
         <tr>
             <td colspan="2">
-            <Button color="primary" style={{margin : "1vh"}}>Submit Survey</Button>
+            <Button color="primary" style={{margin : "1vh"}}>Submit Feedback</Button>
             </td>
         </tr>
 
