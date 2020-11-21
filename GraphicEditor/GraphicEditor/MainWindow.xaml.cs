@@ -25,59 +25,5 @@ namespace GraphicEditor
             InitializeComponent();
             Main.Content = new Map();
         }
-        private void ShowB1Floor0_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void ShowMBFloor0_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void ShowMBFloor1_Click(object sender, RoutedEventArgs e)
-        {
-           
-
-        }
-
-        private void ShowMBFloor2_Click(object sender, RoutedEventArgs e)
-        {
-           
-
-        }
-
-        private void ShowB1Floor1_Click(Object sender, RoutedEventArgs e)
-        {
-
-        }
-
-
-        private void ShowB1Floor2_Click(Object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void ShowB2Floor0_Click(Object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ShowB2Floor1_Click(Object sender, RoutedEventArgs e)
-        {
-           
-        }
-
-
-        private void ShowB2Floor2_Click(Object sender, RoutedEventArgs e)
-        {
-           
-        }
-
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
     }
 }

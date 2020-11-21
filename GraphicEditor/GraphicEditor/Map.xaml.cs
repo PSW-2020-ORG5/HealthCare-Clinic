@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,7 +22,6 @@ namespace GraphicEditor
         {
             InitializeComponent();
         }
-
         public void MainObjects(object sender, RoutedEventArgs e)
         {
             List<Rectangle> rectangles = new List<Rectangle>();
