@@ -15,7 +15,7 @@ pool:
 steps:
 - script: |
    pip install $(GIT)
-   python premissions.py $USERNAME $PASS push
+   python DevOps/premissions.py $USERNAME $PASS push
   env:
     USERNAME: $(username)
     PASS: $(pass)
