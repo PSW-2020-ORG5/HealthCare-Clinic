@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Shapes;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace GraphicEditor
 {
-
     class Rect
     {
         public int Width { get; set; }
@@ -67,15 +64,15 @@ namespace GraphicEditor
                 r.Width = rect.Width;
                 r.Height = rect.Height;
                 r.Fill = rect.Color;
-               
+
 
                 // ... Set canvas position based on Rect object.
                 Canvas.SetLeft(r, rect.Left);
                 Canvas.SetTop(r, rect.Top);
-              
+
                 // ... Add to canvas.
                 canvas.Children.Add(r);
-                
+
 
                 rectangles.Add(r);
             }

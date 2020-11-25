@@ -6,8 +6,7 @@
       xmlns:local="clr-namespace:GraphicEditor"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Map"
-      Loaded="MainObjects">
+      Title="Map">
 
     <Grid>
         <Canvas HorizontalAlignment="Left" Height="319" Margin="0"

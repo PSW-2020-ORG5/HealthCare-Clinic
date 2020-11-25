@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicEditor", "GraphicEditor\GraphicEditor.csproj", "{333CC8D4-0243-4D31-BE05-E3F482ACE714}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphicEditor", "GraphicEditor\GraphicEditor.csproj", "{4979E51A-744C-4B46-A954-908D147D69DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{333CC8D4-0243-4D31-BE05-E3F482ACE714}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{333CC8D4-0243-4D31-BE05-E3F482ACE714}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{333CC8D4-0243-4D31-BE05-E3F482ACE714}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{333CC8D4-0243-4D31-BE05-E3F482ACE714}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4979E51A-744C-4B46-A954-908D147D69DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4979E51A-744C-4B46-A954-908D147D69DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4979E51A-744C-4B46-A954-908D147D69DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4979E51A-744C-4B46-A954-908D147D69DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C3C37482-F327-4A5C-AA88-3A46A46A4A38}
+		SolutionGuid = {A4AC694E-0AB7-4971-BF4C-E29C30DFCFAD}
 	EndGlobalSection
 EndGlobal
