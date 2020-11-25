@@ -8,21 +8,15 @@ using System.Windows.Media;
 
 namespace GraphicEditor
 {
-    class Rect
-    {
-        public int Width { get; set; }
-        public int Height { get; set; }
-        public int Left { get; set; }
-        public int Top { get; set; }
-        public string Id { get; set; }
-        public SolidColorBrush Color { get; set; }
-    }
+    //
+
     class LoadObject
     {
-        public List<Rect> LoadFromFile(string textFile)
+        public List<Rect> LoadFromFile(string textFile1)
         {
             List<Rect> rectangles = new List<Rect>();
-
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
+            string textFile = path + textFile1;
             if (File.Exists(textFile))
             {
                 // Read a text file line by line.  
@@ -49,11 +43,11 @@ namespace GraphicEditor
             }
             return rectangles;
         }
-        public List<Rectangle> Window_Loaded(string textFile, Canvas canvas)
+        public List<Rectangle> Window_Loaded(string textFile, Canvas canvas, List<Rect> rects)
         {
             // ... Create list of our Rect objects.
-            List<Rect> rects = new List<Rect>();
-            rects = LoadFromFile(textFile);
+            // List<Rect1> rects = new List<Rect1>();
+            //rects = LoadFromFile(textFile);
 
             List<Rectangle> rectangles = new List<Rectangle>();
             foreach (Rect rect in rects)
@@ -65,18 +59,18 @@ namespace GraphicEditor
                 r.Height = rect.Height;
                 r.Fill = rect.Color;
 
-
-                // ... Set canvas position based on Rect object.
-                Canvas.SetLeft(r, rect.Left);
-                Canvas.SetTop(r, rect.Top);
-
-                // ... Add to canvas.
-                canvas.Children.Add(r);
-
-
+                setOnCanvas( r, rect, canvas);
                 rectangles.Add(r);
             }
             return rectangles;
+        }
+        public void setOnCanvas( Rectangle r, Rect r1, Canvas canvas)
+        {
+            Canvas.SetLeft(r, r1.Left);
+            Canvas.SetTop(r, r1.Top);
+
+            // ... Add to canvas.
+            canvas.Children.Add(r);
         }
     }
 }
