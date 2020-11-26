@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Health_Clinic_Web_App", "Health_Clinic_Web_App.csproj", "{2A78C832-CAEC-45B7-8FA8-1F88F18B3676}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Health_Clinic_Web_App", "Health_Clinic_Web_App.csproj", "{2A78C832-CAEC-45B7-8FA8-1F88F18B3676}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdapters", "..\IntegrationAdapters\IntegrationAdapters\IntegrationAdapters.csproj", "{88298CD7-597F-4236-BCA4-3EFD1326B9BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationAdaptersTests", "..\IntegrationAdapters\IntegrationAdaptersTests\IntegrationAdaptersTests.csproj", "{C4826515-074B-49FC-8BA5-ECEB4E8F441F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{2A78C832-CAEC-45B7-8FA8-1F88F18B3676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A78C832-CAEC-45B7-8FA8-1F88F18B3676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A78C832-CAEC-45B7-8FA8-1F88F18B3676}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88298CD7-597F-4236-BCA4-3EFD1326B9BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88298CD7-597F-4236-BCA4-3EFD1326B9BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88298CD7-597F-4236-BCA4-3EFD1326B9BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88298CD7-597F-4236-BCA4-3EFD1326B9BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4826515-074B-49FC-8BA5-ECEB4E8F441F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4826515-074B-49FC-8BA5-ECEB4E8F441F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4826515-074B-49FC-8BA5-ECEB4E8F441F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4826515-074B-49FC-8BA5-ECEB4E8F441F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
