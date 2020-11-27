@@ -27,9 +27,7 @@ namespace GraphicEditor
         {
             List<Rectangle> rectangles = new List<Rectangle>();
             LoadObject o = new LoadObject();
-            // string textFile = "../../../MapData/MainObjects.txt";
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.Parent.FullName;
-            Console.WriteLine(path);
             string textFile = "\\MapData\\MainObjects.txt";
             List<Rect> rectangles1 = new List<Rect>();
             rectangles1 = o.LoadFromFile(textFile);

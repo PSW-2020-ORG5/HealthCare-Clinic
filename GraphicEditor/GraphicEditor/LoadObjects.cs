@@ -14,6 +14,7 @@ namespace GraphicEditor
     {
         public List<Rect> LoadFromFile(string textFile1)
         {
+            // ... Create list of our Rect objects.
             List<Rect> rectangles = new List<Rect>();
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
             string textFile = path + textFile1;
@@ -45,10 +46,6 @@ namespace GraphicEditor
         }
         public List<Rectangle> Window_Loaded(string textFile, Canvas canvas, List<Rect> rects)
         {
-            // ... Create list of our Rect objects.
-            // List<Rect1> rects = new List<Rect1>();
-            //rects = LoadFromFile(textFile);
-
             List<Rectangle> rectangles = new List<Rectangle>();
             foreach (Rect rect in rects)
             {
@@ -58,19 +55,24 @@ namespace GraphicEditor
                 r.Width = rect.Width;
                 r.Height = rect.Height;
                 r.Fill = rect.Color;
-
-                setOnCanvas( r, rect, canvas);
+                Label l = new Label();
+                l.Content = rect.Id;
+                l.FontSize = 14;
+                setOnCanvas(l, r, rect, canvas);
                 rectangles.Add(r);
             }
             return rectangles;
         }
-        public void setOnCanvas( Rectangle r, Rect r1, Canvas canvas)
+        public void setOnCanvas(Label l, Rectangle r, Rect r1, Canvas canvas)
         {
             Canvas.SetLeft(r, r1.Left);
             Canvas.SetTop(r, r1.Top);
-
+            Canvas.SetLeft(l, r1.Left);
+            Canvas.SetTop(l, r1.Top);
+            
             // ... Add to canvas.
             canvas.Children.Add(r);
+            canvas.Children.Add(l);
         }
     }
 }
