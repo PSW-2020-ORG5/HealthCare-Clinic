@@ -2,9 +2,7 @@
 using IntegrationAdapters.Services.TestServices;
 using Moq;
 using Shouldly;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace IntegrationAdaptersTests.UnitTests
@@ -16,11 +14,11 @@ namespace IntegrationAdaptersTests.UnitTests
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
 
-            mockDBContext.Setup(t => t.GetApis()).Returns( new List<Api> { new Api() { api_key = "key1", name = "name1" },
+            mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
 
-            ApiKeyServiceTest service = new ApiKeyServiceTest();        
+            ApiKeyServiceTest service = new ApiKeyServiceTest();
             service.GetNumberOfApiKeys(mockDBContext.Object).ShouldBe(2);
         }
         [Fact]
@@ -28,20 +26,20 @@ namespace IntegrationAdaptersTests.UnitTests
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
 
-            mockDBContext.Setup(t => t.GetApis()).Returns( new List<Api> { new Api() { api_key = "key1", name = "name1" },
+            mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
 
             ApiKeyServiceTest service = new ApiKeyServiceTest();
             service.SaveKey(mockDBContext.Object, new Api() { api_key = "key", name = "" }).ShouldBe(2);
         }
-        
+
         [Fact]
         public void Save_key_with_name()
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
 
-            mockDBContext.Setup(t => t.GetApis()).Returns( new List<Api> { new Api() { api_key = "key1", name = "name1" },
+            mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
 
@@ -54,7 +52,7 @@ namespace IntegrationAdaptersTests.UnitTests
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
 
-            mockDBContext.Setup(t => t.GetApis()).Returns( new List<Api> { new Api() { api_key = "key1", name = "name1" },
+            mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
 
@@ -67,7 +65,7 @@ namespace IntegrationAdaptersTests.UnitTests
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
 
-            mockDBContext.Setup(t => t.GetApis()).Returns( new List<Api> { new Api() { api_key = "key1", name = "name1" },
+            mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
 

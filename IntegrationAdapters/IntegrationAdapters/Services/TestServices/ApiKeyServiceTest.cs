@@ -1,8 +1,6 @@
 ﻿using IntegrationAdapters.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IntegrationAdapters.Services.TestServices
 {
@@ -10,7 +8,7 @@ namespace IntegrationAdapters.Services.TestServices
     {
         public int GetNumberOfApiKeys(IMyDbContext myDbContext)
         {
-            return myDbContext.GetApis().Count();
+            return myDbContext.GetApis().Count;
         }
 
         public int SaveKey(IMyDbContext myDbContext, Api key)
@@ -20,7 +18,7 @@ namespace IntegrationAdapters.Services.TestServices
 
             myDbContext.GetApis().Add(key);
 
-            return myDbContext.GetApis().Count();
+            return myDbContext.GetApis().Count;
         }
 
         public Api GetKey(IMyDbContext myDbContext, String name)
