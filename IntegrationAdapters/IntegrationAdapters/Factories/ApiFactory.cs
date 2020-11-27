@@ -11,9 +11,9 @@ namespace IntegrationAdapters.Factories
 
         public ApiFactory()
         {
-            apis = new Dictionary<string, IApiAdapter>();
-            // poslati http get zahtev na /api/api koji vraca listu api-a i kesirati u hashmapu - problem sa async task-om kako ga pozvati odavde        
-
+            apis = new Dictionary<string, IApiAdapter>();      
+            // TODO: Send http request from here to lh:port/api/api to get list of apis and cache them into the dictionary, talk to PO about this issue
+            
         }
 
         public static ApiFactory getInstance()
