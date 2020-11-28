@@ -1,5 +1,5 @@
 FROM node:10-alpine as build-step
-RUN mkdir /app/build
+RUN mkdir -p /app/build
 COPY /build/. /app/build/
 # Stage 2
 FROM nginx:1.17.1-alpine
