@@ -1,3 +1,17 @@
+
+# Step 1
+
+FROM node:10-alpine as build-step
+
+RUN mkdir /app
+
+WORKDIR /app
+
+COPY build /app/
+
+
 # Stage 2
+
 FROM nginx:1.17.1-alpine
-COPY home/vsts/work/1/s/WEB_Project_React/react-app/build /usr/share/nginx/html
+
+COPY --from=build-step /app/build /usr/share/nginx/html
