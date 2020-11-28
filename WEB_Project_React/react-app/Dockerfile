@@ -7,7 +7,7 @@ RUN mkdir /app
 
 WORKDIR /app
 
-COPY build /app/
+COPY . app/
 
 
 # Stage 2
