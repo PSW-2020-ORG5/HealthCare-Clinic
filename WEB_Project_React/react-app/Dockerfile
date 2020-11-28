@@ -9,6 +9,7 @@ WORKDIR /app
 
 COPY . app/
 
+RUN ls /app
 
 # Stage 2
 
