@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using IntegrationAdapters.Models;
 using IntegrationAdapters.Repositories.DbContexts;
+using IntegrationAdapters.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegrationAdapters.Controllers
@@ -10,32 +10,28 @@ namespace IntegrationAdapters.Controllers
     [ApiController]
     public class ApiController : ControllerBase
     {
-        private readonly MyDbContext dbContext;
+        private readonly ApiKeyService apiKeyService;
 
         public ApiController(MyDbContext context)
         {
-            this.dbContext = context;
+            this.apiKeyService = new ApiKeyService(context);
         }
+
         [HttpGet] // GET /api/api
         public IActionResult Get()
         {
-            List<Api> result = new List<Api>();
-            dbContext.Apis.ToList().ForEach(api => result.Add(api));
+            List<Api> result = apiKeyService.GetAll(); 
+         
             return Ok(result);
         }
 
         [HttpGet("{id?}")] // get api/api/
         public IActionResult Get(string id)
         {
-            List<Api> result = new List<Api>();
-            dbContext.Apis.ToList().ForEach(api => result.Add(api));
-            foreach(var api in result)
-            {
-                if (api.name == id)
-                    return Ok(api);
-            }
+            Api api = apiKeyService.GetById(id);
+            if (api == null) return NotFound();
 
-            return NotFound();
+            return Ok(api);
         }
 
         [HttpPost("save")] // post api/api
@@ -43,12 +39,9 @@ namespace IntegrationAdapters.Controllers
         public IActionResult Post(Api api)
         {
             if (api.name == "") return BadRequest();
-         
-            dbContext.Apis.Add(api);
-            dbContext.SaveChanges();
-            return Ok();
-            
-        }
+            apiKeyService.Save(api);
 
+            return Ok();           
+        }
     }
 }
