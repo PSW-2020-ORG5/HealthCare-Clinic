@@ -6,26 +6,23 @@ namespace IntegrationAdapters.Factories
 {
     public class ApiFactory
     {
-        private Dictionary<string, IApiAdapter> apis { get; set; }
-        private static ApiFactory instance = new ApiFactory();
+        private Dictionary<string, IApiAdapter> Apis { get; set; }
+        private static readonly ApiFactory instance = new ApiFactory();
 
         public ApiFactory()
         {
-            apis = new Dictionary<string, IApiAdapter>();      
-            // TODO: Send http request from here to lh:port/api/api to get list of apis and cache them into the dictionary, talk to PO about this issue
-            
+            Apis = new Dictionary<string, IApiAdapter>();
+            // TODO: Send http request from here to lh:port/api/api to get list of apis and cache them into the dictionary, talk to PO about this issue   
         }
 
-        public static ApiFactory getInstance()
+        public static ApiFactory GetInstance()
         {
             return instance;
         }
 
-        public IApiAdapter getApi(string apiKey)
+        public IApiAdapter GetApi(string apiKey)
         {
-            return apis[apiKey];
+            return Apis[apiKey];
         }
-        
-
     }
 }

@@ -13,7 +13,6 @@ namespace IntegrationAdaptersTests.UnitTests
         public void Find_all_api_keys()
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
-
             mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
@@ -25,7 +24,6 @@ namespace IntegrationAdaptersTests.UnitTests
         public void Save_key_without_name()
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
-
             mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
@@ -38,7 +36,6 @@ namespace IntegrationAdaptersTests.UnitTests
         public void Save_key_with_name()
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
-
             mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
@@ -51,7 +48,6 @@ namespace IntegrationAdaptersTests.UnitTests
         public void Get_existing_key()
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
-
             mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
@@ -64,7 +60,6 @@ namespace IntegrationAdaptersTests.UnitTests
         public void Get_none_existing_key()
         {
             Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
-
             mockDBContext.Setup(t => t.GetApis()).Returns(new List<Api> { new Api() { api_key = "key1", name = "name1" },
                                                                            new Api() { api_key = "key2", name = "name2" }
                                                                          });
