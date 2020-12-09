@@ -1,7 +1,10 @@
-﻿using System;
+﻿using GraphicEditor;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,37 +14,35 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Rect = GraphicEditor.Rect;
+//using HospitalMap.dodatneInfo;
 
-namespace GraphicEditor
+namespace HospitalMap
 {
     /// <summary>
-    /// Interaction logic for Map.xaml
+    /// Interaction logic for MainBuildingFloor0.xaml
     /// </summary>
-    public partial class Map : Page
+
+    public partial class Building2Floor2 : Page
     {
-        public Map()
+        public Building2Floor2()
         {
             InitializeComponent();
         }
-        public void MainObjects(object sender, RoutedEventArgs e)
+
+        public void Building2Objects(object sender, RoutedEventArgs e)
         {
             List<Rectangle> rectangles = new List<Rectangle>();
-            LoadObject o = new LoadObject();
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.Parent.FullName;
-            string textFile = "\\MapData\\MainObjects.txt";
+            string textFile = "\\MapData\\Building2Floor2.txt";
+            LoadObject o = new LoadObject();
             List<Rect> rectangles1 = new List<Rect>();
             rectangles1 = o.LoadFromFile(textFile);
-            rectangles = o.Window_Loaded(textFile, Can1, rectangles1);
-
+            rectangles = o.Window_Loaded(textFile, CanB2F2, rectangles1);
             foreach (Rectangle rectangle in rectangles)
             {
-                rectangle.MouseLeftButtonDown += KlikNaZgradu;
-                //rectangle.MouseRightButtonDown += ChangeBasicInfo;
+                rectangle.MouseDown += KlikNaZgradu;
             }
-
-
-
-
 
         }
 
@@ -53,18 +54,10 @@ namespace GraphicEditor
             {
                 string elementName = mouseWasDownOn.Name;
                 Console.WriteLine(elementName);
-                if (elementName.Equals("Building1"))
+                /*if (MainWindow.user.Equals("di") || MainWindow.user.Equals("pa"))
                 {
-                    NavigationService.Navigate(new HospitalMap.Building1Floor0());
-
-                }
-               /* else if (elementName.Equals("MainBuilding"))
-                {
-                    NavigationService.Navigate(new MainBuildingFloor0());
-                }
-                else if (elementName.Equals("Building2"))
-                {
-                    NavigationService.Navigate(new Building2Floor0());
+                    var s = new OrdinationData(elementName);
+                    s.ShowDialog();
                 } */
             }
 

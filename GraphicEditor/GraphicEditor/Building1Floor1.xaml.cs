@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,37 +13,35 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using GraphicEditor;
+//using HospitalMap.dodatneInfo;
 
-namespace GraphicEditor
+namespace HospitalMap
 {
     /// <summary>
-    /// Interaction logic for Map.xaml
+    /// Interaction logic for MainBuildingFloor0.xaml
     /// </summary>
-    public partial class Map : Page
+
+    public partial class Building1Floor1 : Page
     {
-        public Map()
+        public Building1Floor1()
         {
             InitializeComponent();
         }
-        public void MainObjects(object sender, RoutedEventArgs e)
+
+        public void Building1Objects(object sender, RoutedEventArgs e)
         {
             List<Rectangle> rectangles = new List<Rectangle>();
-            LoadObject o = new LoadObject();
             string path = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.Parent.FullName;
-            string textFile = "\\MapData\\MainObjects.txt";
-            List<Rect> rectangles1 = new List<Rect>();
+            string textFile = "\\MapData\\Building1Floor1.txt";
+            LoadObject o = new LoadObject();
+            List<GraphicEditor.Rect> rectangles1 = new List<GraphicEditor.Rect>();
             rectangles1 = o.LoadFromFile(textFile);
-            rectangles = o.Window_Loaded(textFile, Can1, rectangles1);
-
+            rectangles = o.Window_Loaded(textFile, CanB1F1, rectangles1);
             foreach (Rectangle rectangle in rectangles)
             {
-                rectangle.MouseLeftButtonDown += KlikNaZgradu;
-                //rectangle.MouseRightButtonDown += ChangeBasicInfo;
+                rectangle.MouseDown += KlikNaZgradu;
             }
-
-
-
-
 
         }
 
@@ -53,19 +53,12 @@ namespace GraphicEditor
             {
                 string elementName = mouseWasDownOn.Name;
                 Console.WriteLine(elementName);
-                if (elementName.Equals("Building1"))
-                {
-                    NavigationService.Navigate(new HospitalMap.Building1Floor0());
 
-                }
-               /* else if (elementName.Equals("MainBuilding"))
-                {
-                    NavigationService.Navigate(new MainBuildingFloor0());
-                }
-                else if (elementName.Equals("Building2"))
-                {
-                    NavigationService.Navigate(new Building2Floor0());
-                } */
+               // if (MainWindow.user.Equals("di") || MainWindow.user.Equals("pa"))
+               // {
+                    //var s = new RoomData(elementName);
+                   // s.ShowDialog();
+               // }
             }
 
         }

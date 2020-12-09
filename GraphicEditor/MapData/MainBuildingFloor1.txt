@@ -1,0 +1,10 @@
+Stairs,80,63,0,0,255,192,203
+Elevator,80,63,712,0,255,165,0
+WomensCare,240,63,80,0,0,0,139
+Ortopedics,260,63,320,0,139,0,0
+Toilet,132,63,580,0,0,100,0
+Building1Door,58,172,0,123,0,0,0
+Building2Door,58,172,734,123,0,0,0
+FamilyMedicine,438,100,0,319,255,255,0
+ChildrensCare,354,100,438,319,186,85,211
+MainBuildingFloor1,120,10,305,210,211,211,211
