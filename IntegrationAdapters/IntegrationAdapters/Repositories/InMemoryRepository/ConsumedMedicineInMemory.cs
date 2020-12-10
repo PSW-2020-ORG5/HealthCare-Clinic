@@ -6,7 +6,7 @@ namespace IntegrationAdapters.Repositories.InMemoryRepository
 {
     public class ConsumedMedicineInMemory
     {
-        private List<ConsumedMedicine> consumedMedicines = new List<ConsumedMedicine>();
+        private readonly List<ConsumedMedicine> consumedMedicines = new List<ConsumedMedicine>();
 
         private static ConsumedMedicineInMemory instance = new ConsumedMedicineInMemory();
 

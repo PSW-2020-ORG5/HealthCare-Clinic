@@ -12,7 +12,6 @@ namespace IntegrationAdapters.Factories
         public ApiFactory()
         {
             Apis = new Dictionary<string, IApiAdapter>();
-            // TODO: Send http request from here to lh:port/api/api to get list of apis and cache them into the dictionary, talk to PO about this issue   
         }
 
         public static ApiFactory GetInstance()

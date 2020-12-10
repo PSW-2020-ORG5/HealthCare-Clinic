@@ -30,7 +30,7 @@ namespace IntegrationAdapters.Services
             
             string filename = "Report " + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss") + ".txt";
             File.WriteAllLines(Environment.CurrentDirectory + Path.DirectorySeparatorChar + filename, output.ToArray());
-            string path = Environment.CurrentDirectory + Path.DirectorySeparatorChar + filename;
+            
 
             Upload(filename);
         }
@@ -54,8 +54,7 @@ namespace IntegrationAdapters.Services
         }
 
         private List<ConsumedMedicine> GetConsumedMedicineBetweenTwoDates(DateTime start, DateTime end)
-        {
-            //ConsumedMedicineInMemory consumedMedicineInMemory = ConsumedMedicineInMemory.GetInstance();
+        {           
             List<ConsumedMedicine> consumed = ConsumedMedicineInMemory.GetInstance().GetMedicine();
             List<ConsumedMedicine> result = new List<ConsumedMedicine>();
 
@@ -79,17 +78,6 @@ namespace IntegrationAdapters.Services
             return output;
         }
 
-        private void SendReportSFTP(string path, string filename)
-        {
-            var Creds = ServerCredentialsDto.GetInstance();
-            using SftpClient client = new SftpClient(new PasswordConnectionInfo(Creds.Ip, Creds.Username, Creds.Password));
-            client.Connect();
-            using (Stream stream = File.OpenRead(path))
-            {
-                Console.WriteLine(filename);
-                client.UploadFile(stream, Creds.ServerFolder + Path.DirectorySeparatorChar + filename, x => { System.Console.WriteLine(x); });
-            }
-            client.Disconnect();
-        }
+        
     }
 }
