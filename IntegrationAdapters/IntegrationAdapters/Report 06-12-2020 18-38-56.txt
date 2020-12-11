@@ -1,0 +1,3 @@
+Aspirin // 50
+Brufen // 30
+Andol // 15
