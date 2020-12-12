@@ -1,6 +1,8 @@
-﻿using IntegrationAdapters.Services.TestServices;
+﻿using IntegrationAdapters.Dtos;
+using IntegrationAdapters.Services.TestServices;
 using Moq;
 using Shouldly;
+using System.IO;
 using Xunit;
 
 namespace IntegrationAdaptersTests.UnitTests
@@ -12,7 +14,8 @@ namespace IntegrationAdaptersTests.UnitTests
         {
             Mock<IConsumptionReport> consReport = new Mock<IConsumptionReport>();
 
-            consReport.Setup(t => t.UploadFileToServer()).Returns(@"C:\Users\DANILO\Desktop\REBEX\data\publicXYZ\abc.txt");
+            consReport.Setup(t => t.UploadFileToServer()).Returns(ServerCredentialsDto.GetInstance().ServerFolder + Path.DirectorySeparatorChar + "abc.txt");
+
 
             ReportServiceTest repServTest = new ReportServiceTest();
             repServTest.UploadFileAndCheckIfItExists(consReport.Object).ShouldBe(true);
@@ -23,7 +26,7 @@ namespace IntegrationAdaptersTests.UnitTests
         {
             Mock<IConsumptionReport> consReport = new Mock<IConsumptionReport>();
 
-            consReport.Setup(t => t.UploadFileToServer()).Returns(@"C:\Users\DANILO\Desktop\REBEX\data\publicXYZ\abcddd.txt");
+            consReport.Setup(t => t.UploadFileToServer()).Returns(ServerCredentialsDto.GetInstance().ServerFolder + Path.DirectorySeparatorChar + "abcddd.txt");
 
             ReportServiceTest repServTest = new ReportServiceTest();
             repServTest.UploadFileAndCheckIfItExists(consReport.Object).ShouldBe(false);

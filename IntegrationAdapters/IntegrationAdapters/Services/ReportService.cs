@@ -24,6 +24,23 @@ namespace IntegrationAdapters.Services
             client.Disconnect();
         }
 
+        public void DownloadFile(string FileName)
+        {
+            var Creds = ServerCredentialsDto.GetInstance();
+            using SftpClient client = new SftpClient(new PasswordConnectionInfo(Creds.Ip, Creds.Username, Creds.Password));
+            client.Connect();
+            string sourceFile = ServerCredentialsDto.GetInstance().ServerFolder + Path.DirectorySeparatorChar + FileName;
+
+            using (Stream fileStream = File.OpenWrite("MedSpec"  + Path.DirectorySeparatorChar + FileName + ".txt"))
+            {
+                client.DownloadFile(FileName + ".txt", fileStream);
+            }
+
+            client.Disconnect();
+        }
+
+
+
         public void GenerateConsumptionReportBetweenTwoDates(PeriodDto periodDTO)
         {
             List<string> output = GetDataForReport(periodDTO);

@@ -2,6 +2,7 @@
 using IntegrationAdapters.Models;
 using IntegrationAdapters.Repositories.DbContexts;
 using IntegrationAdapters.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IntegrationAdapters.Controllers
@@ -18,6 +19,7 @@ namespace IntegrationAdapters.Controllers
         }
 
         [HttpGet] // GET /api/api
+        [EnableCors("Policy")]
         public IActionResult Get()
         {
             List<Api> result = apiKeyService.GetAll(); 

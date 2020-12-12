@@ -1,0 +1,15 @@
+﻿syntax = "proto3";
+
+package rs.ac.uns.ftn.grpc;
+option csharp_namespace = "IntegrationAdapters.Protos";
+
+message MessageProto {  // data that is going to receive
+                        // Ovde mozemo def i ceo obj
+  string message = 1;   // order in which this property goes
+  int64 randomInteger = 2;
+}
+
+message MessageResponseProto {  // returning data type
+  string response = 1;
+  string status = 2;
+}

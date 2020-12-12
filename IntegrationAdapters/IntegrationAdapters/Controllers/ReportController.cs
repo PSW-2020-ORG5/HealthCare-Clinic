@@ -23,6 +23,14 @@ namespace IntegrationAdapters.Controllers
             return Ok();
         }
 
+        [HttpGet("ftp/{FileName}")]
+        public IActionResult Download(string FileName)
+        {
+            reportService.DownloadFile(FileName);
+
+            return Ok();
+        }
+
         [HttpPost("ftp")]
         public IActionResult GenerateConsumptionReportBetweenTwoDates(PeriodDto periodDTO)
         {
