@@ -1,11 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace IntegrationAdapters.Dtos
+﻿namespace IntegrationAdapters.Dtos
 {
     public class ConfigurationDto
     {
@@ -17,8 +10,5 @@ namespace IntegrationAdapters.Dtos
         {
             return instance;
         }
-
-
-
     }
 }
