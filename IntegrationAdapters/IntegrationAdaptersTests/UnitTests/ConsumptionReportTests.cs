@@ -16,7 +16,7 @@ namespace IntegrationAdaptersTests.UnitTests
         {
             Mock<IConsumptionReport> consReport = new Mock<IConsumptionReport>();
 
-            consReport.Setup(t => t.UploadFileToServer()).Returns(ServerCredentialsDto.GetInstance().ServerFolder + Path.DirectorySeparatorChar + "abc.txt");
+            consReport.Setup(t => t.UploadFileToServer()).Returns("ftpsettings.json");
 
             ReportServiceTest repServTest = new ReportServiceTest();
             repServTest.UploadFileAndCheckIfItExists(consReport.Object).ShouldBe(true);
