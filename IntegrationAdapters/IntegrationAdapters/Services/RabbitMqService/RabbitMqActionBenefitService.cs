@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using IntegrationAdapters.Repositories.DbContexts;
+using IntegrationAdapters.Dtos;
 
 namespace Health_Clinic_Integration.Services.RabbitMqService
 {
@@ -51,7 +52,7 @@ namespace Health_Clinic_Integration.Services.RabbitMqService
 
             DbContextOptionsBuilder<MyDbContext> builder = new DbContextOptionsBuilder<MyDbContext>();
 
-            builder.UseMySql("server=localhost;port=3306;database=newmydb;user=root;password=1337")
+            builder.UseMySql(ConfigurationDto.GetInstance().myDbConnectionString)
                     .UseInternalServiceProvider(serviceProvider);
 
             _context = new MyDbContext(builder.Options);
