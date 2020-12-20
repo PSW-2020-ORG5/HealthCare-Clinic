@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Health_Clinic_Integration.Services.RabbitMqService;
-using IntegrationAdapters.Services.GrpcService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -13,9 +12,6 @@ namespace IntegrationAdapters
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("------------==============---------------==============--------");
-            Console.WriteLine(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"));
-            Console.WriteLine("------------==============---------------==============--------");
             Task rabbitMQTask = new Task(() => CreateHostBuilderForMessages(args).Build().Run());
             rabbitMQTask.Start();
             CreateHostBuilder(args).Build().Run();
@@ -25,7 +21,7 @@ namespace IntegrationAdapters
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddHostedService<ClientScheduledService>();
+                    //services.AddHostedService<ClientScheduledService>();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
