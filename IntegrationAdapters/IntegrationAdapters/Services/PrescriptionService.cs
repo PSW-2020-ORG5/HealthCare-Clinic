@@ -1,9 +1,6 @@
 ﻿using IntegrationAdapters.Dtos;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace IntegrationAdapters.Services
 {
@@ -16,20 +13,19 @@ namespace IntegrationAdapters.Services
             string output = "";
             output += prescriptionDto.Patient;
             output += "///";
-
             output += prescriptionDto.Medicine;
             output += "///";
-
             output += prescriptionDto.Amount;
             output += "///";
-
             output += prescriptionDto.Pharmacy;
 
-
-            string filename = "Prescription-" + prescriptionDto.Patient + "-" + DateTime.Now.ToString("dd-MM-yyyy");
+            string filename = "Prescription-" + prescriptionDto.Patient.Replace(" ", "_") + "-" + DateTime.Now.ToString("dd-MM-yyyy");
             File.WriteAllText(Environment.CurrentDirectory + Path.DirectorySeparatorChar + filename + ".txt", output);
 
-            reportservice.Upload(filename + ".txt");
+            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                reportservice.Upload(filename + ".txt");
+            }
 
             return filename;
         }

@@ -18,7 +18,6 @@ namespace IntegrationAdapters.Services
             string sourceFile = ServerCredentialsDto.GetInstance().SourceFolder + Path.DirectorySeparatorChar + FileName;
             using (Stream stream = File.OpenRead(sourceFile))
             {
-                Console.WriteLine(Creds.ServerFolder + Path.DirectorySeparatorChar + Path.GetFileName(sourceFile) + "*******************************");
                 client.UploadFile(stream, Path.GetFileName(sourceFile) , x => { Console.WriteLine(x); });
             }
             client.Disconnect();
@@ -35,11 +34,8 @@ namespace IntegrationAdapters.Services
             {
                 client.DownloadFile(FileName + ".txt", fileStream);
             }
-
             client.Disconnect();
         }
-
-
 
         public void GenerateConsumptionReportBetweenTwoDates(PeriodDto periodDTO)
         {
@@ -48,7 +44,6 @@ namespace IntegrationAdapters.Services
             string filename = "Report " + DateTime.Now.ToString("dd-MM-yyyy HH-mm-ss") + ".txt";
             File.WriteAllLines(Environment.CurrentDirectory + Path.DirectorySeparatorChar + filename, output.ToArray());
             
-
             Upload(filename);
         }
 

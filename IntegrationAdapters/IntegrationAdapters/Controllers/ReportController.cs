@@ -38,5 +38,6 @@ namespace IntegrationAdapters.Controllers
 
             return Ok();
         }
+
     }
 }
