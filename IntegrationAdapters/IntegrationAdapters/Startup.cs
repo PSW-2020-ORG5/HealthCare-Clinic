@@ -1,5 +1,6 @@
 using Grpc.Core;
 using IntegrationAdapters.Protos;
+using IntegrationAdapters.Dtos;
 using IntegrationAdapters.Repositories.DbContexts;
 using IntegrationAdapters.Services.GrpcService;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,8 @@ namespace IntegrationAdapters
 
             });
 
+            ConfigurationDto instance = ConfigurationDto.GetInstance();
+            instance.myDbConnectionString = Configuration.GetConnectionString("MyDbContextConnectionString");
         }
 
         private Server server;
