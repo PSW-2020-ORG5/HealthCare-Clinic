@@ -35,7 +35,7 @@ function getSpec() {
             console.log(xhr.status);
 
             if(xhr.status == "204"){
-                alert("There is no available specification for given Medicine!");
+                //alert("There is no available specification for given Medicine!");
 
                 $.ajax({
                     type: "GET",
@@ -53,7 +53,7 @@ function getSpec() {
                 })
     
             } else {
-                alert("Opened the specification file for you!");
+                //alert("Opened the specification file for you!");
             }
         }
     });
@@ -99,7 +99,7 @@ function sendPrescription(){
         success : function(data) { 
             console.log(data);  
             var flag = false;
-            alert("Succesfully generated prescription!");
+            //alert("Succesfully generated prescription!");
             
             var message1 = data;
             
@@ -159,7 +159,7 @@ function checkGRPC() {
         contentType : 'application/json',
 
         success : function(data) {                
-            alert(data);
+            //alert(data);
 
             var divi = $("#orderTable"); 
             divi.empty();
@@ -231,7 +231,7 @@ function checkHTTP() {
         contentType : 'application/json',
 
         success : function(data) {                
-            alert(data);
+            //alert(data);
 
             var divi = $("#orderTable"); 
             divi.empty();
