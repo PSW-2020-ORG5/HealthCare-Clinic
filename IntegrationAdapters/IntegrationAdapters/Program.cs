@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Health_Clinic_Integration.Services.RabbitMqService;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +19,10 @@ namespace IntegrationAdapters
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .ConfigureServices((hostContext, services) =>
+                {
+                    //services.AddHostedService<ClientScheduledService>();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
