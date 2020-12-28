@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using IntegrationAdapters.Dtos;
 using IntegrationAdapters.Models;
 using IntegrationAdapters.Repositories.DbContexts;
+using IntegrationAdapters.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,48 +15,34 @@ namespace IntegrationAdapters.Controllers
     [ApiController]
     public class TenderController : ControllerBase
     {
-        private readonly MyDbContext dbContext;
+        private readonly TenderService tenderService;
 
         public TenderController(MyDbContext context)
         {
-            this.dbContext = context;
+            this.tenderService = new TenderService(context);
         }
 
         [HttpPost("publish")]
         public IActionResult Publish(TenderDto tenderDto)
         {
-            Console.WriteLine("**********************");
-            Console.WriteLine(tenderDto.Name);
-            Console.WriteLine(tenderDto.ClosingDate);
-            
-            foreach(var med in tenderDto.RequiredMedicine)
-            {
-                // do something with entry.Value or entry.Key
-                Console.WriteLine(med.Name + ' ' + med.Amount);
-            }
-
-            try
-            {
-                dbContext.Tenders.Add(ObjectConversion.ConversionService.GetInstance().ConvertTenderDtoToTender(tenderDto));
-                dbContext.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                //Console.WriteLine(e.Message);
-                Console.WriteLine("zzzzzzzzzzzzzzzz");
-            }
-
+            tenderService.PublishTender(tenderDto);
             return Ok();
         }
 
         [HttpGet]
         public IActionResult Get()
         {
-            List<Tender> result = new List<Tender>();
-            dbContext.Tenders.ToList().ForEach(tender => result.Add(tender));
-
+            List<Tender> result = tenderService.GetAll();
             return Ok(result);
         }
 
+        [HttpGet("{id?}")]
+        public IActionResult Get(string id)
+        {
+            Tender tender = tenderService.GetById(id);
+            if (tender == null) return NotFound();
+
+            return Ok(tender);
+        }
     }
 }

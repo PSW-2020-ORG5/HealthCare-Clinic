@@ -13,7 +13,6 @@ namespace IntegrationAdapters.Models
         public string id { get; set; }
         public string Name { get; set; }
         public DateTime ClosingDate { get; set; }
-
         public virtual List<MedicineDto> RequiredMedicine { get; set; }
 
         public Tender()
@@ -23,6 +22,14 @@ namespace IntegrationAdapters.Models
 
         public Tender(string name, DateTime closingDate, List<MedicineDto> requiredMedicine)
         {
+            Name = name;
+            ClosingDate = closingDate;
+            RequiredMedicine = requiredMedicine;
+        }
+
+        public Tender(string id, string name, DateTime closingDate, List<MedicineDto> requiredMedicine)
+        {
+            this.id = id;
             Name = name;
             ClosingDate = closingDate;
             RequiredMedicine = requiredMedicine;

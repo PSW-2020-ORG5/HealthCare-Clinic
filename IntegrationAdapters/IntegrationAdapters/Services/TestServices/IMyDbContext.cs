@@ -8,5 +8,6 @@ namespace IntegrationAdapters.Services.TestServices
     {
         List<Api> GetApis();
         List<ActionBenefit> GetActionsBenefits();
+        List<Tender> GetTenders();
     }
 }
