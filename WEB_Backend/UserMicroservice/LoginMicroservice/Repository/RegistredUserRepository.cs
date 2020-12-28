@@ -8,9 +8,9 @@ namespace LoginMicroservice.Repository
 {
     public class RegistredUserRepository: IRegistredUsers
     {
-        private readonly LoginDbContext dbContext;
+        private readonly UserDbContext dbContext;
 
-        public RegistredUserRepository(LoginDbContext context)
+        public RegistredUserRepository(UserDbContext context)
         {
             this.dbContext = context;
         }

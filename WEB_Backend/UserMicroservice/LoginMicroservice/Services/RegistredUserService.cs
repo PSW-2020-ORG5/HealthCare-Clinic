@@ -12,7 +12,7 @@ namespace LoginMicroservice.Services
     {
         private readonly IRegistredUsers repository;
 
-        public RegistredUserService(LoginDbContext dbContext)
+        public RegistredUserService(UserDbContext dbContext)
         {
             this.repository = new RegistredUserRepository(dbContext);
         }

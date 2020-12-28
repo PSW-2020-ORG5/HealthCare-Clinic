@@ -54,7 +54,7 @@ namespace LoginMicroservice
             });
 
             services.AddSingleton<IJWTAuthenticationManager>(new JWTAuthenticationManager(tokenKey));
-            services.AddDbContext<LoginDbContext>(options =>
+            services.AddDbContext<UserDbContext>(options =>
                     options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbContextConnectionString")).UseLazyLoadingProxies(), ServiceLifetime.Transient);
         }
 
@@ -65,6 +65,10 @@ namespace LoginMicroservice
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(options =>
+            options.WithOrigins("http://localhost:8081")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
 
             app.UseHttpsRedirection();
 

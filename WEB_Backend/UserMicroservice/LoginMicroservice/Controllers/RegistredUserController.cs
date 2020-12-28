@@ -20,7 +20,7 @@ namespace LoginMicroservice.Controllers
         private readonly RegistredUserService service;
         private readonly IJWTAuthenticationManager jWTAuthenticationManager;
 
-        public RegistredUserController(LoginDbContext dbContext, IJWTAuthenticationManager jWT)
+        public RegistredUserController(UserDbContext dbContext, IJWTAuthenticationManager jWT)
         {
             this.service = new RegistredUserService(dbContext);
             this.jWTAuthenticationManager = jWT;
@@ -39,7 +39,9 @@ namespace LoginMicroservice.Controllers
             if (user != null)
             {
                 var token = jWTAuthenticationManager.Authenticate(user.Username, user.Password);
-                return Ok(token);
+                userDTO.Token = token;
+                userDTO.Role = user.Role;
+                return Ok(userDTO);
             }
             return Unauthorized();
         }

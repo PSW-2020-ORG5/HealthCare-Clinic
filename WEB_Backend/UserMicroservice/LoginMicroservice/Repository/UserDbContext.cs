@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Model.BusinessHours;
 using Model.Users;
 using System;
 using System.Collections.Generic;
@@ -7,12 +8,16 @@ using System.Threading.Tasks;
 
 namespace LoginMicroservice.Repository
 {
-    public class LoginDbContext: DbContext
+    public class UserDbContext : DbContext
     {
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
 
-        public LoginDbContext() : base() { }
-        public LoginDbContext(DbContextOptions<LoginDbContext> options) : base(options) { }
+        //public DbSet<BusinessHoursModel> BusinessHours {get;set;}
+        public DbSet<PatientModel> Patients { get; set; }
+
+        public UserDbContext() : base() { }
+        public UserDbContext(DbContextOptions<UserDbContext> options) : base(options) { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -37,7 +42,12 @@ namespace LoginMicroservice.Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<RegisteredUser>().HasData(
-                new RegisteredUser { Username="marko1" ,Password="marko1" , Name="Marko", Surname="Markovic",Id=1 ,Email="marko1@gmail.com"});
+                new RegisteredUser { Username="marko1" ,Password="marko1" , Name="Marko", Surname="Markovic",Id=1 ,Email="marko1@gmail.com",Role=UserRole.patient},
+                new RegisteredUser { Username = "marko2", Password = "marko2", Name = "Marko", Surname = "Markovic", Id = 2, Email = "marko1@gmail.com",Role=UserRole.admin});
+
+            modelBuilder.Entity<Doctor>().HasData(
+                new Doctor { Id=4 ,Name="Nikola",Surname="Nikolic",Email="nnikolic@gmail.com",Username="nikola01",Password="nikola02"}
+                );
         }
 
     }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LoginMicroservice.Migrations
 {
-    [DbContext(typeof(LoginDbContext))]
+    [DbContext(typeof(UserDbContext))]
     [Migration("20201224113600_first")]
     partial class first
     {
