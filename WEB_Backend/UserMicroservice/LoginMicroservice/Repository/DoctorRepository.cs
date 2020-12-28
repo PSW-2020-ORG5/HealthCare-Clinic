@@ -21,5 +21,10 @@ namespace UserMicroservice.Repository
             SpecialtyType specialtyType = (SpecialtyType)type;
             return this.dbContext.Doctors.Where(d => d.SpecialtyType == specialtyType).ToList<Doctor>();
         }
+
+        public List<Doctor> GetAll()
+        {
+            return this.dbContext.Doctors.ToList();
+        }
     }
 }
