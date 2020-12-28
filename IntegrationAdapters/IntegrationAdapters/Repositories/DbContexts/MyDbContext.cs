@@ -9,6 +9,7 @@ namespace IntegrationAdapters.Repositories.DbContexts
     {
         public DbSet<Api> Apis { get; set; }
         public DbSet<ActionBenefit> ActionsBenefits { get; set; }
+        public DbSet<Tender> Tenders { get; set; }
 
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
         {
