@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IntegrationAdapters.Dtos;
+using IntegrationAdapters.Models;
 using IntegrationAdapters.Repositories.DbContexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +34,27 @@ namespace IntegrationAdapters.Controllers
                 Console.WriteLine(med.Name + ' ' + med.Amount);
             }
 
-            dbContext.Tenders.Add(ObjectConversion.ConversionService.GetInstance().ConvertTenderDtoToTender(tenderDto));
-            dbContext.SaveChanges();
+            try
+            {
+                dbContext.Tenders.Add(ObjectConversion.ConversionService.GetInstance().ConvertTenderDtoToTender(tenderDto));
+                dbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                //Console.WriteLine(e.Message);
+                Console.WriteLine("zzzzzzzzzzzzzzzz");
+            }
 
             return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            List<Tender> result = new List<Tender>();
+            dbContext.Tenders.ToList().ForEach(tender => result.Add(tender));
+
+            return Ok(result);
         }
 
     }

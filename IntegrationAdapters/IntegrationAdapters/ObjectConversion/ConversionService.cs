@@ -28,6 +28,7 @@ namespace IntegrationAdapters.ObjectConversion
 
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(ret.Name + dto.ClosingDate);
             ret.id = System.Convert.ToBase64String(plainTextBytes);
+            ret.RequiredMedicine = dto.RequiredMedicine;
             return ret;
         }
     }
