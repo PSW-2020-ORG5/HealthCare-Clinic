@@ -10,7 +10,7 @@ namespace LoginMicroservice.Services
 {
     public class RegistredUserService
     {
-        private readonly IRegistredUsers repository;
+        private readonly RegistredUserRepository repository;
 
         public RegistredUserService(UserDbContext dbContext)
         {
@@ -33,6 +33,10 @@ namespace LoginMicroservice.Services
                 }
             }
             return null;
+        }
+        public RegisteredUser GetById(int id)
+        {
+            return repository.GetById(id);
         }
     }
 }

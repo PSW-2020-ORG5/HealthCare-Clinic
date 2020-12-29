@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LoginMicroservice.Controllers
 {
     [Produces("application/json")]
-    [Route("validate")]
+    [Route("api/validate")]
     [ApiController]
     [Authorize]
     public class TokenValidationController:ControllerBase

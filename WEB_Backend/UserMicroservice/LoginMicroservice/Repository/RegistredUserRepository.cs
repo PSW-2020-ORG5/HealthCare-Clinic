@@ -19,5 +19,10 @@ namespace LoginMicroservice.Repository
         {
             return dbContext.RegisteredUsers.ToList();
         }
+
+        public RegisteredUser GetById(int id)
+        {
+            return dbContext.RegisteredUsers.Find(id);
+        }
     }
 }

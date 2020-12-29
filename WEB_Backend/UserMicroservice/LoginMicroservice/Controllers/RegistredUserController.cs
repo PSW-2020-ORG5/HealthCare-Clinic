@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace LoginMicroservice.Controllers
 {
     [Produces("application/json")]
-    [Route("users")]
+    [Route("/api/users")]
     [ApiController]
     public class RegistredUserController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace LoginMicroservice.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            List<RegisteredUser>result = service.GetAll();
+            List<RegisteredUser> result = service.GetAll();
             return Ok(result);
         }
 
@@ -45,5 +45,10 @@ namespace LoginMicroservice.Controllers
             }
             return Unauthorized();
         }
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            return Ok(service.GetById(id));
+        } 
     }
 }

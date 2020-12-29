@@ -9,7 +9,7 @@ using UserMicroservice.Services;
 namespace UserMicroservice.Controllers
 {
     [Produces("application/json")]
-    [Route("doctors")]
+    [Route("api/doctors")]
     [ApiController]
     public class DoctorController : ControllerBase
     {
