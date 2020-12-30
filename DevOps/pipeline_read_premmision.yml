@@ -3,7 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 schedules:
-- cron: "1 23 * * Sun"
+- cron: "1 23 11,25 * Sun"
   displayName: Monday sprint end
   branches:
     include:

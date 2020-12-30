@@ -1,6 +1,6 @@
 schedules:
-- cron: "1 23 * * Tue"
-  displayName: Wed sprint start
+- cron: "1 23 12,26 * Sun"
+  displayName: Tuesday sprint start
   branches:
     include:
     - master
