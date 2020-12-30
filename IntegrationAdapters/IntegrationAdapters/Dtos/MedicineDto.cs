@@ -1,7 +1,10 @@
-﻿namespace IntegrationAdapters.Dtos
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace IntegrationAdapters.Dtos
 {
     public class MedicineDto
     {
+        [Key] 
         public string Name { get; set; }
         public int Amount { get; set; }
 
