@@ -41,6 +41,7 @@ namespace LoginMicroservice.Controllers
                 var token = jWTAuthenticationManager.Authenticate(user.Username, user.Password);
                 userDTO.Token = token;
                 userDTO.Role = user.Role;
+                userDTO.Id = user.Id;
                 return Ok(userDTO);
             }
             return Unauthorized();
