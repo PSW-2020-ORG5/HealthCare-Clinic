@@ -32,12 +32,13 @@ export default {
   },
   methods: {
     submit () {
-      this.$axios.post('https://localhost:44393/users/login', {
+      this.$axios.post('https://localhost:44393/api/users/login', {
         username: this.username,
         password: this.password
       })
         .then(response => {
           localStorage.setItem('user', response.data)
+          localStorage.setItem('role', response.data.role)
           if (response.data.role === 0) { this.$router.push('/adminhome') } else this.$router.push('/')
         })
         .catch(error => {
