@@ -44,6 +44,7 @@ const routes = [
     path: '/forbidden',
     component: () => import('pages/Forbidden.vue')
   }
+
 ]
 
 export default routes
