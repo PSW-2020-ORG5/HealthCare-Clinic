@@ -23,7 +23,7 @@ namespace IntegrationAdapters.ObjectConversion
         {
             var ret = new Tender();
             ret.Name = dto.Name;  
-            DateTime dt = DateTime.ParseExact(dto.ClosingDate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            DateTime dt = DateTime.ParseExact(dto.ClosingDate, "yyyy-mm-dd", CultureInfo.InvariantCulture);
             ret.ClosingDate = dt;
 
             var plainTextBytes = System.Text.Encoding.UTF8.GetBytes(ret.Name + dto.ClosingDate);
