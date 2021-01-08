@@ -38,6 +38,14 @@ namespace IntegrationAdapters.Services
             return result;
         }
 
+        public List<TenderOfferDto> GetAllOffers()
+        {
+            List<TenderOfferDto> result = new List<TenderOfferDto>();
+            dbContext.TenderOffers.ToList().ForEach(tender => result.Add(tender));
+
+            return result;
+        }
+
         public Tender GetById(string id)
         {
             List<Tender> result = new List<Tender>();
@@ -50,6 +58,10 @@ namespace IntegrationAdapters.Services
             return null;
         }
 
-        
+        public void SendOffer(TenderOfferDto tenderOfferDto)
+        {
+            dbContext.TenderOffers.Add(tenderOfferDto);
+            dbContext.SaveChanges();
+        }
     }
 }

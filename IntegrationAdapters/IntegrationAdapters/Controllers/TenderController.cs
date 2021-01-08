@@ -30,6 +30,16 @@ namespace IntegrationAdapters.Controllers
             return Ok();
         }
 
+        [HttpPost("offer")]
+        public IActionResult Publish(TenderOfferDto tenderOfferDto)
+        {
+            Console.WriteLine("entered this00000000000000000000000000000000000000000000");
+            tenderService.SendOffer(tenderOfferDto);
+   
+
+            return Ok();
+        }
+
         [HttpGet]
         public IActionResult Get()
         {
