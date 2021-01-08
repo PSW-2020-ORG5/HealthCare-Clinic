@@ -1,14 +1,16 @@
 <template>
     <div>
   <div class="col text-center">
-      <h2>Dobrodosli klinika Bla</h2>
-      <h4>Unesite vase podatke za prijavu:</h4>
+      <h2>Dobrodošli klinika HealthCare</h2>
+      <h4>Unesite vaše podatke za prijavu:</h4>
   </div>
   <div class="row q-pa-md  justify-center">
     <div style="width:300px;">
     <q-form @submit="submit" class="q-gutter-md">
-        <q-input standout="bg-teal text-white" v-model="username" label="Korisnicko ime" :dense="dense" />
-        <q-input v-model="password" filled type="password" hint="Sifra" standout="bg-teal text-white" />
+       <q-input standout="bg-teal text-white" v-model="username" label="Korisnicko ime" :dense="dense"  lazy-rules
+        :rules="[ val => val && val.length > 0 || 'Polje ne sme biti prazno']" />
+        <q-input v-model="password" filled type="password" label="Sifra" standout="bg-teal text-white" lazy-rules
+        :rules="[ val => val && val.length > 0 || 'Polje ne sme biti prazno']"  />
         <div>
         <q-btn label="Prijavi se" type="submit" color="teal"/>
       </div>
@@ -30,7 +32,24 @@ export default {
   },
   methods: {
     submit () {
-      alert('klik')
+      this.$axios.post('https://localhost:44393/api/users/login', {
+        username: this.username,
+        password: this.password
+      })
+        .then(response => {
+          localStorage.setItem('user', response.data)
+          localStorage.setItem('role', response.data.role)
+          if (response.data.role === 0) { this.$router.push('/adminhome') } else this.$router.push('/')
+        })
+        .catch(error => {
+          console.log(error)
+          this.$q.notify({
+            color: 'red-5',
+            textColor: 'white',
+            icon: 'warning',
+            message: 'Greška prilikom prijave'
+          })
+        })
     }
   }
 }
