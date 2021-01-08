@@ -22,9 +22,9 @@ namespace IntegrationAdapters.Controllers
             clientSchedulesService.SendMessage(medDto);
 
             Thread.Sleep(1000);
-            Boolean flag = ClientScheduledService.flag;
+            List<MedAvabDto> pharmacies = ClientScheduledService.pharmacies;
 
-            return Ok(flag);
+            return Ok(pharmacies);
         }
     }
 }

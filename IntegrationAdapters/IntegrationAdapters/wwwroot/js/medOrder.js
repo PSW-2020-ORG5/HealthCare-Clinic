@@ -78,11 +78,12 @@ function getAvailability() {
 
 }
 
-function sendPrescription(){
+function sendPrescription(entry){
     var patient = $("#patientName").val();
     var name = $("#medID").val();
     var amount = $("#amount").val();
-    var pharmacy = "Benu";
+    var pharmacy = entry.pharmacy;
+    var location = entry.location;
 
     $.ajax({
         type: 'POST',
@@ -92,7 +93,8 @@ function sendPrescription(){
             Patient : patient, 
             Medicine : name,
             Amount : parseInt(amount),
-            Pharmacy : pharmacy
+            Pharmacy : pharmacy,
+            Location : location
         }),
         contentType : 'application/json',
 
@@ -168,44 +170,63 @@ function checkGRPC() {
 
             myhtml += '<div class="visible" id="tableDiv"><div class="container"><div class="row"><div class="col-lg-1"></div>';
             myhtml += '<div class="col-lg-10"><table class="table"><thead>';
-            myhtml += '<tr><th scope="col">Pharmacy</th><th scope="col">Medicine</th><th scope="col">Amount required</th><th scope="col">Available for order</th><th scope="col"></th> </tr>';
+            myhtml += '<tr><th scope="col">Pharmacy</th><th scope="col">Address</th><th scope="col">Medicine</th><th scope="col">Amount required</th><th scope="col">Available for order</th><th scope="col"></th> </tr>';
             myhtml += '</thead><tbody><tr>';
 
-            myhtml += '<td>';
-            myhtml += 'Benu';   
-            myhtml += '</td>';
-
-            myhtml += '<td>';
-            myhtml += name;   
-            myhtml += '</td>';
-
-            myhtml += '<td>';
-            myhtml += amount;   
-            myhtml += '</td>';
-
-            myhtml += '<td>';
-            if(data){
-                myhtml += '<button disabled class="btn btn-success">Yes</button>';  
+            data.forEach(function(entry) {
+                myhtml += '<tr>';
+                myhtml += '<td>';
+                myhtml += entry.pharmacy;   
                 myhtml += '</td>';
 
                 myhtml += '<td>';
-                myhtml += '<button id = "orderButton" class="btn btn-warning">Send prescription</button>';
+                myhtml += entry.location;   
                 myhtml += '</td>';
-
-                
-                
-
-            } else {
-                myhtml += '<button disabled class="btn btn-danger">No</button>'; 
+    
+                myhtml += '<td>';
+                myhtml += name;   
                 myhtml += '</td>';
-            }
-            
+    
+                myhtml += '<td>';
+                myhtml += amount;   
+                myhtml += '</td>';
+    
+                myhtml += '<td>';
+
+                if(entry.isAvab){
+                    myhtml += '<button disabled class="btn btn-success">Yes</button>';  
+                    myhtml += '</td>';
+    
+                    myhtml += '<td>';
+                    myhtml += "<button id = 'orderButton" + entry.pharmacy + "' class='btn btn-warning'>Send prescription</button>";
+                    myhtml += '</td>';
+    
+                } else {
+                    myhtml += '<button disabled class="btn btn-danger">No</button>'; 
+                    myhtml += '</td>';
+                }
+
+                myhtml += '</tr>';
+            });
+           
             myhtml += '</tr></tbody></table></div></div></div></div>';
 
             divi.append(myhtml);
 
-            $("#orderButton").click(function() {
-                sendPrescription();
+            data.forEach(function(entry){
+ 
+                $("#orderButton" + entry.pharmacy).click(function() {
+                    console.log(entry);
+                    $("#orderButton" + entry.pharmacy).text("SENT");
+                    $("#orderButton" + entry.pharmacy).prop('disabled', true);
+                    $("#orderButton" + entry.pharmacy).removeClass("btn-warning").addClass("btn-primary");
+    
+                    data.forEach(function(entry){
+                        $("#orderButton" + entry.pharmacy).prop('disabled', true);
+                    });
+
+                    sendPrescription(entry);
+                });
             });
 
            }
@@ -221,7 +242,7 @@ function checkHTTP() {
     $.ajax({
         type: 'POST',
         crossDomain: true,
-        url: 'http://localhost:8080/med/availability',
+        url: 'http://localhost:8080/med/getAvailabilities',
 
         data : JSON.stringify({
             name : name,
@@ -240,41 +261,63 @@ function checkHTTP() {
 
             myhtml += '<div class="visible" id="tableDiv"><div class="container"><div class="row"><div class="col-lg-1"></div>';
             myhtml += '<div class="col-lg-10"><table class="table"><thead>';
-            myhtml += '<tr><th scope="col">Pharmacy</th><th scope="col">Medicine</th><th scope="col">Amount required</th><th scope="col">Available for order</th><th scope="col"></th> </tr>';
+            myhtml += '<tr><th scope="col">Pharmacy</th><th scope="col">Address</th><th scope="col">Medicine</th><th scope="col">Amount required</th><th scope="col">Available for order</th><th scope="col"></th> </tr>';
             myhtml += '</thead><tbody><tr>';
 
-            myhtml += '<td>';
-            myhtml += 'Benu';   
-            myhtml += '</td>';
-
-            myhtml += '<td>';
-            myhtml += name;   
-            myhtml += '</td>';
-
-            myhtml += '<td>';
-            myhtml += amount;   
-            myhtml += '</td>';
-
-            myhtml += '<td>';
-            if(data){
-                myhtml += '<button disabled class="btn btn-success">Yes</button>';  
+            data.forEach(function(entry) {
+                myhtml += '<tr>';
+                myhtml += '<td>';
+                myhtml += entry.pharmacy;   
                 myhtml += '</td>';
 
                 myhtml += '<td>';
-                myhtml += '<button id = "orderButton" class="btn btn-warning">Send prescription</button>';
+                myhtml += entry.location;   
                 myhtml += '</td>';
+    
+                myhtml += '<td>';
+                myhtml += name;   
+                myhtml += '</td>';
+    
+                myhtml += '<td>';
+                myhtml += amount;   
+                myhtml += '</td>';
+    
+                myhtml += '<td>';
 
-            } else {
-                myhtml += '<button disabled class="btn btn-danger">No</button>'; 
-                myhtml += '</td>';
-            }
-            
+                if(entry.isAvab){
+                    myhtml += '<button disabled class="btn btn-success">Yes</button>';  
+                    myhtml += '</td>';
+    
+                    myhtml += '<td>';
+                    myhtml += "<button id = 'orderButton" + entry.pharmacy + "' class='btn btn-warning'>Send prescription</button>";
+                    myhtml += '</td>';
+    
+                } else {
+                    myhtml += '<button disabled class="btn btn-danger">No</button>'; 
+                    myhtml += '</td>';
+                }
+
+                myhtml += '</tr>';
+            });
+           
             myhtml += '</tr></tbody></table></div></div></div></div>';
 
             divi.append(myhtml);
 
-            $("#orderButton").click(function() {
-                sendPrescription();
+            data.forEach(function(entry){
+ 
+                $("#orderButton" + entry.pharmacy).click(function() {
+                    console.log(entry);
+                    $("#orderButton" + entry.pharmacy).text("SENT");
+                    $("#orderButton" + entry.pharmacy).prop('disabled', true);
+                    $("#orderButton" + entry.pharmacy).removeClass("btn-warning").addClass("btn-primary");
+    
+                    data.forEach(function(entry){
+                        $("#orderButton" + entry.pharmacy).prop('disabled', true);
+                    });
+
+                    sendPrescription(entry);
+                });
             });
 
            }
