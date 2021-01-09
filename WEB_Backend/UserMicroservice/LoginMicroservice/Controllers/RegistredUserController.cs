@@ -18,12 +18,10 @@ namespace LoginMicroservice.Controllers
     public class RegistredUserController : ControllerBase
     {
         private readonly RegistredUserService service;
-        private readonly IJWTAuthenticationManager jWTAuthenticationManager;
 
         public RegistredUserController(UserDbContext dbContext, IJWTAuthenticationManager jWT)
         {
-            this.service = new RegistredUserService(dbContext);
-            this.jWTAuthenticationManager = jWT;
+            this.service = new RegistredUserService(dbContext,jWT);
         }
         [HttpGet]
         public IActionResult GetAll()
@@ -35,13 +33,9 @@ namespace LoginMicroservice.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] UserDTO userDTO)
         {
-            RegisteredUser user = service.AuthenticateUser(userDTO);
+            var user = service.AuthenticateUser(userDTO);
             if (user != null)
             {
-                var token = jWTAuthenticationManager.Authenticate(user.Username, user.Password);
-                userDTO.Token = token;
-                userDTO.Role = user.Role;
-                userDTO.Id = user.Id;
                 return Ok(userDTO);
             }
             return Unauthorized();

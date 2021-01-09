@@ -1,4 +1,5 @@
-﻿using LoginMicroservice.Model;
+﻿using LoginMicroservice.JWTAuthentication;
+using LoginMicroservice.Model;
 using LoginMicroservice.Repository;
 using Model.Users;
 using System;
@@ -11,10 +12,12 @@ namespace LoginMicroservice.Services
     public class RegistredUserService
     {
         private readonly RegistredUserRepository repository;
+        private readonly IJWTAuthenticationManager jWTAuthenticationManager;
 
-        public RegistredUserService(UserDbContext dbContext)
+        public RegistredUserService(UserDbContext dbContext, IJWTAuthenticationManager jWT)
         {
             this.repository = new RegistredUserRepository(dbContext);
+            this.jWTAuthenticationManager = jWT;
         }
 
         public List<RegisteredUser> GetAll()
@@ -22,7 +25,7 @@ namespace LoginMicroservice.Services
             return (List<RegisteredUser>)repository.GetAll();
         }
 
-        public RegisteredUser AuthenticateUser(UserDTO user)
+        public RegisteredUser FindUser(UserDTO user)
         { 
             List<RegisteredUser> allUsers = GetAll();
             foreach(RegisteredUser reg in allUsers)
@@ -31,6 +34,20 @@ namespace LoginMicroservice.Services
                 {
                     return reg;
                 }
+            }
+            return null;
+        }
+
+        public UserDTO AuthenticateUser(UserDTO userDTO)
+        {
+            var user = FindUser(userDTO);
+            if (user != null)
+            {
+                var token = jWTAuthenticationManager.Authenticate(user.Username, user.Password);
+                userDTO.Token = token;
+                userDTO.Role = user.Role;
+                userDTO.Id = user.Id;
+                return userDTO;
             }
             return null;
         }
