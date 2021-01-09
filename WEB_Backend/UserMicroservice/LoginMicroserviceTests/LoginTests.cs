@@ -26,10 +26,10 @@ namespace LoginMicroserviceIntegrationTests
         {
             var user = new UserDTO { Username = "marko1", Password = "marko1" };
             var client = factory.CreateClient();
-            var userResp = await client.PostAsync("users/login", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
+            var userResp = await client.PostAsync("api/users/login", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
             UserDTO userr = JsonConvert.DeserializeObject<UserDTO>(userResp.Content.ReadAsStringAsync().Result);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", userr.Token);
-            var response = await client.GetAsync("validate");
+            var response = await client.GetAsync("api/validate");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -38,10 +38,10 @@ namespace LoginMicroserviceIntegrationTests
         {
             var user = new UserDTO { Username = "marko1", Password = "marko1" };
             var client = factory.CreateClient();
-            var userResp = await client.PostAsync("users/login", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
+            var userResp = await client.PostAsync("api/users/login", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
             UserDTO userr = JsonConvert.DeserializeObject<UserDTO>(userResp.Content.ReadAsStringAsync().Result);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "randomToken");
-            var response = await client.GetAsync("validate");
+            var response = await client.GetAsync("api/validate");
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
 
@@ -50,7 +50,7 @@ namespace LoginMicroserviceIntegrationTests
         {
             var user = new UserDTO { Username = "marko1", Password = "marko12" };
             var client = factory.CreateClient();
-            var response = await client.PostAsync("users/login", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
+            var response = await client.PostAsync("api/users/login", new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json"));
             Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
         }
     }
