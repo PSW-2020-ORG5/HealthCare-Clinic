@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   user_microservice:
     image: psw_usermicroservice
@@ -6,7 +7,7 @@ services:
       context: WEB_Backend/UserMicroservice
       dockerfile: Dockerfile.local
     ports:
-      - "8081:80"
+      - "44395:80"
     volumes:
       - user_microservice_data:/var/lib/userdata/data
     restart: on-failure
@@ -22,13 +23,13 @@ services:
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: 1
       DATABASE_HOST: localhost
-      DATABASE_PORT: 3306
+      DATABASE_PORT: 3307
       DATABASE_SCHEMA: HealthClinicDB
       DATABASE_USERNAME: root
       DATABASE_PASSWORD: rootP@ssword
     volumes:
       - db_data:/var/lib/mysql
-      - ./_MySQL_Init_Script:/docker-entrypoint-initdb.d
+      - ./sql-scripts:/docker-entrypoint-initdb.d/
     restart: always
     networks:
       - compose_network
@@ -39,7 +40,7 @@ services:
       context: WEB_Backend/APIGateway
       dockerfile: Dockerfile.local
     ports:
-      - "8082:80"
+      - "44340:80"
     restart: on-failure
     depends_on: 
       - db
@@ -54,14 +55,36 @@ services:
     ports:
       - "8083:8080"
     restart: on-failure
-    depends_on: 
+    depends_on:
       - db
+    networks:
+      - compose_network
+
+  psw_integrationadapters:
+    image: psw_integrationadapters
+    build:
+      context: IntegrationAdapters\IntegrationAdapters\
+      dockerfile: Dockerfile.local
+    ports:
+    - "8282:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    depends_on:      
+      - db
+      - rabbitmq
+    restart: on-failure
+    networks:
+      - compose_network
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
     networks:
       - compose_network
 
 volumes:
   user_microservice_data:
   db_data:
+  sql-scripts:
 
 networks:
   compose_network:
