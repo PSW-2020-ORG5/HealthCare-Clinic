@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     submit () {
-      this.$axios.post('https://localhost:44393/api/users/login', {
+      this.$axios.post('https://localhost:44340/users/login', {
         username: this.username,
         password: this.password
       })

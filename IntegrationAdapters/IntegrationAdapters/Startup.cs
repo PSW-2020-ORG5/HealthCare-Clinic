@@ -55,7 +55,10 @@ namespace IntegrationAdapters
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseCors();
+            app.UseCors(options =>
+            options.WithOrigins("http://localhost:8081")
+            .AllowAnyHeader()
+            .AllowAnyMethod());
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
