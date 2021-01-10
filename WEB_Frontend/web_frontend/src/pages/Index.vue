@@ -37,16 +37,13 @@ export default {
   data () {
     return {
       slide: 'first',
-      actions: [],
-      bla: 'a'
+      actions: []
     }
   },
   beforeCreate () {
     this.$axios.get('http://localhost:62946/api/actionbenefit')
       .then(response => {
         this.actions = response.data
-        this.bla = 'af'
-        alert(response.data[0].message)
       })
   }
 }
