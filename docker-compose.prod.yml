@@ -20,21 +20,6 @@ services:
       - db
     networks:
       - compose_network
-  
-  api_gateway:
-    image: psw_apigateway
-    build: 
-      context: WEB_Backend/APIGateway
-      dockerfile: Dockerfile.local
-    environment: 
-      ASPNETCORE_ENVIRONMENT: Production
-    ports:
-      - "44340:44340"
-    restart: on-failure
-    depends_on: 
-      - db
-    networks:
-      - compose_network
 
   psw_integrationadapters:
     image: psw_integrationadapters
