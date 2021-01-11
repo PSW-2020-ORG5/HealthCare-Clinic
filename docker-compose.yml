@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  user_microservice:
+    image: psw_usermicroservice
+    build: 
+      context: WEB_Backend/UserMicroservice
+      dockerfile: Dockerfile.local
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+      DATABASE_HOST: "localhost"
+      DATABASE_PORT: "3306"
+      DATABASE_SCHEMA: HealthClinicDB
+      DATABASE_PASSWORD: admin
+    ports:
+      - "44395:44395"
+    volumes:
+      - user_microservice_data:/var/lib/userdata/data
+    restart: on-failure
+    depends_on: 
+      - db
+    networks:
+      - compose_network
+  
+  db:
+    image: mysql:8.0.22
+    expose: 
+      - "3306"
+    ports: 
+      - "3307:3306"
+    environment: 
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: HealthClinicDB
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./sql-scripts:/docker-entrypoint-initdb.d/
+    restart: always
+    networks:
+      - compose_network
+  
+  api_gateway:
+    image: psw_apigateway
+    build: 
+      context: WEB_Backend/APIGateway
+      dockerfile: Dockerfile.local
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "44340:44340"
+    restart: on-failure
+    depends_on: 
+      - db
+    networks:
+      - compose_network
+
+  client:
+    image: psw_client
+    build: 
+      context: WEB_Frontend/web_frontend
+      dockerfile: Dockerfile.local
+    ports:
+      - "8081:8081"
+    restart: on-failure
+    depends_on:
+      - db
+    networks:
+      - compose_network
+
+  psw_integrationadapters:
+    image: psw_integrationadapters
+    build:
+      context: IntegrationAdapters\IntegrationAdapters\
+      dockerfile: Dockerfile.local
+    ports:
+    - "62946:62946"
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+      DATABASE_SCHEMA: HealthClinicDB
+      DATABASE_PASSWORD: admin
+    depends_on:      
+      - db
+      - rabbitmq
+    restart: on-failure
+    networks:
+      - compose_network
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    networks:
+      - compose_network
+
+volumes:
+  user_microservice_data:
+  db_data:
+  sql-scripts:
+
+networks:
+  compose_network:
+    name: compose_network
+    driver: bridge

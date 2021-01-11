@@ -1,0 +1,40 @@
+version: '3.8'
+
+# docker-compose -f docker-compose.yml -f docker-compose.test.yml --build
+services:
+  user_microservice:
+    image: psw_usermicroservice
+    build: 
+      context: WEB_Backend/UserMicroservice
+      dockerfile: Dockerfile.local
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Test
+      DATABASE_SCHEMA: HealthClinicDB
+      DATABASE_PASSWORD: admin
+    ports:
+      - "44395:44395"
+    volumes:
+      - user_microservice_data:/var/lib/userdata/data
+    restart: on-failure
+    depends_on: 
+      - db
+    networks:
+      - compose_network
+
+  psw_integrationadapters:
+    image: psw_integrationadapters
+    build:
+      context: IntegrationAdapters\IntegrationAdapters\
+      dockerfile: Dockerfile.local
+    ports:
+    - "62946:62946"
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Test
+      DATABASE_SCHEMA: HealthClinicDB
+      DATABASE_PASSWORD: admin
+    depends_on:      
+      - db
+      - rabbitmq
+    restart: on-failure
+    networks:
+      - compose_network
