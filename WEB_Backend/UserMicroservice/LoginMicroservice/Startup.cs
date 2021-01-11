@@ -55,7 +55,14 @@ namespace LoginMicroservice
 
             services.AddSingleton<IJWTAuthenticationManager>(new JWTAuthenticationManager(tokenKey));
             services.AddDbContext<UserDbContext>(options =>
-                    options.UseMySql(CreateConnectionStringFromEnvironment()).UseLazyLoadingProxies(), ServiceLifetime.Transient);
+                     options.UseMySql(
+                       CreateConnectionStringFromEnvironment(),
+                       mySqlOptions =>
+                           mySqlOptions.EnableRetryOnFailure(
+                              maxRetryCount: 5,
+                              maxRetryDelay: TimeSpan.FromSeconds(10),
+                              errorNumbersToAdd: null)
+                     ).UseLazyLoadingProxies());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,11 +73,11 @@ namespace LoginMicroservice
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(options =>
-            options.WithOrigins("http://localhost:8081")
+            options.AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod());
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseAuthentication();
