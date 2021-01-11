@@ -25,6 +25,7 @@ namespace LoginMicroservice.Repository
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseLazyLoadingProxies();
+                Console.WriteLine(CreateConnectionStringFromEnvironment());
                 optionsBuilder.UseMySql(CreateConnectionStringFromEnvironment());
             }
         }

@@ -1,6 +1,9 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
+EXPOSE 44340
+ENV ASPNETCORE_URLS=http://*:44340
+# ENV ASPNETCORE_URLS=http://127.0.0.1:44340
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS ef-base
 ENV PATH $PATH:/root/.dotnet/tools
