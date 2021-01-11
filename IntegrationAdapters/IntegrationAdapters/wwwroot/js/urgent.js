@@ -6,6 +6,8 @@ var name = "";
 var amount = "";
 var map = {};
 var reqs = new Array();
+var pharmCounter = 0;
+var currentCounter = 1;
 
 $(document).ready(function() {
 
@@ -40,6 +42,24 @@ $(document).ready(function() {
         // dev - saljemo call ka psw-u kako bi preko grpc-a proverili dostupnost 
         // ovaj deo je slican kao i kod slanja prescription-a 
         // napraviti inmemoryrepo za lekove npr  ("Aspirin", 25)
+
+        $.ajax({
+            type: "GET",
+            url: "/api/http/env",
+    
+            success : function(data) {
+                console.log(data);
+    
+                if(String(data) === "Development"){
+                    checkGRPC(reqs);
+                } else {
+                    checkHTTP(reqs);
+                    //addListenerToOrder();
+                }
+            }
+        })
+
+
     });
 })
 
@@ -169,5 +189,139 @@ function renderReturnTable(data) {
     $('#' + addItemButtonId).hide();
     openItems = false;
     shouldRender = true;
+
+}
+
+
+async function checkHTTP(reqs) {
+
+    var name = "";
+    var amount = "";
+    retList = new Array();
+    var ajaxList = new Array();
+    var tableBody = $("#tbodyIdUrgent");
+    tableBody.empty();
+    var myhtml = "";
+    
+
+    reqs.forEach(function(req){
+        name = req.name
+        amount = req.amount
+
+        $.ajax({
+            type: 'POST',
+            crossDomain: true,
+            url: 'http://localhost:8080/med/getAvailabilities',
+    
+            data : JSON.stringify({
+                name : name,
+                amount : amount
+            }),
+
+            contentType : 'application/json',
+
+
+        }).then(function(data){
+
+            ajaxList = data;
+
+            retList = [];
+            ajaxList.forEach(function(entry){
+                console.log(entry);
+                if(entry.isAvab) {
+                    retList.push(entry);
+
+                    console.log("///////////");
+                    console.log(retList);
+                }
+            })
+
+            myhtml = "";
+            console.log('RETLIST: ');
+            console.log(retList);
+
+            
+        
+            retList.forEach(function(med){
+                pharmCounter = pharmCounter + 1;
+                console.log("*********USAOOOOOO**********");
+                myhtml += '<tr>';
+        
+                myhtml += '<td>';
+                myhtml += req.name;
+                myhtml += '</td>';
+        
+                myhtml += '<td>';
+                myhtml += req.amount;
+                myhtml += '</td>';
+        
+                myhtml += '<td>';
+                myhtml += med.pharmacy;
+                myhtml += '</td>';
+        
+                myhtml += '<td>';
+                myhtml += "<button id = 'order-" + pharmCounter + "'onClick='addListenerToOrder(this.id)' class='btn btn-warning'>Order med</button>";
+                myhtml += '</td>';
+        
+                myhtml += '</tr>';
+        
+            });
+    
+        }).then(function(){
+
+            tableBody.append(myhtml);
+        });
+
+    });
+    $('#retTable').show();
+
+}
+
+async function addListenerToOrder(id){
+
+    var splitty = id.split('-');
+    var q = parseInt(splitty[1]);
+
+
+    console.log(id + " " + q );
+
+    var table = $('#retTable');
+
+    var med = table.find('tr:eq(' + q + ') td:eq(0)').text();
+    var amount = table.find('tr:eq(' + q + ') td:eq(1)').text();
+    var pharm = table.find('tr:eq(' + q + ') td:eq(2)').text();
+
+    console.log(med+  " " +amount +" " +pharm);
+
+    var meds = new Array();
+    var obj = {
+        "pharmacyName" : pharm,
+        "name" : med,
+        "amount" : parseInt(amount),
+        "pricePerUnit" : 2
+    };
+
+    meds.push(obj);
+
+    $.ajax({
+        type: 'POST',
+        crossDomain: true,
+        url: 'http://localhost:8080/tender/accepted',
+
+        data : JSON.stringify({
+            "id" : "id",
+            "pharmacyName" : pharm,
+            "endpoint" : "endpoint",
+            "offeredMedicine" : meds
+        }),
+
+        contentType : 'application/json',
+
+        success: function(){
+            alert("MARKKKKKKKKKKK POKAZI SUTRA");
+
+        }
+    });
+
 
 }
