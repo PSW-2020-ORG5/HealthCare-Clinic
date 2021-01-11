@@ -9,7 +9,6 @@ namespace IntegrationAdapters.Dtos
 {
     public class TenderOfferDto
     {
-  
         public string Id { get; set; }
         public string PharmacyName { get; set; }
         public string Endpoint { get; set; }

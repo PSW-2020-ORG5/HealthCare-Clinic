@@ -63,5 +63,56 @@ namespace IntegrationAdapters.Services
             dbContext.TenderOffers.Add(tenderOfferDto);
             dbContext.SaveChanges();
         }
+
+        public void RemoveOffers(string tenderId)
+        {
+            List<TenderOfferDto> offers = new List<TenderOfferDto>();
+            dbContext.TenderOffers.ToList().ForEach(offer => offers.Add(offer));
+
+            try
+            {
+
+                foreach (var offer in offers)
+                {
+                    if (offer.Id == tenderId)
+                    {
+                        dbContext.TenderOffers.Remove(offer);
+                    }
+                }
+
+                dbContext.SaveChanges();
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+        }
+
+        public void removeTender(string tenderId) {
+            List<Tender> tenders = new List<Tender>();
+            dbContext.Tenders.ToList().ForEach(tender => tenders.Add(tender));
+
+            try
+            {
+
+                foreach (Tender tender in tenders)
+                {
+                    if (tender.id == tenderId)
+                    { 
+                        dbContext.Tenders.Remove(tender);
+                    }
+                }
+
+                dbContext.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.StackTrace);
+            }
+
+        }
+
     }
 }

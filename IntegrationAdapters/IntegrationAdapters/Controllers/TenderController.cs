@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using IntegrationAdapters.Dtos;
 using IntegrationAdapters.Models;
 using IntegrationAdapters.Repositories.DbContexts;
+using IntegrationAdapters.Repositories.InMemoryRepository;
 using IntegrationAdapters.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,12 @@ namespace IntegrationAdapters.Controllers
     public class TenderController : ControllerBase
     {
         private readonly TenderService tenderService;
+        private StorageService storageService;
 
         public TenderController(MyDbContext context)
         {
             this.tenderService = new TenderService(context);
+            this.storageService = StorageService.GetInstance();
         }
 
         [HttpPost("publish")]
@@ -33,10 +36,8 @@ namespace IntegrationAdapters.Controllers
         [HttpPost("offer")]
         public IActionResult Publish(TenderOfferDto tenderOfferDto)
         {
-            Console.WriteLine("entered this00000000000000000000000000000000000000000000");
             tenderService.SendOffer(tenderOfferDto);
    
-
             return Ok();
         }
 
@@ -61,5 +62,20 @@ namespace IntegrationAdapters.Controllers
 
             return Ok(tender);
         }
+
+        [HttpPost("accept")]
+        public IActionResult AcceptOffer(TenderOfferDto offerDto)
+        {
+
+            foreach (var Med in offerDto.OfferedMedicine) {
+                storageService.AddMedToStorage(new StorageMedicine(Med.Name, Med.Amount));
+            }
+
+            tenderService.RemoveOffers(offerDto.Id);
+            tenderService.removeTender(offerDto.Id);
+
+            return Ok();
+        }
+
     }
 }

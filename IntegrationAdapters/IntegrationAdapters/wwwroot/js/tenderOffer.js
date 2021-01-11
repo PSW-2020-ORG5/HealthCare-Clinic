@@ -249,6 +249,8 @@ function addListenersToAccepts(currentTender) {
             var q = parseInt(this.id.split("-")[1]) + 1 ; // + 1 to skip header row
             var pharm = table.find('tr:eq(' + q + ') td:eq(1)').text();
             var tender = table.find('tr:eq(' + q + ') td:eq(0)').text();
+            var offerForAccept = undefined;
+        
 
             console.log('You want to accept offer from pharm ' + pharm + ' for tender ' + tender);
             // koja ponuda je prihvacena mozete pronaci iz kombinacije pharm + tender
@@ -262,7 +264,85 @@ function addListenersToAccepts(currentTender) {
             // onaj ko je dobio tender dobija notifikaciju da je dobio, ostali da je zatvoren
             // posalji ajax call na PSW stranu i obrisi tender koji je prihvacen, kao i sve ponude na njega
 
+            allOffers.forEach(function(offer) {
+                console.log('comparing ' + offer.pharmacyName + ' to ' + pharm);
+                console.log('comparing ' + offer.id + ' to ' + currentTender.id);
+                if (offer.pharmacyName == pharm && offer.id == currentTender.id) {
+                    offerForAccept = offer;
+                    console.log(offerForAccept);
+                    return;
+                }
+            })
+            
+            $.ajax({
+                type:'POST',
+                crossDomain: true,
+                url: offerForAccept.endpoint,
+                contentType : 'application/json',
 
+                data : JSON.stringify(offerForAccept),
+
+                success: function(){
+                    alert("SUCCESS POSLAT ZAHTEV NA ISI");
+                    var customUrl = "";
+                    var splitted = offerForAccept.endpoint.split("/");
+                    console.log(splitted);
+                    
+                    customUrl = splitted[0] + "//" + splitted[2] + "/" + "notification/add" ;
+            
+                    $.ajax({
+                        type:'POST',
+                        crossDomain: true,                        
+                        url: customUrl,
+                        contentType : 'application/json',
+        
+                        data : JSON.stringify({
+                            message : "Congratulations-You-have-won-the-tender-" + currentTender.name
+                        })
+
+                    })
+
+                    // We need to create new object, because of the conventions
+                    var offers = [];
+                    map = {};
+                    offerForAccept.offeredMedicine.forEach(function(medOffer){
+                        var object = {
+                            PharmacyName : medOffer.pharmacyName,
+                            Name : medOffer.name,
+                            Amount : medOffer.amount,
+                            PricePerUnit : medOffer.pricePerUnit                   
+                        }     
+                        map[medOffer.name] = object;
+                    })
+
+                    for (const [key, value] of Object.entries(map)) {
+                        offers.push(value);
+                    }
+                    console.log("OFFEEEEEEEEEEEEEEEEEEEEEEEEEEEEEER:")
+                    console.log(offers)
+                
+                    
+                    $.ajax({
+                        type : 'POST',
+                        url : 'api/tender/accept',
+
+                        data : JSON.stringify({
+                            "Id" : offerForAccept.id,
+                            "PharmacyName" : offerForAccept.pharmacyName,
+                            "Endpoint" : offerForAccept.endpoint,
+                            "OfferedMedicine" : offers
+
+                        }),
+                        contentType : "application/JSON",
+
+                        success: function(data) {
+                            alert("DA LI SI PROSAO");
+                        }
+                    })
+                }
+            
+            })
+            
         });
 
 
