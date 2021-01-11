@@ -33,6 +33,16 @@ namespace IntegrationAdaptersTests.UnitTests
             service.SaveTender(mockDBContext.Object, new Tender() { id = "id3", Name = "tender3", ClosingDate = DateTime.Now.AddDays(2), RequiredMedicine = null }).ShouldBe(3);
         }
 
+        [Fact]
+        public void Save_tender_fail()
+        {
+            Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
+            mockDBContext.Setup(t => t.GetTenders()).Returns(CreateTenders());
+
+            TenderServiceTest service = new TenderServiceTest();
+            service.SaveTender(mockDBContext.Object, new Tender() { id = "", Name = "tender111", ClosingDate = DateTime.Now.AddDays(2), RequiredMedicine = null }).ShouldBe(2);
+        }
+
         private List<Tender> CreateTenders()
         {
             List<Tender> tenders = new List<Tender>();
@@ -49,5 +59,60 @@ namespace IntegrationAdaptersTests.UnitTests
 
             return tenders;
         }
+
+        [Fact]
+        private void RemoveTender()
+        {
+            Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
+            mockDBContext.Setup(t => t.GetTenders()).Returns(CreateTenders());
+
+            TenderServiceTest.RemoveTender(mockDBContext.Object, "id1");
+            TenderServiceTest tenderServiceTest = new TenderServiceTest();
+
+            tenderServiceTest.GetNumberOfTenders(mockDBContext.Object).ShouldBe(1);
+            
+        }
+
+
+        private List<TenderOfferDto> createTenderOffer()
+        {
+            List<MedicineOfferDto> medOffers1 = new List<MedicineOfferDto>();
+            List<MedicineOfferDto> medOffers2 = new List<MedicineOfferDto>();
+            List<TenderOfferDto> tenderOffers = new List<TenderOfferDto>();
+
+            medOffers1.Add(new MedicineOfferDto("Benu", "Aspirin", 25, 250));
+            medOffers1.Add(new MedicineOfferDto("Benu", "Brufen", 10, 120));
+            medOffers2.Add(new MedicineOfferDto("Benu", "Bromazepan", 4, 354));
+            medOffers2.Add(new MedicineOfferDto("Benu", "Hemomicin", 6, 123));
+
+            tenderOffers.Add(new TenderOfferDto("id111", "Benu", "Endpoint1", medOffers1));
+            tenderOffers.Add(new TenderOfferDto("id222", "Zegin", "Endpoint2", medOffers2));
+
+            return tenderOffers;
+        }
+
+        [Fact]
+        private void AddTenderOffer()
+        {
+            Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
+            mockDBContext.Setup(t => t.GetTenderOffers()).Returns(createTenderOffer());
+
+            TenderServiceTest service = new TenderServiceTest();
+
+            service.SaveTenderOffer(mockDBContext.Object, new TenderOfferDto("id111", "Benu", "Endpoint1",  null)).ShouldBe(3);
+        }
+
+        [Fact]
+        private void AddTenderOfferFail()
+        {
+            Mock<IMyDbContext> mockDBContext = new Mock<IMyDbContext>();
+            mockDBContext.Setup(t => t.GetTenderOffers()).Returns(createTenderOffer());
+
+            TenderServiceTest service = new TenderServiceTest();
+
+            service.SaveTenderOffer(mockDBContext.Object, new TenderOfferDto("", "Benu", "Endpoint1", null)).ShouldBe(2);
+        }
+
+
     }
 }

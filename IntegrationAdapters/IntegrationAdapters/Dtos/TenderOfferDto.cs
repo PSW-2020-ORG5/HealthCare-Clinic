@@ -15,5 +15,16 @@ namespace IntegrationAdapters.Dtos
 
         public virtual List<MedicineOfferDto> OfferedMedicine { get; set; }
 
+        public TenderOfferDto()
+        {
+        }
+
+        public TenderOfferDto(string id, string pharmacyName, string endpoint, List<MedicineOfferDto> offeredMedicine)
+        {
+            Id = id;
+            PharmacyName = pharmacyName;
+            Endpoint = endpoint;
+            OfferedMedicine = offeredMedicine;
+        }
     }
 }
