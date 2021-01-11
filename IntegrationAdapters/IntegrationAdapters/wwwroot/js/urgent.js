@@ -5,6 +5,7 @@ var shouldRender = true;
 var name = "";
 var amount = "";
 var map = {};
+var reqs = new Array();
 
 $(document).ready(function() {
 
@@ -14,8 +15,31 @@ $(document).ready(function() {
     $('#retTable').hide();
     $('#sendOrder').click(function() {
 
-        console.log(map);
-
+        var table = $('#table');
+        var medName = "";
+        var medAmount = "";
+        table.find('tr').each(function (i, el) {
+            var $tds = $(this).find('td'),
+                medName = $tds.eq(0).text(),
+                medAmount = $tds.eq(1).text();               
+            // the loop includes the header attributes which we don't need so we'll just add an if check
+            if (medName != "") 
+                map[medName] = medAmount;    
+        });      
+        for (const [key, value] of Object.entries(map)) {
+            //console.log(key, value);
+            var obj = {
+                name : key,
+                amount : parseInt(value)
+            };
+            reqs.push(obj);
+        }
+        console.log(reqs);
+        // poslati ajax call ka nama da proverimo da li je prod ili dev
+        // prod - nista samo saljemo http call kako bi smo proverili da li su lekovi dostupni
+        // dev - saljemo call ka psw-u kako bi preko grpc-a proverili dostupnost 
+        // ovaj deo je slican kao i kod slanja prescription-a 
+        // napraviti inmemoryrepo za lekove npr  ("Aspirin", 25)
     });
 })
 
@@ -95,7 +119,7 @@ function renderItemHTML() {
 
         });
 
-        map[name] = amount;
+        
         $('#table').show();
         $('#' + divId).hide();
         $('#' + addItemButtonId).hide();
@@ -139,7 +163,7 @@ function renderReturnTable(data) {
         $('#' + 'row' + splitty[1]).remove();
     });
 
-    map[name] = amount;
+    
     $('#table').show();
     $('#' + divId).hide();
     $('#' + addItemButtonId).hide();

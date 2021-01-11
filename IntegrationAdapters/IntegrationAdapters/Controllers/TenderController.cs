@@ -47,6 +47,12 @@ namespace IntegrationAdapters.Controllers
             return Ok(result);
         }
 
+        [HttpGet("offers")]
+        public IActionResult GetOffers()
+        {
+            return Ok(tenderService.GetAllOffers());
+        }
+
         [HttpGet("{id?}")]
         public IActionResult Get(string id)
         {
