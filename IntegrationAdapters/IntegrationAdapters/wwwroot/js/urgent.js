@@ -54,11 +54,9 @@ $(document).ready(function() {
                     checkGRPC(reqs);
                 } else {
                     checkHTTP(reqs);
-                    //addListenerToOrder();
                 }
             }
         })
-
 
     });
 })
@@ -192,7 +190,6 @@ function renderReturnTable(data) {
 
 }
 
-
 async function checkHTTP(reqs) {
 
     var name = "";
@@ -206,6 +203,7 @@ async function checkHTTP(reqs) {
 
     reqs.forEach(function(req){
         name = req.name
+        console.log(name);
         amount = req.amount
 
         $.ajax({
@@ -216,6 +214,90 @@ async function checkHTTP(reqs) {
             data : JSON.stringify({
                 name : name,
                 amount : amount
+            }),
+
+            contentType : 'application/json',
+
+
+        }).then(function(data){
+
+            ajaxList = data;
+
+            retList = [];
+            ajaxList.forEach(function(entry){
+                console.log(entry);
+                if(entry.isAvab) {
+                    retList.push(entry);
+
+                    console.log("///////////");
+                    console.log(retList);
+                }
+            })
+
+            myhtml = "";
+            console.log('RETLIST: ');
+            console.log(retList);
+
+            
+        
+            retList.forEach(function(med){
+                pharmCounter = pharmCounter + 1;
+                console.log("*********USAOOOOOO**********");
+                myhtml += '<tr>';
+        
+                myhtml += '<td>';
+                myhtml += req.name;
+                myhtml += '</td>';
+        
+                myhtml += '<td>';
+                myhtml += req.amount;
+                myhtml += '</td>';
+        
+                myhtml += '<td>';
+                myhtml += med.pharmacy;
+                myhtml += '</td>';
+        
+                myhtml += '<td>';
+                myhtml += "<button id = 'order-" + pharmCounter + "'onClick='addListenerToOrder(this.id)' class='btn btn-warning'>Order med</button>";
+                myhtml += '</td>';
+        
+                myhtml += '</tr>';
+        
+            });
+    
+        }).then(function(){
+
+            tableBody.append(myhtml);
+        });
+
+    });
+    $('#retTable').show();
+
+}
+
+async function checkGRPC(reqs) {
+
+    var name = "";
+    var amount = "";
+    retList = new Array();
+    var ajaxList = new Array();
+    var tableBody = $("#tbodyIdUrgent");
+    tableBody.empty();
+    var myhtml = "";
+    
+
+    reqs.forEach(function(req){
+        name = req.name
+        console.log(name);
+        amount = req.amount
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/medicine/availability',
+    
+            data : JSON.stringify({
+                Name : name,
+                Amount : amount
             }),
 
             contentType : 'application/json',
@@ -294,6 +376,7 @@ async function addListenerToOrder(id){
     console.log(med+  " " +amount +" " +pharm);
 
     var meds = new Array();
+    var meds1 = new Array();
     var obj = {
         "pharmacyName" : pharm,
         "name" : med,
@@ -301,7 +384,15 @@ async function addListenerToOrder(id){
         "pricePerUnit" : 2
     };
 
+    var obj1 = {
+        "PharmacyName" : pharm,
+        "Name" : med,
+        "Amount" : parseInt(amount),
+        "PricePerUnit" : 2
+    };
+
     meds.push(obj);
+    meds1.push(obj1);
 
     $.ajax({
         type: 'POST',
@@ -309,7 +400,7 @@ async function addListenerToOrder(id){
         url: 'http://localhost:8080/tender/accepted',
 
         data : JSON.stringify({
-            "id" : "id",
+            "id" : "idabcdefghiljk",
             "pharmacyName" : pharm,
             "endpoint" : "endpoint",
             "offeredMedicine" : meds
@@ -318,7 +409,25 @@ async function addListenerToOrder(id){
         contentType : 'application/json',
 
         success: function(){
-            alert("MARKKKKKKKKKKK POKAZI SUTRA");
+            $.ajax({
+                type : 'POST',
+                url: 'api/tender/accept',
+
+                data : JSON.stringify({
+                    "Id" : "idabcdefghiljk",
+                    "PharmacyName" : pharm,
+                    "Endpoint" : "endpoint",
+                    "OfferedMedicine" : meds1
+                }),
+                contentType : 'application/json',
+
+                success: function(){
+                    alert('Succesfully updated both DBs');
+                    location.reload();
+                }
+
+
+            })
 
         }
     });

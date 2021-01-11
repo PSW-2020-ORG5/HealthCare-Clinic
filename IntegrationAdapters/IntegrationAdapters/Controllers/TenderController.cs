@@ -71,8 +71,15 @@ namespace IntegrationAdapters.Controllers
                 storageService.AddMedToStorage(new StorageMedicine(Med.Name, Med.Amount));
             }
 
-            tenderService.RemoveOffers(offerDto.Id);
-            tenderService.removeTender(offerDto.Id);
+            try
+            {
+                tenderService.RemoveOffers(offerDto.Id);
+                tenderService.removeTender(offerDto.Id);
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+            }
+
 
             return Ok();
         }
