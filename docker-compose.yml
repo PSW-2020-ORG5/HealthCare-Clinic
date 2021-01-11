@@ -8,8 +8,8 @@ services:
       dockerfile: Dockerfile.local
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
-      DATABASE_HOST: "localhost"
-      DATABASE_PORT: "3306"
+      DATABASE_HOST: localhost
+      DATABASE_PORT: 3306
       DATABASE_SCHEMA: HealthClinicDB
       DATABASE_PASSWORD: admin
     ports:
@@ -75,6 +75,8 @@ services:
     - "62946:62946"
     environment: 
       ASPNETCORE_ENVIRONMENT: Development
+      DATABASE_HOST: localhost
+      DATABASE_PORT: 3306
       DATABASE_SCHEMA: HealthClinicDB
       DATABASE_PASSWORD: admin
     depends_on:      
