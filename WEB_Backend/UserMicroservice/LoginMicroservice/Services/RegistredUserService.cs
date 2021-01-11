@@ -47,6 +47,7 @@ namespace LoginMicroservice.Services
                 userDTO.Token = token;
                 userDTO.Role = user.Role;
                 userDTO.Id = user.Id;
+                repository.SaveEvent(userDTO.Username);
                 return userDTO;
             }
             return null;
