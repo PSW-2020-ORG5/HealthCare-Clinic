@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserMicroservice.Events;
 
 namespace LoginMicroservice.Repository
 {
@@ -12,6 +13,8 @@ namespace LoginMicroservice.Repository
     {
         public DbSet<RegisteredUser> RegisteredUsers { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
+
+        public DbSet<LoginEvent> Events { get; set; }
 
         //public DbSet<BusinessHoursModel> BusinessHours {get;set;}
         public DbSet<PatientModel> Patients { get; set; }

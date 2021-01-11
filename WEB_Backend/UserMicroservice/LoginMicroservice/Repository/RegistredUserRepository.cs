@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserMicroservice.Events;
 
 namespace LoginMicroservice.Repository
 {
@@ -23,6 +24,12 @@ namespace LoginMicroservice.Repository
         public RegisteredUser GetById(int id)
         {
             return dbContext.RegisteredUsers.Find(id);
+        }
+
+        public void SaveEvent(string username)
+        {
+            dbContext.Events.Add(new LoginEvent(username));
+            dbContext.SaveChanges();
         }
     }
 }
