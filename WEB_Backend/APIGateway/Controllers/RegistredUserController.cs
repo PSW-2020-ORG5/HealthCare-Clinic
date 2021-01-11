@@ -17,20 +17,30 @@ namespace LoginMicroservice.Controllers
     [ApiController]
     public class RegistredUserController : ControllerBase
     {
+        private string USER_HOST = Environment.GetEnvironmentVariable("USER_HOST") ?? "localhost";
         [HttpGet]
         public IActionResult GetAll()
         {
             string token = Request.Headers["Authorization"];
-            string tokenS = token.Split(" ")[1];
-            var validate = CheckValidation(tokenS);
+            string tokenSplit;
+            try
+            {
+                tokenSplit = token.Split(" ")[1];
+            }catch(Exception ex){
+               return BadRequest();
+            }
+            var validate = CheckValidation(tokenSplit);
             if (!validate)
             {
                 return Unauthorized();
             }
             else
             {
-                var client = new HttpClient();
-                var response = client.GetAsync("https://localhost:44395/api/users");
+                HttpClientHandler clientHandler = new HttpClientHandler();
+                clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+                var client = new HttpClient(clientHandler);
+                var response = client.GetAsync($"https://{USER_HOST}:44395/api/users");
                 var content = response.Result.Content.ReadAsStringAsync().Result;
                 switch (response.Result.StatusCode.ToString())
                 {
@@ -48,8 +58,10 @@ namespace LoginMicroservice.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] JObject userDTO)
         {
-            var client = new HttpClient();
-            var response = client.PostAsync("https://localhost:44395/api/users/login", new StringContent(JsonConvert.SerializeObject(userDTO), Encoding.UTF8, "application/json"));
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            var client = new HttpClient(clientHandler);
+            var response = client.PostAsync($"https://{USER_HOST}:44395/api/users/login", new StringContent(JsonConvert.SerializeObject(userDTO), Encoding.UTF8, "application/json"));
             var content = response.Result.Content.ReadAsStringAsync().Result;
             switch (response.Result.StatusCode.ToString())
             {
@@ -70,9 +82,11 @@ namespace LoginMicroservice.Controllers
 
         public bool CheckValidation(string token)
         {
-            var client = new HttpClient();
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            var client = new HttpClient(clientHandler);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = client.GetAsync("https://localhost:44395/api/validate");
+            var response = client.GetAsync($"https://{USER_HOST}:44395/api/validate");
             if (response.Result.StatusCode.ToString().Equals("Unauthorized"))
             {
                 return false;
