@@ -40,7 +40,7 @@ namespace LoginMicroservice.Controllers
                 clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
                 var client = new HttpClient(clientHandler);
-                var response = client.GetAsync($"https://{USER_HOST}:44395/api/users");
+                var response = client.GetAsync($"http://{USER_HOST}:44395/api/users");
                 var content = response.Result.Content.ReadAsStringAsync().Result;
                 switch (response.Result.StatusCode.ToString())
                 {
@@ -61,7 +61,7 @@ namespace LoginMicroservice.Controllers
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             var client = new HttpClient(clientHandler);
-            var response = client.PostAsync($"https://{USER_HOST}:44395/api/users/login", new StringContent(JsonConvert.SerializeObject(userDTO), Encoding.UTF8, "application/json"));
+            var response = client.PostAsync($"http://{USER_HOST}:44395/api/users/login", new StringContent(JsonConvert.SerializeObject(userDTO), Encoding.UTF8, "application/json"));
             var content = response.Result.Content.ReadAsStringAsync().Result;
             switch (response.Result.StatusCode.ToString())
             {
@@ -86,7 +86,7 @@ namespace LoginMicroservice.Controllers
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             var client = new HttpClient(clientHandler);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = client.GetAsync($"https://{USER_HOST}:44395/api/validate");
+            var response = client.GetAsync($"http://{USER_HOST}:44395/api/validate");
             if (response.Result.StatusCode.ToString().Equals("Unauthorized"))
             {
                 return false;

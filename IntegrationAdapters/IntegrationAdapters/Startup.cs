@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace IntegrationAdapters
 {
@@ -26,7 +27,14 @@ namespace IntegrationAdapters
         {
             services.AddControllers();
             services.AddDbContext<MyDbContext>(options =>
-            options.UseMySql(ConfigurationExtensions.GetConnectionString(Configuration, "MyDbContextConnectionString")).UseLazyLoadingProxies());
+                     options.UseMySql(
+                       CreateConnectionStringFromEnvironment(),
+                       mySqlOptions =>
+                           mySqlOptions.EnableRetryOnFailure(
+                              maxRetryCount: 5,
+                              maxRetryDelay: TimeSpan.FromSeconds(10),
+                              errorNumbersToAdd: null)
+            ).UseLazyLoadingProxies());
 
             services.AddCors(options =>
             {
@@ -39,7 +47,7 @@ namespace IntegrationAdapters
             });
 
             ConfigurationDto instance = ConfigurationDto.GetInstance();
-            instance.myDbConnectionString = Configuration.GetConnectionString("MyDbContextConnectionString");
+            instance.myDbConnectionString = Configuration.GetConnectionString(CreateConnectionStringFromEnvironment());
         }
 
         private Server server;
@@ -56,7 +64,7 @@ namespace IntegrationAdapters
             app.UseStaticFiles();
             app.UseRouting();
             app.UseCors(options =>
-            options.WithOrigins("http://localhost:8081")
+            options.AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod());
             app.UseAuthorization();
@@ -65,11 +73,19 @@ namespace IntegrationAdapters
                 endpoints.MapControllers();
             });
 
+            // Programatically triggering migrations
+            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+               scope.ServiceProvider.GetService<MyDbContext>().Database.Migrate();
+            }
+
             // grpc
+            string grpc_host = Environment.GetEnvironmentVariable("GRPC_HOST") ?? "localhost";
+            string grpc_port = Environment.GetEnvironmentVariable("GRPC_PORT") ?? "4111";
             server = new Server
             {
                 Services = { NetGrpcService.BindService(new NetGrpcServiceImpl()) },
-                Ports = { new ServerPort("localhost", 4111, ServerCredentials.Insecure) }
+                Ports = { new ServerPort(grpc_host, Int32.Parse(grpc_port), ServerCredentials.Insecure) }
             };
 
             server.Start();
@@ -80,6 +96,17 @@ namespace IntegrationAdapters
             {
                 server.ShutdownAsync().Wait();
             }
+        }
+
+        private string CreateConnectionStringFromEnvironment()
+        {
+            string server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            string port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "3306";
+            string database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "newmydb";
+            string user = Environment.GetEnvironmentVariable("DATABASE_USERNAME") ?? "root";
+            string password = Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "1337";
+            string sslMode = Environment.GetEnvironmentVariable("DATABASE_SSL_MODE") ?? "None";
+            return $"server={server};port={port};database={database};user={user};password={password};";
         }
     }
 }
