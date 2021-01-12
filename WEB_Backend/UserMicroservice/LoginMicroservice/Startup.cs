@@ -88,6 +88,12 @@ namespace LoginMicroservice
             {
                 endpoints.MapControllers();
             });
+
+            // Programatically triggering migrations
+            using (var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+               scope.ServiceProvider.GetService<UserDbContext>().Database.Migrate();
+            }
         }
 
         private string CreateConnectionStringFromEnvironment()
