@@ -3,12 +3,14 @@ version: '3.8'
 # docker-compose -f docker-compose.yml -f docker-compose.prod.yml --build
 services:
   user_microservice:
-    image: psw_usermicroservice
+    image: igorroncevic/org5-usermicroservice
     build: 
       context: WEB_Backend/UserMicroservice
       dockerfile: Dockerfile.local
     environment: 
       ASPNETCORE_ENVIRONMENT: Production
+      DATABASE_HOST: db
+      DATABASE_PORT: 3306
       DATABASE_SCHEMA: HealthClinicDB
       DATABASE_PASSWORD: admin
     ports:
@@ -22,7 +24,7 @@ services:
       - compose_network
 
   psw_integrationadapters:
-    image: psw_integrationadapters
+    image: igorroncevic/org5-integrationadapters
     build:
       context: IntegrationAdapters\IntegrationAdapters\
       dockerfile: Dockerfile.local
@@ -30,6 +32,8 @@ services:
     - "62946:62946"
     environment: 
       ASPNETCORE_ENVIRONMENT: Production
+      DATABASE_HOST: db
+      DATABASE_PORT: 3306
       DATABASE_SCHEMA: HealthClinicDB
       DATABASE_PASSWORD: admin
     depends_on:      
@@ -38,3 +42,5 @@ services:
     restart: on-failure
     networks:
       - compose_network
+
+      

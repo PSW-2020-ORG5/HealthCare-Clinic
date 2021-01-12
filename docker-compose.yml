@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   user_microservice:
-    image: psw_usermicroservice
+    image: igorroncevic/org5-usermicroservice
     build: 
       context: WEB_Backend/UserMicroservice
       dockerfile: Dockerfile.local
@@ -41,7 +41,7 @@ services:
       - compose_network
   
   api_gateway:
-    image: psw_apigateway
+    image: igorroncevic/org5-apigateway
     build: 
       context: WEB_Backend/APIGateway
       dockerfile: Dockerfile.local
@@ -57,7 +57,7 @@ services:
       - compose_network
 
   client:
-    image: psw_client
+    image: igorroncevic/org5-client
     build: 
       context: WEB_Frontend/web_frontend
       dockerfile: Dockerfile.local
@@ -70,7 +70,7 @@ services:
       - compose_network
 
   psw_integrationadapters:
-    image: psw_integrationadapters
+    image: igorroncevic/org5-integrationadapters
     build:
       context: IntegrationAdapters\IntegrationAdapters\
       dockerfile: Dockerfile.local
