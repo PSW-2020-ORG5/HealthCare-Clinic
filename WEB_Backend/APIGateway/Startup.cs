@@ -36,12 +36,14 @@ namespace APIGateway
                 app.UseDeveloperExceptionPage();
             }
             app.UseCors(options =>
-            options.WithOrigins("http://localhost:8081")
+            options.AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod());
-            app.UseHttpsRedirection();
+
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
