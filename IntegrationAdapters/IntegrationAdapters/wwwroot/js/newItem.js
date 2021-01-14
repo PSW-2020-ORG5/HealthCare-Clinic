@@ -108,7 +108,7 @@ function renderItemHTML() {
         amount = $('#' + amountId).val();
 
         if (!validateFields()) {
-            ('Invalid field value');
+
             shouldRender = false;
             openItems = false;
             return;
