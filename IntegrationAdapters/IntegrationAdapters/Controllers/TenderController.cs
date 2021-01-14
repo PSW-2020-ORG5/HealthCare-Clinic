@@ -25,6 +25,7 @@ namespace IntegrationAdapters.Controllers
         [HttpPost("publish")]
         public IActionResult Publish(TenderDto tenderDto)
         {
+            Console.WriteLine("we are here");
             tenderService.PublishTender(tenderDto);
             return Ok();
         }
