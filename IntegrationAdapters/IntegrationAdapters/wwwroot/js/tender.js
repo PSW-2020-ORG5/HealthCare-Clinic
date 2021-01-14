@@ -84,10 +84,10 @@ function getAllTenders() {
 }
 
 function addListenersToDetails() {
-
+    var n = counter;
     //$('#medicineTable').hide();
     $('#offerTable').hide();
-    for(i = 0; i <= counter; i++) {
+    for(i = 0; i <= n; i++) {
 
         detailId = 'detail-' + i;
 
@@ -125,7 +125,9 @@ function addListenerToOffers() {
     // offerTable
     $('#medicineTable').hide();
     //$('#offerTable').hide();
-    for(i = 0; i <= counter; i++) {
+    var m = counter;
+
+    for(i = 0; i <= m; i++) {
 
         offerId = 'offer-' + i;
 
