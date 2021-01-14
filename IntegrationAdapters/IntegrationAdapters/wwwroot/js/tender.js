@@ -1,4 +1,4 @@
-var counter = 0;
+var myCounter = 0;
 var tenders = new Array();
 var currentTenderId = "";
 var map = {};
@@ -45,9 +45,9 @@ function getAllTenders() {
                 $('#medicineTable').hide();
                 $('#offerTable').hide();
                 console.log(entry)
-                rowId = 'row' + counter;
-                detailId = 'detail-' + counter;
-                offerId = 'offer-' + counter;
+                rowId = 'row' + myCounter;
+                detailId = 'detail-' + myCounter;
+                offerId = 'offer-' + myCounter;
                 rowwyHTML +='<tr id="'+ rowId +'">';
                 rowwyHTML += "<td>";
                 rowwyHTML += entry.id;
@@ -66,7 +66,7 @@ function getAllTenders() {
                 rowwyHTML += "</td>";    
 
                 rowwyHTML +="</tr>";
-                counter = counter + 1;
+                myCounter = myCounter + 1;
                 
                 console.log('tender added');
 
@@ -84,7 +84,7 @@ function getAllTenders() {
 }
 
 function addListenersToDetails() {
-    var n = counter;
+    var n = myCounter;
     //$('#medicineTable').hide();
     $('#offerTable').hide();
     for(i = 0; i <= n; i++) {
@@ -125,7 +125,7 @@ function addListenerToOffers() {
     // offerTable
     $('#medicineTable').hide();
     //$('#offerTable').hide();
-    var m = counter;
+    var m = myCounter;
 
     for(i = 0; i <= m; i++) {
 
