@@ -23,7 +23,7 @@ function saveKey() {
         }),
         contentType : 'application/json',                   
         success : function(data) {                
-            alert("Successfully saved key to database");
+            //alert("Successfully saved key to database");
            }
     });
 }

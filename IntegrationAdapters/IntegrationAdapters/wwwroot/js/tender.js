@@ -2,6 +2,7 @@ var myCounter = 0;
 var tenders = new Array();
 var currentTenderId = "";
 var map = {};
+var offer = new Array();
 
 $(document).ready(function() {
 
@@ -140,7 +141,7 @@ function addListenerToOffers() {
             offerHTML = "";
             currentTenderId = tenders[splitty[1]].id;
             console.log(currentTenderId);
-            var medCounter = 1;
+            var medCounter = 0;
             tenders[splitty[1]].requiredMedicine.forEach(function(med) {
 
             offerHTML += '<tr>';
@@ -159,6 +160,7 @@ function addListenerToOffers() {
             offerHTML += '<input type="text" id="' + 'price-' + medCounter + '">';
             offerHTML += '</td>';
             offerHTML += '</tr>';
+            medCounter += 1;
 
             });
 
@@ -182,7 +184,7 @@ function addListenerToOfferButton() {
 
     $('#offerButton').click(function() {
         var table = $('#offerTable');
-        var num = -1;
+        var num = -2;
         table.find('tr').each(function (i, el) {
             num += 1;
             var $tds = $(this).find('td'),
@@ -190,16 +192,16 @@ function addListenerToOfferButton() {
                 _amount = $tds.eq(1).text();     
                 _offer = $('#text-' + num).val();
                 _priceper = $('#price-' + num).val();
-                //console.log(num + '. ' + _name + ' ' +  _amount + _offer + ' ' + _priceper); 
+                console.log(num + '. ' + _name + ' ' +  _amount + _offer + ' ' + _priceper); 
                          
             // the loop includes the header attributes which we don't need so we'll just add an if check
             if (_name != "" || _name == undefined)  {
 
                 var object = {
-                    name : _name,
-                    amount : _amount,
-                    offer : _offer,
-                    priceper : _priceper
+                    PharmacyName : $('#name').val(),
+                    Name : _name,
+                    Amount : parseInt(_offer),
+                    PricePerUnit : parseInt(_priceper)                   
                 }   
                 map[_name] = object;
                 
@@ -210,6 +212,33 @@ function addListenerToOfferButton() {
         console.log($('#endpoint').val());
         console.log($('#name').val());
 
+        for (const [key, value] of Object.entries(map)) {
+            //console.log(key, value);
+            offer.push(value);
+        }
+
+        var tenderOffer = {
+
+            Id : currentTenderId,
+            PharmacyName : $('#name').val(),
+            Endpoint : $('#endpoint').val(),
+            OfferedMedicine : offer
+
+        }
+
+        var stringy = JSON.stringify(tenderOffer);
+        console.log(stringy);
+
+        $.ajax({
+            type : 'POST',
+            url : '/api/tender/offer',
+            contentType : 'application/json',                   
+            data : stringy,
+            success : function() {   
+                //alert("Successfully sent offer");
+            }
+    
+        });
 
     })
 

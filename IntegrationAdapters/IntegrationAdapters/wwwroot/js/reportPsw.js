@@ -20,7 +20,7 @@ function generate() {
         }),  
         contentType : 'application/json',                   
         success : function() {   
-            alert("Successfully generated and uploaded file");
+            //alert("Successfully generated and uploaded file");
         }
 
     });

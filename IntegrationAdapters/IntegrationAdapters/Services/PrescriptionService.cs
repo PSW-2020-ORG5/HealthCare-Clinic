@@ -18,8 +18,10 @@ namespace IntegrationAdapters.Services
             output += prescriptionDto.Amount;
             output += "///";
             output += prescriptionDto.Pharmacy;
+            output += "///";
+            output += prescriptionDto.Location;
 
-            string filename = "Prescription-" + prescriptionDto.Patient.Replace(" ", "_") + "-" + DateTime.Now.ToString("dd-MM-yyyy");
+            string filename = "Prescription-" + prescriptionDto.Patient.Replace(" ", "_") + "-" + DateTime.Now.ToString("dd-MM-yyyy") + "-" + prescriptionDto.Medicine;
             File.WriteAllText(Environment.CurrentDirectory + Path.DirectorySeparatorChar + filename + ".txt", output);
 
             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")

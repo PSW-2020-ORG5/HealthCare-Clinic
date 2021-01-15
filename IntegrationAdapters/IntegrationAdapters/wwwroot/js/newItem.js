@@ -55,6 +55,19 @@ $(document).ready(function() {
             data : stringy,                   
             success : function() {   
                 //alert("Successfully uploaded file");
+                var message =  "HealthClinic-added-a-new-Tender"
+
+                $.ajax({
+                    type:'POST',
+                    crossDomain: true,
+                    url: 'http://localhost:8080/notification/add',
+                    contentType : 'application/json',
+    
+                    data : JSON.stringify({
+                        message : message
+                    })
+        
+                })
             }
     
         });
