@@ -283,7 +283,7 @@ function addListenersToAccepts(currentTender) {
                 data : JSON.stringify(offerForAccept),
 
                 success: function(){
-                    alert("SUCCESS POSLAT ZAHTEV NA ISI");
+                    //alert("SUCCESS POSLAT ZAHTEV NA ISI");
                     var customUrl = "";
                     var splitted = offerForAccept.endpoint.split("/");
                     console.log(splitted);
@@ -336,7 +336,7 @@ function addListenersToAccepts(currentTender) {
                         contentType : "application/JSON",
 
                         success: function(data) {
-                            alert("DA LI SI PROSAO");
+                            //alert("DA LI SI PROSAO");
                         }
                     })
                 }

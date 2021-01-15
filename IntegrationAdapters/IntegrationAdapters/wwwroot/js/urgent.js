@@ -106,7 +106,7 @@ function renderItemHTML() {
         amount = $('#' + amountId).val();
 
         if (!validateFields()) {
-            alert('Invalid field value');
+            //alert('Invalid field value');
             shouldRender = false;
             openItems = false;
             return;
@@ -422,7 +422,7 @@ async function addListenerToOrder(id){
                 contentType : 'application/json',
 
                 success: function(){
-                    alert('Succesfully updated both DBs');
+                    //alert('Succesfully updated both DBs');
                     location.reload();
                 }
 

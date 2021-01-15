@@ -233,7 +233,7 @@ function addListenerToOfferButton() {
             contentType : 'application/json',                   
             data : stringy,
             success : function() {   
-                alert("Successfully sent offer");
+                //alert("Successfully sent offer");
             }
     
         });
