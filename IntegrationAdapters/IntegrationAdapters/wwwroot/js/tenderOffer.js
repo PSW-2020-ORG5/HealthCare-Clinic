@@ -159,8 +159,9 @@ function addListenersToDetails(currentTender) {
 
     var table = $('#offerTable');
     var val1 = table.find('tr:eq(2) td:eq(4)').text();
+    var n = offerCounter;
 
-    for (i = 0; i < offerCounter; i++) {
+    for (i = 0; i < n; i++) {
         console.log('i is ' + i);
         currentOfferDetails = 'details-' + i;
         console.log(currentOfferDetails + ' outside listener');
@@ -239,8 +240,9 @@ function addListenersToDetails(currentTender) {
 function addListenersToAccepts(currentTender) {
 
     var table = $('#offerTable');
+    var n = offerCounter;
 
-    for (i = 0; i < offerCounter; i++) {
+    for (i = 0; i < n; i++) {
 
         var acceptId = '#accept-' + i;
 
