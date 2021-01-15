@@ -21,7 +21,7 @@ namespace IntegrationAdapters.Services
 
         public bool AddMedToStorage(StorageMedicine storageMedicine) {
 
-            foreach (var Med in InMemoryMedicineStorage.GetInstance().storage) { 
+            foreach (var Med in InMemoryMedicineStorage.GetInstance().GetStorageMedicines()) { 
                 if (Med.Name != storageMedicine.Name) {
                     continue;
                 }
@@ -32,7 +32,7 @@ namespace IntegrationAdapters.Services
                 return true;
             }
 
-            InMemoryMedicineStorage.GetInstance().storage.Add(storageMedicine);
+            InMemoryMedicineStorage.GetInstance().GetStorageMedicines().Add(storageMedicine);
             return true;
         }
 

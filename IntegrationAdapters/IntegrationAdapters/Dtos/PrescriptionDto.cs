@@ -14,7 +14,7 @@
             Medicine = medicine;
             Amount = amount;
             Pharmacy = pharmacy;
-            Location = Location;
+            Location = location;
         }
     }
 }

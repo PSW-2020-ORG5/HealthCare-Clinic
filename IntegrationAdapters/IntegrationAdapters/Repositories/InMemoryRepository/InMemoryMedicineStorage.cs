@@ -7,7 +7,7 @@ namespace IntegrationAdapters.Repositories.InMemoryRepository
 {
     public class InMemoryMedicineStorage
     {
-        public readonly List<StorageMedicine> storage = new List<StorageMedicine>();
+        private readonly List<StorageMedicine> storage = new List<StorageMedicine>();
 
         private static InMemoryMedicineStorage instance = new InMemoryMedicineStorage();
 
@@ -26,6 +26,11 @@ namespace IntegrationAdapters.Repositories.InMemoryRepository
                 instance = new InMemoryMedicineStorage();
             }
             return instance;
+        }
+
+        public List<StorageMedicine> GetStorageMedicines()
+        {
+            return storage;
         }
 
     }
