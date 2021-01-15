@@ -14,6 +14,7 @@ namespace IntegrationAdaptersTests.IntegrationTests
         
 
         // uncomment when your client grpc server is running 
+        /*
         [Fact]
         public void GetAvailableMedicine()
         {
@@ -72,7 +73,7 @@ namespace IntegrationAdaptersTests.IntegrationTests
             }
 
             flag.ShouldBe(false);
-        }
+        }*/
         
     }
 }
