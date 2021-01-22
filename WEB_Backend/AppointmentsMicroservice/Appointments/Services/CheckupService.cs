@@ -28,26 +28,6 @@ namespace Appointments.Services
             return checkupRepository.DeleteById(id);
         }
 
-        public void EditCheckup(Checkup checkup)
-        {
-            List<Checkup> allCheckups = (List<Checkup>)checkupRepository.FindAll();
-            Checkup checkupForEdit = new Checkup();
-            
-            foreach(Checkup c in allCheckups)
-            {
-                if(c.TermId == checkup.TermId)
-                {
-                    checkupForEdit = c;
-                    break;
-                }
-            }
-
-            CancelCheckup(checkupForEdit);
-            //ScheduleCheckup(checkup);
-
-
-        }
-
         public bool ScheduleCheckup(DoctorCheckupDTO dto)
         {   
             MedicalRecord medicalRecord = medicalRecordService.GetByPatientId(dto.PatientId);
