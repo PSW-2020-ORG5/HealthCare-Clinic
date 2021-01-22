@@ -12,6 +12,7 @@ namespace Appointments.Repository
         public DbSet<Checkup> Checkups { get; set; }
         public DbSet<Term> Terms { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
+        public DbSet<SchedulingEvent> Events { get; set; }
 
         public AppointmentsDbContext(): base() { }
         public AppointmentsDbContext(DbContextOptions<AppointmentsDbContext> options) : base() { }
