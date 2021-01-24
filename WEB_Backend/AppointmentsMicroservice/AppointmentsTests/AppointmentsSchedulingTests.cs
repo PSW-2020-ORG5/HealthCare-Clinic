@@ -28,17 +28,46 @@ namespace AppointmentsTests
             this.repository = new CheckupRepository(dbContext);
         }
 
+        private DoctorCheckupDTO DctorCheckupData()
+        {
+            var dto = new DoctorCheckupDTO();
+            dto.DoctorId = 8;
+            dto.CheckupStartTime = new DateTime(2021, 4, 6, 0, 0, 0);
+            dto.FromDate = new DateTime(2021, 4, 1, 0, 0, 0);
+            dto.ToDate = new DateTime(2021, 4, 12, 1, 1, 1);
+            dto.FromHour = new DateTime(2021, 4, 1, 14, 0, 0);
+            dto.ToHour = new DateTime(2021, 4, 12, 21, 0, 0);
+            return dto;
+        }
+
+        private Checkup CheckupForCanceling()
+        {
+            var checkup = new Checkup();
+            checkup.TermId = 101;
+            checkup.StartTime = new DateTime(2021, 5, 1, 0, 0, 0);
+            checkup.EndTime = new DateTime(2021, 5, 1, 0, 0, 0);
+            checkup.MedicalRecordId = 2;
+            repository.Save(checkup);
+            return checkup;
+        }
+
+        private DoctorCheckupDTO DoctorCheckupDataForCanceling() {
+            var dto = new DoctorCheckupDTO();
+            dto.DoctorId = 8;
+            dto.FromDate = new DateTime(2021, 5, 1, 0, 0, 0);
+            dto.ToDate = new DateTime(2021, 5, 12, 0, 0, 0);
+            dto.FromHour = new DateTime(2021, 5, 1, 14, 0, 0);
+            dto.ToHour = new DateTime(2021, 5, 12, 21, 0, 0);
+            dto.CheckupStartTime = new DateTime(2021, 6, 15, 7, 0, 0);
+            dto.CheckupEndTime = new DateTime(2021, 6, 15, 7, 30, 0);
+            return dto;
+        }
+
         [Fact]
         public async void Avaliable_appointments() 
         {
             var client = factory.CreateClient();
-            var dto = new DoctorCheckupDTO();
-            dto.DoctorId = 8;
-            dto.CheckupStartTime = new DateTime(2021, 4, 6, 0, 0, 0);
-            dto.FromDate = new DateTime(2021, 4, 1, 0, 0 ,0);
-            dto.ToDate = new DateTime(2021, 4, 12, 1, 1, 1);
-            dto.FromHour = new DateTime(2021, 4, 1, 14, 0, 0);
-            dto.ToHour = new DateTime(2021, 4, 12, 21, 0, 0);
+            var dto = DctorCheckupData();
             var response = await client.PostAsync("api/checkups/freeCheckups", new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json"));
             Assert.Equal(14, JsonConvert.DeserializeObject<List<Checkup>>(response.Content.ReadAsStringAsync().Result).Count);
         }
@@ -47,14 +76,7 @@ namespace AppointmentsTests
         public async void Schedule_appointment()
         {
             var client = factory.CreateClient();
-            var dto = new DoctorCheckupDTO();
-            dto.DoctorId = 8;
-            dto.FromDate = new DateTime(2021, 5, 1, 0, 0, 0);
-            dto.ToDate = new DateTime(2021, 5, 12, 0, 0, 0);
-            dto.FromHour = new DateTime(2021, 5, 1, 13, 0, 0);
-            dto.ToHour = new DateTime(2021, 5, 12, 21, 0, 0);
-            dto.CheckupStartTime = new DateTime(2021, 5, 5, 14, 0, 0);
-            dto.CheckupEndTime = new DateTime(2021, 5, 5, 14, 30, 0);
+            var dto = DctorCheckupData(); 
             var response = await client.PostAsync("api/checkups/schedule", new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json"));
             Assert.Equal(true, JsonConvert.DeserializeObject<bool>(response.Content.ReadAsStringAsync().Result));
         }
@@ -62,12 +84,7 @@ namespace AppointmentsTests
         [Fact]
         public async void Cancel_appointment()
         {
-            var checkup = new Checkup();
-            checkup.TermId = 101;
-            checkup.StartTime= new DateTime(2021, 5, 1, 0, 0, 0);
-            checkup.EndTime= new DateTime(2021, 5, 1, 0, 0, 0);
-            checkup.MedicalRecordId = 2;
-            repository.Save(checkup);
+            var checkup = CheckupForCanceling();
             var client = factory.CreateClient();
             var response = await client.DeleteAsync("api/checkups/cancel/101");
             Assert.Equal("true", response.Content.ReadAsStringAsync().Result);
@@ -85,14 +102,7 @@ namespace AppointmentsTests
         public async void Schedule_appointment_doctor_doesnt_work()
         {
             var client = factory.CreateClient();
-            var dto = new DoctorCheckupDTO();
-            dto.DoctorId = 8;
-            dto.FromDate = new DateTime(2021, 5, 1, 0, 0, 0);
-            dto.ToDate = new DateTime(2021, 5, 12, 0, 0, 0);
-            dto.FromHour = new DateTime(2021, 5, 1, 14, 0, 0);
-            dto.ToHour = new DateTime(2021, 5, 12, 21, 0, 0);
-            dto.CheckupStartTime = new DateTime(2021, 6, 15, 7, 0, 0);
-            dto.CheckupEndTime = new DateTime(2021, 6, 15, 7, 30, 0);
+            var dto = DoctorCheckupDataForCanceling();
             var response = await client.PostAsync("api/checkups/schedule", new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json"));
             Assert.Equal(false, JsonConvert.DeserializeObject<bool>(response.Content.ReadAsStringAsync().Result));
         }
