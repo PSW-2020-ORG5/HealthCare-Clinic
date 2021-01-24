@@ -28,7 +28,7 @@ namespace APIGateway.Controllers
             return Ok(content);
         }
         [HttpPost()]
-        public IActionResult ScheduleCheckup([FromBody] JObject dto)
+        public IActionResult PostEvent([FromBody] JObject dto)
         {
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
