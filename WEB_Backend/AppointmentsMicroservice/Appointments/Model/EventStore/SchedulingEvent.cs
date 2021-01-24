@@ -10,5 +10,7 @@ namespace Appointments.Model
         public int Id { get; set; }
         public String SessionId { get; set; }
         public SchedulingEventType Type { get; set; }
+
+        public int User { get; set; }
     }
 }

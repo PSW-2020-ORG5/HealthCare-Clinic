@@ -81,7 +81,7 @@
         </div>
         <q-stepper-navigation>
           <q-btn v-on:click="chooseDoctor" color="primary" label="Nastavi dalje" />
-          <q-btn flat @click="step = 1" color="primary" label="Vrati se" class="q-ml-sm" />
+          <q-btn flat @click="step = 1;postEvent(0)" color="primary" label="Vrati se" class="q-ml-sm" />
         </q-stepper-navigation>
       </q-step>
 
@@ -101,7 +101,7 @@
 
         <q-stepper-navigation>
           <q-btn v-on:click="goToStep4" color="primary" label="Nastavi dalje" />
-          <q-btn flat @click="step = 2" color="primary" label="Vrati se" class="q-ml-sm" />
+          <q-btn flat @click="step = 2;postEvent(1)" color="primary" label="Vrati se" class="q-ml-sm" />
         </q-stepper-navigation>
       </q-step>
 
@@ -119,7 +119,7 @@
         </div>
         <q-stepper-navigation>
           <q-btn color="primary" v-on:click="scheduleCheckup" label="Zakaži pregled" />
-          <q-btn flat @click="step = 3" color="primary" label="Vrati se" class="q-ml-sm" />
+          <q-btn flat @click="step = 3;postEvent(2)" color="primary" label="Vrati se" class="q-ml-sm" />
         </q-stepper-navigation>
       </q-step>
     </q-stepper>
@@ -130,6 +130,7 @@
 </template>
 
 <script>
+import { v4 as uuidv4 } from 'uuid'
 export default {
   data () {
     return {
@@ -141,10 +142,27 @@ export default {
       selectedDoctor: null,
       freeCheckups: [],
       selectedCheckup: null,
-      scheduledCheckup: {}
+      scheduledCheckup: {},
+      uuid: ''
     }
   },
+  created () {
+    var uuid = uuidv4()
+    this.uuid = uuid
+    this.$axios.post('https://localhost:44340/events', {
+      SessionId: this.uuid,
+      Type: 0,
+      User: parseInt(localStorage.getItem('user'))
+    })
+  },
   methods: {
+    postEvent (type) {
+      this.$axios.post('https://localhost:44340/events/', {
+        SessionId: this.uuid,
+        Type: type,
+        User: parseInt(localStorage.getItem('user'))
+      })
+    },
     choosenDate () {
       if (this.date === '') {
         this.$q.notify({
@@ -156,6 +174,7 @@ export default {
         return
       }
       this.done1 = true
+      this.postEvent(1)
       this.step = 2
     },
     getSpecialist () {
@@ -175,6 +194,7 @@ export default {
         return
       }
       this.getSpecialist()
+      this.postEvent(2)
       this.step = 3
     },
     getAvaliableAppointments () {
@@ -188,6 +208,17 @@ export default {
       })
         .then(response => {
           this.noCheckups = false
+          if (response.data.length === 0) {
+            this.noCheckups = true
+            this.$q.notify({
+              color: 'red-5',
+              textColor: 'white',
+              icon: 'warning',
+              message: 'Nema termina za izabrane parametre,pokusajte ponovo!'
+            })
+            this.postEvent(5)
+            return
+          }
           this.freeCheckups = response.data
           this.freeCheckups.forEach(c => {
             var date = new Date(c.startTime)
@@ -206,6 +237,7 @@ export default {
         return
       }
       this.getAvaliableAppointments()
+      this.postEvent(3)
       this.step = 4
     },
     scheduleCheckup () {
@@ -230,6 +262,7 @@ export default {
       })
         .then(response => {
           this.scheduledCheckup = response.data
+          this.postEvent(4)
           this.finishCheckup()
         })
         .catch(error => {

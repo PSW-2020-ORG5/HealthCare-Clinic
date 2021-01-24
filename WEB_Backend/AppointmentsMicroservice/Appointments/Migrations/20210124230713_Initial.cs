@@ -4,10 +4,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Appointments.Migrations
 {
-    public partial class InitalMigtration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Events",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    SessionId = table.Column<string>(nullable: true),
+                    Type = table.Column<int>(nullable: false),
+                    User = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Events", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "MedicalRecords",
                 columns: table => new
@@ -236,6 +251,9 @@ namespace Appointments.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Alergen");
+
+            migrationBuilder.DropTable(
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Ingredient");

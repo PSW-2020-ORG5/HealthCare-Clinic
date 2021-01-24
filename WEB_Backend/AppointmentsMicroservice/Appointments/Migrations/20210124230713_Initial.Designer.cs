@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Appointments.Migrations
 {
     [DbContext(typeof(AppointmentsDbContext))]
-    [Migration("20210114221634_InitalMigtration")]
-    partial class InitalMigtration
+    [Migration("20210124230713_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,7 +69,7 @@ namespace Appointments.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
                         .HasColumnType("int");
 
                     b.Property<int>("PatientId")
@@ -165,6 +165,26 @@ namespace Appointments.Migrations
                     b.HasIndex("MedicalRecordId");
 
                     b.ToTable("Report");
+                });
+
+            modelBuilder.Entity("Appointments.Model.SchedulingEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("User")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("Appointments.Model.Term", b =>
