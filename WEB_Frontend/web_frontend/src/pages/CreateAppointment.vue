@@ -159,7 +159,7 @@ export default {
       this.step = 2
     },
     getSpecialist () {
-      this.$axios.get('https://localhost:44395/api/doctors/spec/' + this.doctorType)
+      this.$axios.get('https://localhost:44340/users/docSpec/' + this.doctorType)
         .then(response => {
           this.doctors = response.data
         })
@@ -178,7 +178,7 @@ export default {
       this.step = 3
     },
     getAvaliableAppointments () {
-      this.$axios.post('https://localhost:44397/api/checkups/freeCheckups', {
+      this.$axios.post('https://localhost:44340/appointments/freeCheckups', {
         doctorId: this.selectedDoctor.id,
         fromDate: this.selectedDoctor.businessHours.fromDate,
         toDate: this.selectedDoctor.businessHours.toDate,
@@ -218,7 +218,7 @@ export default {
         })
         return
       }
-      this.$axios.post('https://localhost:44397/api/checkups/schedule', {
+      this.$axios.post('https://localhost:44340/appointments/schedule', {
         doctorId: this.selectedDoctor.id,
         fromDate: this.selectedDoctor.businessHours.fromDate,
         toDate: this.selectedDoctor.businessHours.toDate,

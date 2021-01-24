@@ -76,7 +76,6 @@ export default {
   methods: {
     logout () {
       localStorage.removeItem('user')
-      alert(localStorage.getItem('user'))
       this.$router.push('/login')
     },
     allAppointments () {

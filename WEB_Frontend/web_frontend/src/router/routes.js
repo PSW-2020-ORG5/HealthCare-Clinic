@@ -58,7 +58,10 @@ const routes = [
   },
   {
     path: '/adminhome',
-    component: () => import('pages/Admin.vue'),
+    component: () => import('layouts/AdminLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Admin.vue') }
+    ],
     beforeEnter: (to, from, next) => {
       var user = localStorage.getItem('user')
       var role = localStorage.getItem('role')

@@ -26,8 +26,10 @@ namespace LoginMicroservice.Controllers
             try
             {
                 tokenSplit = token.Split(" ")[1];
-            }catch(Exception ex){
-               return BadRequest();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
             }
             var validate = CheckValidation(tokenSplit);
             if (!validate)
@@ -40,7 +42,7 @@ namespace LoginMicroservice.Controllers
                 clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
                 var client = new HttpClient(clientHandler);
-                var response = client.GetAsync($"http://{USER_HOST}:44395/api/users");
+                var response = client.GetAsync($"https://{USER_HOST}:44395/api/users");
                 var content = response.Result.Content.ReadAsStringAsync().Result;
                 switch (response.Result.StatusCode.ToString())
                 {
@@ -52,7 +54,7 @@ namespace LoginMicroservice.Controllers
                         return BadRequest();
                 }
             }
-      
+
         }
 
         [HttpPost("login")]
@@ -61,7 +63,7 @@ namespace LoginMicroservice.Controllers
             HttpClientHandler clientHandler = new HttpClientHandler();
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             var client = new HttpClient(clientHandler);
-            var response = client.PostAsync($"http://{USER_HOST}:44395/api/users/login", new StringContent(JsonConvert.SerializeObject(userDTO), Encoding.UTF8, "application/json"));
+            var response = client.PostAsync($"https://{USER_HOST}:44395/api/users/login", new StringContent(JsonConvert.SerializeObject(userDTO), Encoding.UTF8, "application/json"));
             var content = response.Result.Content.ReadAsStringAsync().Result;
             switch (response.Result.StatusCode.ToString())
             {
@@ -78,7 +80,7 @@ namespace LoginMicroservice.Controllers
         public IActionResult GetById(int id)
         {
             return Ok();
-        } 
+        }
 
         public bool CheckValidation(string token)
         {
@@ -86,7 +88,7 @@ namespace LoginMicroservice.Controllers
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             var client = new HttpClient(clientHandler);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var response = client.GetAsync($"http://{USER_HOST}:44395/api/validate");
+            var response = client.GetAsync($"https://{USER_HOST}:44395/api/validate");
             if (response.Result.StatusCode.ToString().Equals("Unauthorized"))
             {
                 return false;
@@ -96,6 +98,17 @@ namespace LoginMicroservice.Controllers
                 return true;
             }
             return false;
+        }
+
+        [HttpGet("docSpec/{type}")]
+        public IActionResult GetBySpecialty(int type)
+        {
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            var client = new HttpClient(clientHandler);
+            var response = client.GetAsync($"https://{USER_HOST}:44395/api/doctors/spec/" + type);
+            var content = response.Result.Content.ReadAsStringAsync().Result;
+            return Ok(content);
         }
     }
 }
