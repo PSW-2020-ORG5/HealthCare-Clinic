@@ -37,9 +37,10 @@ export default {
         password: this.password
       })
         .then(response => {
-          localStorage.setItem('user', response.data)
+          localStorage.setItem('user', response.data.id)
           localStorage.setItem('role', response.data.role)
-          if (response.data.role === 0) { this.$router.push('/adminhome') } else this.$router.push('/')
+          localStorage.setItem('token', response.data.token)
+          if (response.data.role === 0) { this.$router.push('/adminhome') } else this.$router.push('/homePage')
         })
         .catch(error => {
           console.log(error)

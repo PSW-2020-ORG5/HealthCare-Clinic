@@ -22,10 +22,12 @@ namespace Appointments.Services
         {
             this.repository = new EventRepository(dbContext);
             this.map = new Dictionary<string, List<int>>();
-            this.sessionsCount = map.Keys.Count;
             InitMap();
+            this.sessionsCount = map.Keys.Count;
+            CalculateSucess();
             GetMinMaxAvgSteps();
             AvgForEveryStep();
+            CalculateNoTermFoundSucess();
         }
 
         public List<SchedulingEvent> GetAll()
