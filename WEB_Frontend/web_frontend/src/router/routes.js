@@ -1,10 +1,46 @@
 
 const routes = [
   {
-    path: '/',
+    path: '/homePage',
     component: () => import('layouts/PatientLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') }
+    ],
+    beforeEnter: (to, from, next) => {
+      var user = localStorage.getItem('user')
+      var role = localStorage.getItem('role')
+      if (user !== null) {
+        if (role === '1') {
+          next()
+        } else { next('/forbidden') }
+      } else { next('/login') }
+    }
+  },
+  {
+    path: '/',
+    component: () => import('pages/HomePage.vue')
+  },
+  {
+    path: '/schedule',
+    component: () => import('layouts/PatientLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/AllAppointments.vue') }
+    ],
+    beforeEnter: (to, from, next) => {
+      var user = localStorage.getItem('user')
+      var role = localStorage.getItem('role')
+      if (user !== null) {
+        if (role === '1') {
+          next()
+        } else { next('/forbidden') }
+      } else { next('/login') }
+    }
+  },
+  {
+    path: '/newAppointment',
+    component: () => import('layouts/PatientLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/CreateAppointment.vue') }
     ],
     beforeEnter: (to, from, next) => {
       var user = localStorage.getItem('user')

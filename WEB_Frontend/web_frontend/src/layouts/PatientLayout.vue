@@ -6,8 +6,8 @@
           HealthCare klinika
         </q-toolbar-title>
 
-        <q-btn>Zakazi pregled</q-btn>
-        <q-btn>Moji pregledi</q-btn>
+        <q-btn v-on:click="allAppointments">Zakaži pregled</q-btn>
+        <q-btn v-on:click="myAppointments">Moji pregledi</q-btn>
         <q-btn v-on:click="logout">Odjava</q-btn>
       </q-toolbar>
     </q-header>
@@ -78,6 +78,12 @@ export default {
       localStorage.removeItem('user')
       alert(localStorage.getItem('user'))
       this.$router.push('/login')
+    },
+    allAppointments () {
+      this.$router.push('/newAppointment')
+    },
+    myAppointments () {
+      this.$router.push('/schedule')
     }
   }
 }
