@@ -165,6 +165,26 @@ namespace Appointments.Migrations
                     b.ToTable("Report");
                 });
 
+            modelBuilder.Entity("Appointments.Model.SchedulingEvent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("SessionId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int>("User")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
+                });
+
             modelBuilder.Entity("Appointments.Model.Term", b =>
                 {
                     b.Property<int>("TermId")

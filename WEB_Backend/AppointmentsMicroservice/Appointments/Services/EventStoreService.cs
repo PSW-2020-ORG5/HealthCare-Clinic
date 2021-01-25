@@ -22,6 +22,16 @@ namespace Appointments.Services
         {
             this.repository = new EventRepository(dbContext);
             this.map = new Dictionary<string, List<int>>();
+            Initialize();
+          
+        }
+
+        public void Initialize()
+        {
+            if (this.GetAllSessions().Count == 0)
+            {
+                return;
+            }
             InitMap();
             this.sessionsCount = map.Keys.Count;
             CalculateSucess();
@@ -50,10 +60,13 @@ namespace Appointments.Services
         public void GetMinMaxAvgSteps()
         {   
             var allSteps = GetStepsBySucessSession();
-            eventsDTO.Avg = Math.Round(allSteps.Average(),2);
-            eventsDTO.Max = allSteps.Max();
-            eventsDTO.Min = allSteps.Min();
-            eventsDTO.AllSesions = sessionsCount;
+            if (allSteps.Count != 0)
+            {
+                eventsDTO.Avg = Math.Round(allSteps.Average(), 2);
+                eventsDTO.Max = allSteps.Max();
+                eventsDTO.Min = allSteps.Min();
+                eventsDTO.AllSesions = sessionsCount;
+            }
         }
 
         public int InitMap()
