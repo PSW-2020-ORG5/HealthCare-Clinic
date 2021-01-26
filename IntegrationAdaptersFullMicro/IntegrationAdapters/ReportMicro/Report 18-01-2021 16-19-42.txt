@@ -1,0 +1,4 @@
+Aspirin // 50
+Brufen // 30
+Bromazepan // 20
+Andol // 15

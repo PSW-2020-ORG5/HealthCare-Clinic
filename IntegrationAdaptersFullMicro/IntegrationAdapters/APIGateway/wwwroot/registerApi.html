@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+    	<meta charset="UTF-8" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    	<link
+	      	rel="stylesheet"
+	      	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	      	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	      	crossorigin="anonymous"
+	    />
+    	<link rel="stylesheet" href="css/style.css" />
+    	<script
+	      	src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	      	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	      	crossorigin="anonymous"
+	    ></script>
+	    <script
+	      	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	      	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	      	crossorigin="anonymous"
+	    ></script>
+	    <script
+	      	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	      	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	      	crossorigin="anonymous"
+    	></script>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+		<script src="js/registerApi.js"></script>
+   	 	<title>API registration</title>
+  	</head>
+<body>
+	<nav class="navbar navbar-expand-md navbar-light bg-light">
+      	<div class="container-fluid">
+        	<a class="navbar-brand" href="#">
+          		<img src="img/hospital.png" alt=""/>
+          	</a>
+	        <button
+	          	class="navbar-toggler"
+	          	type="button"
+	          	data-toggle="collapse"
+	          	data-target="#navbarResponsive">
+	          	<span class="navbar-toggler-icon"></span>
+	        </button>
+
+	        <div class="collapse navbar-collapse" id="navbarResponsive">
+	          	<ul class="navbar-nav ml-auto">
+	            	<li class="nav-item">
+	              		<a class="nav-link" href="index.html">Home</a>
+	            	</li>
+
+		            <li class="nav-item">
+		              	<a class="nav-link" href="reportPsw.html">Reports</a>
+		            </li>
+
+		            <li class="nav-item">
+		              	<a class="nav-link" href="actionsAndBenefits.html">Actions & Benefits</a>
+		            </li>
+
+		            <li class="nav-item active">
+		              	<a class="nav-link" href="registerApi.html">Registration</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="medOrder.html">Medicine order</a>
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="createTender.html">Create tender</a>
+					  </li>
+		  
+					  <li class="nav-item">
+						<a class="nav-link" href="tenders.html">Tenders</a>
+					  </li>
+		  
+					  <li class="nav-item">
+						<a class="nav-link" href="tenderOffer.html">Review offers</a>
+					  </li>
+		  
+					  <li class="nav-item">
+						<a class="nav-link" href="urgentProcurement.html">Urgent procurement</a>
+					  </li>
+
+	          	</ul>
+	        </div>
+	    </div>
+	</nav>
+
+	<br>
+    <div class="container">
+		  <h1 align="center">Register hospital & Get Api key</h1>
+		  
+		<div display="none" id="alertIdSuccess" class="alert alert-success" role="alert">
+			Successfully saved key to database
+		</div>
+		<div display="none" id="alertIdError" class="alert alert-danger" role="alert">
+		Internal Server Error! PSW server may be down.
+		</div>
+	  	<br>
+  		<div class="form-group" align="center">
+    		<div class="col-lg-5">
+	      		<label for="name">Pharmacy name:</label>
+	      		<input type="text" class="form-control" id="name"> 
+  			</div>
+  			<br>
+  			<div class="col-lg-5">
+	      		<label for="key">API key:</label>
+	      		<input type="text" class="form-control" id="key">
+			</div>
+			<br>
+			<div class="col-lg-5">
+				<label for="grpcPort">Grpc port:</label>
+				<input type="text" class="form-control" id="grpcId">
+		  </div>
+		  <br>
+		  <div class="col-lg-5">
+			<label for="url">Url:</label>
+			<input type="text" class="form-control" id="urlId">
+		  </div>
+		  <br>
+		  <div class="col-lg-5">
+			<label for="email">Email:</label>
+			<input type="text" class="form-control" id="emailId">
+			  </div>
+			  <br>
+			<div class="col-lg-5">
+				<label for="ftp">Ftp:</label>
+				<input type="checkbox" class="form-control" id="ftpId">
+			</div>
+
+	    	<br>
+			<button id="save" class="btn btn-primary">Save</button>
+	    </div>
+	</div>
+</body>
+</html>

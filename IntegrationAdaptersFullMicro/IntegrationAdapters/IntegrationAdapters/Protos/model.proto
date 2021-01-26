@@ -1,0 +1,15 @@
+﻿syntax = "proto3";
+
+package rs.ac.uns.ftn.grpc;
+option csharp_namespace = "IntegrationAdapters.Protos";
+
+message MessageProto {
+                        
+  string name = 1;   
+  int64 amount = 2;
+}
+
+message MessageResponseProto {
+  string response = 1;
+  string status = 2;
+}

@@ -1,0 +1,5 @@
+Specification of ASPIRIN medicine:
+
+-Ingredient1 0.4mg
+-Ingredient2 0.2mg
+

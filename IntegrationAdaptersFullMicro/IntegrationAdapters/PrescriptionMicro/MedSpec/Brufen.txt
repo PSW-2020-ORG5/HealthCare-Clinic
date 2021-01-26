@@ -1,0 +1,8 @@
+Specification of BRUFEN medicine:
+
+-Ingredient1 0.55mg
+-Ingredient2 0.7mg
+-Ingredient3 0.55mg
+-Ingredient4 0.7mg
+-Ingredient5 0.55mg
+-Ingredient6 0.7mg

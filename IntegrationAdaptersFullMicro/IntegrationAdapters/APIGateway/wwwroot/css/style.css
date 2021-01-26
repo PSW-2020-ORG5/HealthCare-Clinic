@@ -1,0 +1,22 @@
+img {
+  width: 70px;
+  height: 70px;
+}
+a {
+  font-size: 16px;
+}
+
+.alert{
+  margin:0 auto;
+  margin-left: 300px;
+  margin-right: 300px;
+  margin-bottom: 20px;
+}
+
+#alertIdSuccess{
+  display:none;
+ 
+}
+#alertIdError{
+  display:none;
+}
